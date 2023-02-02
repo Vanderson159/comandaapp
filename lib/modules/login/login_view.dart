@@ -1,0 +1,138 @@
+import 'package:comandaapp/modules/login/login_controller.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+class LoginView extends GetView<LoginController> {
+  @override
+  Widget build(BuildContext context) {
+    //controller.secureScreen();
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      backgroundColor: Colors.white,
+      body: SingleChildScrollView(
+        child: SafeArea(
+          child: Form(
+            key: controller.formKey,
+            child: Padding(
+              padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    height: 250,
+                    width: 250,
+                    child: Image(
+                      image: AssetImage('imagens/comanda.png'),
+                    ),
+                  ),
+                  TextField(
+                    controller: controller.usernameCtrl,
+                    textInputAction: TextInputAction.next,
+                    decoration: InputDecoration(
+                      labelText: 'Usuário',
+                    ),
+                    style: TextStyle(
+                      fontSize: 24.0,
+                    ),
+                  ),
+                  Obx(() => Padding(
+                    padding: EdgeInsets.only(top: 8.0),
+                    child: TextField(
+                      obscureText: !controller.showPassword.value,
+                      enableSuggestions: false,
+                      autocorrect: false,
+                      controller: controller.passwordCtrl,
+                      textInputAction: TextInputAction.done,
+                      decoration: InputDecoration(
+                        labelText: 'Senha',
+                        suffixIcon: IconButton(
+                          icon: Icon(
+                            controller.showPassword.value ? Icons.visibility : Icons.visibility_off,
+                            color: Get.theme.primaryColor,
+                          ),
+                          onPressed: (){
+                            controller.showPassword.value = !controller.showPassword.value;
+                          },
+                        ),
+                      ),
+                      style: TextStyle(
+                        fontSize: 24.0,
+                      ),
+                    ),
+                  ),),
+                  Obx(
+                    () => Visibility(
+                      visible: !controller.loading.value,
+                      child: Padding(
+                        padding: EdgeInsets.only(top: 40.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(right: 10.0),
+                              child: SizedBox(
+                                width: 100,
+                                height: 50,
+                                child: ElevatedButton(
+                                  onPressed: () => controller.limpar(),
+                                  child: Text(
+                                    'LIMPAR',
+                                    style:
+                                        TextStyle(color: Colors.blue.shade800),
+                                  ),
+                                  style: ButtonStyle(
+                                    backgroundColor:
+                                        MaterialStateProperty.all(Colors.white),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(left: 10.0),
+                              child: SizedBox(
+                                width: 100,
+                                height: 50,
+                                child: ElevatedButton(
+                                  onPressed: () => controller.login(),
+                                  child: Text('LOGIN'),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  Obx(
+                    () => Visibility(
+                      visible: controller.loading.value,
+                      child: Container(
+                        margin: EdgeInsets.symmetric(vertical: 10),
+                        width: Get.width * 0.8,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(29),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 20,
+                              horizontal: 40,
+                            ),
+                            child: ElevatedButton(
+                              onPressed: null,
+                              child: CircularProgressIndicator(
+                                color: Colors.blue.shade800,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}

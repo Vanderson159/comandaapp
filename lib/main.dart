@@ -12,7 +12,7 @@ void main() async{
         title: "Comanda App",
         debugShowCheckedModeBanner: false,
         theme: appThemeData,
-        initialRoute: Routes.INITIAL,
+        initialRoute: Routes.LOGIN,
         getPages: AppPages.routes,
         //initialBinding: ,
       )
