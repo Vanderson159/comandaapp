@@ -7,7 +7,7 @@ class LoginView extends GetView<LoginController> {
   Widget build(BuildContext context) {
     //controller.secureScreen();
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomInset: true,
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: SafeArea(
