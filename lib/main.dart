@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 
 void main() async{
   //scrcpy --tcpip=192.168.1.116:5555
-  //await GetStorage.init('guardaapp'); // nome para o storage do app
+  //await GetStorage.init('comandaapp'); // nome  para o storage do app
   runApp(
       GetMaterialApp(
         title: "Comanda App",
