@@ -1,5 +1,6 @@
 import 'package:comandaapp/data/model/auth_model.dart';
 import 'package:comandaapp/data/model/user_model.dart';
+import 'package:comandaapp/data/provider/user_provider.dart';
 import 'package:comandaapp/data/repository/auth_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_windowmanager/flutter_windowmanager.dart';
@@ -18,13 +19,17 @@ class LoginController extends GetxController{
   RxBool showPassword = false.obs;
   RxBool loading = false.obs;
 
+  UserApiClient userApiClient = UserApiClient();
+
   void login() async{
     if(formKey.currentState!.validate()){
       loading.value = true;
       auth = await repository.login(usernameCtrl.text, passwordCtrl.text);
       UserModel? userStorage = auth!.user;
+      userApiClient.showUser(userStorage!);
 
       if(!auth.isNull){
+
         box.write('auth', auth);
         box.write('userStorage', userStorage);
         Get.offAllNamed('/');
