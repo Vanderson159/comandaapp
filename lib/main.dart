@@ -11,7 +11,7 @@ void main() async{
   runApp(
       GetMaterialApp(
         title: "Comanda App",
-        debugShowCheckedModeBanner: false,
+        //debugShowCheckedModeBanner: false,
         theme: appThemeData,
         initialRoute: Routes.LOGIN,
         getPages: AppPages.routes,
