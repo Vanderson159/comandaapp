@@ -24,7 +24,7 @@ class InitialView extends GetView<InitialController> {
                     ),
                     Expanded(
                       child: Text(
-                        '${_.nomeRestaurante}',
+                        '${_.nomeEstabelecimento()}',
                         textAlign: TextAlign.center,
                         style: TextStyle(color: Colors.black),
                       ),

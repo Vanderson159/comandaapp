@@ -13,19 +13,16 @@ class UserApiClient{
   final box = GetStorage('comandaapp');
   String erro = 'ERRO NO AUTH API CLIENT';
 
-  Future showUser(UserModel userModel) async{
-    int? idUser = userModel.id;
-    AuthModel auth = box.read('auth');
+  Future showUser(int idUser, String accessToken) async{
     String token = '';
-    if (auth.accessToken!.isNotEmpty) {
-      token = auth.accessToken!;
+    if (accessToken.isNotEmpty) {
+      token = accessToken;
     }
     try{
       var response = await http.get(Uri.parse('${baseUrlUser}/${idUser}'), headers: {
         "Authorization": 'Bearer ' + token
       });
       if(response.statusCode == 200){
-        print(json.decode(response.body));
         return json.decode(response.body);
       }else{
         Get.defaultDialog(

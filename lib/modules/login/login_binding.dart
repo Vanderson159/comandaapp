@@ -1,4 +1,5 @@
 import 'package:comandaapp/data/repository/auth_repository.dart';
+import 'package:comandaapp/data/repository/user_repository.dart';
 import 'package:comandaapp/modules/login/login_controller.dart';
 import 'package:get/get.dart';
 
@@ -10,5 +11,6 @@ class LoginBinding implements Bindings{
     Get.lazyPut<LoginController>(() => LoginController());
     Get.lazyPut<AuthRepository>(() => AuthRepository());
     Get.lazyPut<AuthApiClient>(() => AuthApiClient());
+    Get.lazyPut<UserRepository>(() => UserRepository());
   }
 }
