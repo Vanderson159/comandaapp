@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class LoginView extends GetView<LoginController> {
+  const LoginView({super.key});
+
   @override
   Widget build(BuildContext context) {
     //controller.secureScreen();
@@ -14,87 +16,91 @@ class LoginView extends GetView<LoginController> {
           child: Form(
             key: controller.formKey,
             child: Padding(
-              padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
+              padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                // mainAxisAlignment: MainAxisAlignment.start, //Alinhamento não ta funcionando
                 children: [
-                  Container(
+                  const SizedBox(
                     height: 250,
                     width: 250,
                     child: Image(
                       image: AssetImage('imagens/comanda.png'),
                     ),
                   ),
+
+                  const Text('Email', textAlign: TextAlign.start),
                   TextField(
                     controller: controller.usernameCtrl,
                     textInputAction: TextInputAction.next,
                     decoration: InputDecoration(
-                      labelText: 'Usuário',
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      labelText: 'example@gmail.com',
                     ),
-                    style: TextStyle(
-                      fontSize: 24.0,
+
+                  ),
+
+                  const Text('Senha', textAlign: TextAlign.start),
+                  Obx(() => TextField(
+                    obscureText: !controller.showPassword.value,
+                    enableSuggestions: false,
+                    autocorrect: false,
+                    controller: controller.passwordCtrl,
+                    textInputAction: TextInputAction.done,
+                    decoration: InputDecoration(
+                      labelText: 'Digite sua senha',
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          controller.showPassword.value ? Icons.visibility : Icons.visibility_off,
+                          color: Get.theme.primaryColor,
+                        ),
+                        onPressed: (){
+                          controller.showPassword.value = !controller.showPassword.value;
+                        },
+                      ),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15),
+                      ),
                     ),
                   ),
-                  Obx(() => Padding(
-                    padding: EdgeInsets.only(top: 8.0),
-                    child: TextField(
-                      obscureText: !controller.showPassword.value,
-                      enableSuggestions: false,
-                      autocorrect: false,
-                      controller: controller.passwordCtrl,
-                      textInputAction: TextInputAction.done,
-                      decoration: InputDecoration(
-                        labelText: 'Senha',
-                        suffixIcon: IconButton(
-                          icon: Icon(
-                            controller.showPassword.value ? Icons.visibility : Icons.visibility_off,
-                            color: Get.theme.primaryColor,
-                          ),
-                          onPressed: (){
-                            controller.showPassword.value = !controller.showPassword.value;
-                          },
-                        ),
-                      ),
-                      style: TextStyle(
-                        fontSize: 24.0,
-                      ),
-                    ),
-                  ),),
+                  ),
+
                   Obx(
                     () => Visibility(
                       visible: !controller.loading.value,
                       child: Padding(
-                        padding: EdgeInsets.only(top: 40.0),
+                        padding: const EdgeInsets.only(top: 40.0),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Padding(
-                              padding: EdgeInsets.only(right: 10.0),
+                              padding: const EdgeInsets.only(right: 10.0),
                               child: SizedBox(
                                 width: 100,
                                 height: 50,
                                 child: ElevatedButton(
                                   onPressed: () => controller.limpar(),
+                                  style: ButtonStyle(
+                                    backgroundColor:
+                                        MaterialStateProperty.all(Colors.white),
+                                  ),
                                   child: Text(
                                     'LIMPAR',
                                     style:
                                         TextStyle(color: Colors.blue.shade800),
                                   ),
-                                  style: ButtonStyle(
-                                    backgroundColor:
-                                        MaterialStateProperty.all(Colors.white),
-                                  ),
                                 ),
                               ),
                             ),
                             Padding(
-                              padding: EdgeInsets.only(left: 10.0),
+                              padding: const EdgeInsets.only(left: 10.0),
                               child: SizedBox(
                                 width: 100,
                                 height: 50,
                                 child: ElevatedButton(
                                   onPressed: () => controller.login(),
-                                  child: Text('LOGIN'),
+                                  child: const Text('LOGIN'),
                                 ),
                               ),
                             ),
@@ -107,7 +113,7 @@ class LoginView extends GetView<LoginController> {
                     () => Visibility(
                       visible: controller.loading.value,
                       child: Container(
-                        margin: EdgeInsets.symmetric(vertical: 10),
+                        margin: const EdgeInsets.symmetric(vertical: 10),
                         width: Get.width * 0.8,
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(29),
