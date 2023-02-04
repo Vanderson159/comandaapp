@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 class MesaModel{
   int? idmesas;
   int? numero;
@@ -17,5 +19,15 @@ class MesaModel{
     data['numero'] = this.numero;
     data['estabelecimento_id'] = this.estabelecimento_id;
     return data;
+  }
+
+  static listToJson(List<MesaModel> list){
+    var mesaMap = list.map((e){
+      return{
+        "numero" : e.numero,
+      };
+    }).toList();
+    String mesasString = jsonEncode(mesaMap);
+    return mesasString;
   }
 }

@@ -17,7 +17,6 @@ class LoginController extends GetxController{
 
   AuthModel? auth;
   UserModel? userModel;
-  EstabelecimentoModel?  estabelecimentoModel;
 
   TextEditingController usernameCtrl =  TextEditingController();
   TextEditingController passwordCtrl =  TextEditingController();

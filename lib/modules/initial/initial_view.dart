@@ -6,7 +6,7 @@ import 'initial_controller.dart';
 class InitialView extends GetView<InitialController> {
   @override
   Widget build(BuildContext context) {
-    controller.contadorController.text = controller.cont.toString();
+    controller.contadorController.text = controller.contMesa.toString();
     return DefaultTabController(
       initialIndex: 0,
       length: 2,
@@ -107,7 +107,7 @@ class InitialView extends GetView<InitialController> {
                                     onPressed: () {
                                       controller.decrementar();
                                       controller.contadorController.text =
-                                          controller.cont.toString();
+                                          controller.contMesa.toString();
                                     },
                                     child: Text(
                                       '-',
@@ -145,7 +145,7 @@ class InitialView extends GetView<InitialController> {
                                     onPressed: () {
                                       controller.incrementar();
                                       controller.contadorController.text =
-                                          controller.cont.toString();
+                                          controller.contMesa.toString();
                                     },
                                     child: Text(
                                       '+',
@@ -179,7 +179,7 @@ class InitialView extends GetView<InitialController> {
                     actions: [
                       ElevatedButton(
                         onPressed: () {
-                          controller.inserirMesas();
+                          controller.inserirMesas(controller.contMesa);
                           //Get.offAllNamed('/initial2');
                         },
                         child: Text('${_.acaoBtnLabel}'),
