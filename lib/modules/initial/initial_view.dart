@@ -12,7 +12,7 @@ class InitialView extends GetView<InitialController> {
       length: 2,
       child: GetBuilder<InitialController>(
         init: InitialController(),
-        builder: (_){
+        builder: (_) {
           return Scaffold(
               appBar: AppBar(
                 backgroundColor: Colors.white,
@@ -96,74 +96,82 @@ class InitialView extends GetView<InitialController> {
                       height: 110,
                       child: Column(
                         children: [
-                          Text(
-                              '${_.labelDialog}'),
-                          Row(
-                            children: [
-                              Text('Qtd mesas: '),
-                              ElevatedButton(
-                                onPressed: () {
-                                  controller.decrementar();
-                                  controller.contadorController.text =
-                                      controller.cont.toString();
-                                },
-                                child: Text(
-                                  '-',
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                style: ButtonStyle(
-                                  backgroundColor:
-                                  MaterialStateProperty.all(Colors.white),
-                                  minimumSize: MaterialStateProperty.all(
-                                    Size(35, 35),
-                                  ),
-                                  shape: MaterialStateProperty.all<
-                                      RoundedRectangleBorder>(
-                                    RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(20)),
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                width: 40,
-                                child: TextFormField(
-                                  textAlign: TextAlign.center,
-                                  controller: controller.contadorController,
-                                  decoration:
-                                  InputDecoration(border: InputBorder.none),
-                                  cursorColor: Colors.grey,
-                                  keyboardType: TextInputType.number,
-                                ),
-                              ),
-                              ElevatedButton(
-                                onPressed: () {
-                                  controller.incrementar();
-                                  controller.contadorController.text =
-                                      controller.cont.toString();
-                                },
-                                child: Text(
-                                  '+',
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                style: ButtonStyle(
-                                  backgroundColor:
-                                  MaterialStateProperty.all(Colors.white),
-                                  minimumSize: MaterialStateProperty.all(
-                                    Size(35, 35),
-                                  ),
-                                  shape: MaterialStateProperty.all<
-                                      RoundedRectangleBorder>(
-                                    RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(20),
+                          Text('${_.labelDialog}'),
+                          Obx(
+                            () => Visibility(
+                              visible: controller.showAdicionarMesa.value,
+                              child: Row(
+                                children: [
+                                  Text('Qtd mesas: '),
+                                  ElevatedButton(
+                                    onPressed: () {
+                                      controller.decrementar();
+                                      controller.contadorController.text =
+                                          controller.cont.toString();
+                                    },
+                                    child: Text(
+                                      '-',
+                                      style: TextStyle(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    style: ButtonStyle(
+                                      backgroundColor:
+                                          MaterialStateProperty.all(
+                                              Colors.white),
+                                      minimumSize: MaterialStateProperty.all(
+                                        Size(35, 35),
+                                      ),
+                                      shape: MaterialStateProperty.all<
+                                          RoundedRectangleBorder>(
+                                        RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(20)),
+                                      ),
                                     ),
                                   ),
-                                ),
+                                  Container(
+                                    width: 40,
+                                    child: TextFormField(
+                                      textAlign: TextAlign.center,
+                                      controller: controller.contadorController,
+                                      decoration: InputDecoration(
+                                          border: InputBorder.none),
+                                      cursorColor: Colors.grey,
+                                      keyboardType: TextInputType.number,
+                                    ),
+                                  ),
+                                  ElevatedButton(
+                                    onPressed: () {
+                                      controller.incrementar();
+                                      controller.contadorController.text =
+                                          controller.cont.toString();
+                                    },
+                                    child: Text(
+                                      '+',
+                                      style: TextStyle(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    style: ButtonStyle(
+                                      backgroundColor:
+                                          MaterialStateProperty.all(
+                                              Colors.white),
+                                      minimumSize: MaterialStateProperty.all(
+                                        Size(35, 35),
+                                      ),
+                                      shape: MaterialStateProperty.all<
+                                          RoundedRectangleBorder>(
+                                        RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ],
+                            ),
                           ),
                         ],
                       ),
@@ -171,11 +179,13 @@ class InitialView extends GetView<InitialController> {
                     actions: [
                       ElevatedButton(
                         onPressed: () {
-                          Get.offAllNamed('/initial2');
+                          controller.inserirMesas();
+                          //Get.offAllNamed('/initial2');
                         },
-                        child: Text('Adicionar Mesas'),
+                        child: Text('${_.acaoBtnLabel}'),
                         style: ButtonStyle(
-                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                          shape:
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
                             RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(20),
                             ),

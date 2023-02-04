@@ -1,8 +1,5 @@
 import 'dart:convert';
-
 import 'package:comandaapp/data/base_url.dart';
-import 'package:comandaapp/data/model/auth_model.dart';
-import 'package:comandaapp/data/model/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';

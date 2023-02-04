@@ -7,9 +7,18 @@ import 'package:get_storage/get_storage.dart';
 class InitialController extends GetxController{
   final box = GetStorage('comandaapp');
   int cont = 00;
-  String nomeRestaurante = 'PAPA GULA';
+  late String nomeRestaurante;
   String labelDialog = 'Adicione quantas mesas estarão disponíveis em seu estabelecimento!';
   TextEditingController contadorController = TextEditingController();
+  RxBool showAdicionarMesa = true.obs;
+  String acaoBtnLabel = 'Adicionar Mesas';
+
+  void inserirMesas(){
+    showAdicionarMesa.value = false;
+    acaoBtnLabel = 'Finalizar';
+    labelDialog = 'Para adicionar novas mesas, selecione Adicionar Mesa na aba Disponíveis.';
+    update();
+  }
 
   UserModel userLogado(){
      UserModel userModel = box.read('userStorage');
@@ -33,10 +42,6 @@ class InitialController extends GetxController{
   void incrementar(){
     cont++;
     update();
-  }
-
-  void inserirMesas(){
-
   }
 
   void decrementar(){
