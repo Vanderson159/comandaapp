@@ -14,10 +14,12 @@ class InitialController extends GetxController{
   late String nomeRestaurante;
   String labelDialog = 'Adicione quantas mesas estarão disponíveis em seu estabelecimento!';
   TextEditingController contadorController = TextEditingController();
-  RxBool showAdicionarMesa = true.obs;
   String acaoBtnLabel = 'Adicionar Mesas';
   List<MesaModel> listMesa = [];
   MesaApiClient mesaApiClient = MesaApiClient();
+  RxBool loadingSend = false.obs;
+  RxBool showAdicionarMesa = true.obs;
+  RxBool enabledFuncBtn = true.obs;
 
   int? estabelecimentoId(){
     UserModel userModel = box.read('userStorage');
@@ -29,6 +31,7 @@ class InitialController extends GetxController{
   }
 
   void inserirMesas(int contMesa){
+    loadingSend.value = true;
     AuthModel auth = box.read('auth');
     String accesstoken = auth.accessToken.toString();
     int? idEstabelecimento = estabelecimentoId();
@@ -41,10 +44,11 @@ class InitialController extends GetxController{
 
     mesaApiClient.insertMesas(listMesa, idEstabelecimento!, accesstoken).then((value) => {
       if(value == 1){
+        loadingSend.value = false,
+        enabledFuncBtn.value = false,
         print('inserido mesas com sucesso')
       }
     });
-
 
     showAdicionarMesa.value = false;
     acaoBtnLabel = 'Finalizar';
