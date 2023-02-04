@@ -177,23 +177,60 @@ class InitialView extends GetView<InitialController> {
                       ),
                     ),
                     actions: [
-                      ElevatedButton(
-                        onPressed: () {
-                          controller.inserirMesas(controller.contMesa);
-                          //Get.offAllNamed('/initial2');
-                        },
-                        child: Text('${_.acaoBtnLabel}'),
-                        style: ButtonStyle(
-                          shape:
-                              MaterialStateProperty.all<RoundedRectangleBorder>(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20),
+                      Obx(
+                        () => Visibility(
+                          visible: !controller.loadingSend.value,
+                          child: ElevatedButton(
+                            onPressed: () {
+                              if(controller.enabledFuncBtn.value){
+                                controller.inserirMesas(controller.contMesa);
+                              }else{
+                                print('proxima tela');
+                              }
+                            },
+                            child: Text('${_.acaoBtnLabel}'),
+                            style: ButtonStyle(
+                              shape: MaterialStateProperty.all<
+                                  RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                              ),
                             ),
                           ),
                         ),
-                      )
+                      ),
+                      Obx(
+                        () => Visibility(
+                          visible: controller.loadingSend.value,
+                          child: Container(
+                            margin: const EdgeInsets.symmetric(vertical: 10),
+                            width: Get.width * 0.8,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(29),
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 20,
+                                  horizontal: 40,
+                                ),
+                                child: ElevatedButton(
+                                  style: ButtonStyle(
+                                    backgroundColor:
+                                        MaterialStateProperty.all<Color>(
+                                            Colors.white),
+                                  ),
+                                  onPressed: null,
+                                  child: CircularProgressIndicator(
+                                    color: Colors.blue.shade800,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
                     ],
-                  )
+                  ),
                 ],
               ));
         },
