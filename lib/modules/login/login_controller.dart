@@ -1,7 +1,5 @@
 import 'package:comandaapp/data/model/auth_model.dart';
-import 'package:comandaapp/data/model/estabelecimento_model.dart';
 import 'package:comandaapp/data/model/user_model.dart';
-import 'package:comandaapp/data/provider/user_provider.dart';
 import 'package:comandaapp/data/repository/auth_repository.dart';
 import 'package:comandaapp/data/repository/user_repository.dart';
 import 'package:flutter/material.dart';
