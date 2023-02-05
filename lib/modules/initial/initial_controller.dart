@@ -46,14 +46,28 @@ class InitialController extends GetxController{
       if(value == 1){
         loadingSend.value = false,
         enabledFuncBtn.value = false,
-        print('inserido mesas com sucesso')
+        showAdicionarMesa.value = false,
+        acaoBtnLabel = 'Finalizar',
+        labelDialog = 'Para adicionar novas mesas, selecione Adicionar Mesa na aba Disponíveis.',
+        update()
+      }else{
+        Get.defaultDialog(
+          title: 'Falha',
+          content: Column(
+            children: [
+              Text('Erro ao inserir as mesas, tente novamente :)')
+            ],
+          ),
+          actions: [
+            ElevatedButton(onPressed: (){
+              Get.offAllNamed('/initial');
+            }, child: Text('OK'),),
+          ]
+        )
       }
     });
 
-    showAdicionarMesa.value = false;
-    acaoBtnLabel = 'Finalizar';
-    labelDialog = 'Para adicionar novas mesas, selecione Adicionar Mesa na aba Disponíveis.';
-    update();
+
   }
 
   UserModel userLogado(){
