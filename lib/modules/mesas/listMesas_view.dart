@@ -55,7 +55,7 @@ class ListMesaView extends GetView<ListMesaController> {
                         case ConnectionState.done:
                           mesalist = snapshot.data;
                           if (mesalist == null) {
-                            return FailureDialog('Falha ao listar ocorrências');
+                            return FailureDialog('Falha ao listar mesas');
                           } else {
                             return ListView.builder(
                               itemBuilder: (context, index) {
