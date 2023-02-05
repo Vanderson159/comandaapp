@@ -4,6 +4,45 @@ import 'package:get/get.dart';
 import 'initial_controller.dart';
 
 class InitialView extends GetView<InitialController> {
+
+  static appBar(String nomeEstabelecimento){
+    return  AppBar(
+      backgroundColor: Colors.white,
+      title: Row(
+        children: [
+          Icon(
+            Icons.search,
+            color: Colors.black,
+          ),
+          Expanded(
+            child: Text(
+              nomeEstabelecimento,
+              textAlign: TextAlign.center,
+              style: TextStyle(color: Colors.black),
+            ),
+          ),
+          Icon(
+            Icons.person_outline,
+            color: Colors.black,
+          ),
+        ],
+      ),
+      bottom: TabBar(
+        labelColor: Colors.black,
+        indicatorColor: Colors.black,
+        isScrollable: false,
+        tabs: [
+          Tab(
+            text: 'Ocupadas',
+          ),
+          Tab(
+            text: 'Disponíveis',
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     controller.contadorController.text = controller.contMesa.toString();
@@ -14,41 +53,7 @@ class InitialView extends GetView<InitialController> {
         init: InitialController(),
         builder: (_) {
           return Scaffold(
-              appBar: AppBar(
-                backgroundColor: Colors.white,
-                title: Row(
-                  children: [
-                    Icon(
-                      Icons.search,
-                      color: Colors.black,
-                    ),
-                    Expanded(
-                      child: Text(
-                        '${_.nomeEstabelecimento()}',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(color: Colors.black),
-                      ),
-                    ),
-                    Icon(
-                      Icons.person_outline,
-                      color: Colors.black,
-                    ),
-                  ],
-                ),
-                bottom: TabBar(
-                  labelColor: Colors.black,
-                  indicatorColor: Colors.black,
-                  isScrollable: false,
-                  tabs: [
-                    Tab(
-                      text: 'Ocupadas',
-                    ),
-                    Tab(
-                      text: 'Disponíveis',
-                    ),
-                  ],
-                ),
-              ),
+              appBar: appBar(_.nomeEstabelecimento()),
               body: Stack(
                 children: [
                   TabBarView(
@@ -182,10 +187,26 @@ class InitialView extends GetView<InitialController> {
                           visible: !controller.loadingSend.value,
                           child: ElevatedButton(
                             onPressed: () {
-                              if(controller.enabledFuncBtn.value){
-                                controller.inserirMesas(controller.contMesa);
+                              if(controller.contMesa < 1){
+                                showDialog(
+                                  barrierDismissible: false,
+                                  context: context,
+                                  builder: (contextDialog){
+                                    return AlertDialog(
+                                      title: Center(child: Text('AVISO'),),
+                                      content: Text('Selecione uma quantidade de mesas superior a 0'),
+                                      actions: [
+                                        ElevatedButton(onPressed: ()=>Navigator.pop(context), child: Text('OK'))
+                                      ],
+                                    );
+                                  }
+                                );
                               }else{
-                                print('proxima tela');
+                                if(controller.enabledFuncBtn.value){
+                                  controller.inserirMesas(controller.contMesa);
+                                }else{
+                                  Get.offAllNamed('/listMesas');
+                                }
                               }
                             },
                             child: Text('${_.acaoBtnLabel}'),
