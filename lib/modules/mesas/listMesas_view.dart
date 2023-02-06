@@ -3,6 +3,7 @@ import 'package:comandaapp/modules/initial/initial_view.dart';
 import 'package:comandaapp/modules/mesas/listMesas_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:get/get.dart';
 
 List<MesaModel>? mesalist = [];
@@ -17,6 +18,22 @@ class ListMesaView extends GetView<ListMesaController> {
         init: ListMesaController(),
         builder: (_) {
           return Scaffold(
+            floatingActionButton: SpeedDial(
+              backgroundColor: Colors.black,
+              animatedIcon: AnimatedIcons.menu_close,
+              children: [
+                SpeedDialChild(
+                    child: Icon(Icons.delete),
+                    onTap: (){
+                    }
+                ),
+                SpeedDialChild(
+                    child: Icon(Icons.add),
+                    onTap: (){
+                    }
+                ),
+              ],
+            ),
             appBar: InitialView.appBar(
                 controller.initialController.nomeEstabelecimento()),
             body: TabBarView(
