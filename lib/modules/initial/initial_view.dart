@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'initial_controller.dart';
 
 class InitialView extends GetView<InitialController> {
+  const InitialView({super.key});
 
   static appBar(String nomeEstabelecimento){
     return  AppBar(
       backgroundColor: Colors.white,
       title: Row(
         children: [
-          Icon(
+          const Icon(
             Icons.search,
             color: Colors.black,
           ),
@@ -18,16 +19,17 @@ class InitialView extends GetView<InitialController> {
             child: Text(
               nomeEstabelecimento,
               textAlign: TextAlign.center,
-              style: TextStyle(color: Colors.black),
+              style: const TextStyle(color: Colors.black),
             ),
           ),
-          Icon(
+          const Icon(
             Icons.person_outline,
             color: Colors.black,
           ),
         ],
       ),
-      bottom: TabBar(
+
+      bottom: const TabBar(
         labelColor: Colors.black,
         indicatorColor: Colors.black,
         isScrollable: false,
@@ -40,6 +42,7 @@ class InitialView extends GetView<InitialController> {
           ),
         ],
       ),
+
     );
   }
 
@@ -53,7 +56,7 @@ class InitialView extends GetView<InitialController> {
         init: InitialController(),
         builder: (_) {
           return Scaffold(
-              appBar: appBar(_.nomeEstabelecimento()),
+              appBar: appBar(_.nomeEstabelecimento()),//definindo nome do estabelecimento
               body: Stack(
                 children: [
                   TabBarView(
@@ -61,7 +64,7 @@ class InitialView extends GetView<InitialController> {
                       Center(
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
+                          children: const [
                             Icon(
                               Icons.error_outline,
                               size: 150,
@@ -77,11 +80,12 @@ class InitialView extends GetView<InitialController> {
                           ],
                         ),
                       ),
-                      Center(
-                        child: Text(""),
+                      const Center(
+                        child: Text("hahaahahah"),
                       )
                     ],
                   ),
+
                   Opacity(
                     opacity: 0,
                     child: Container(
@@ -90,42 +94,38 @@ class InitialView extends GetView<InitialController> {
                       color: Colors.white,
                     ),
                   ),
+
+                  //Definindo a janela de definição de mesas
                   AlertDialog(
-                    shape: RoundedRectangleBorder(
+                    shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(
                         Radius.circular(10),
                       ),
                     ),
-                    title: Text('Mesas'),
-                    content: Container(
+                    title: const Text('Mesas'),
+                    content: SizedBox(
                       height: 110,
                       child: Column(
                         children: [
-                          Text('${_.labelDialog}'),
+                          Text(_.labelDialog),
                           Obx(
                             () => Visibility(
                               visible: controller.showAdicionarMesa.value,
                               child: Row(
                                 children: [
-                                  Text('Qtd mesas: '),
+                                  const Text('Qtd mesas: '),
                                   ElevatedButton(
                                     onPressed: () {
                                       controller.decrementar();
                                       controller.contadorController.text =
                                           controller.contMesa.toString();
                                     },
-                                    child: Text(
-                                      '-',
-                                      style: TextStyle(
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.bold),
-                                    ),
                                     style: ButtonStyle(
                                       backgroundColor:
                                           MaterialStateProperty.all(
                                               Colors.white),
                                       minimumSize: MaterialStateProperty.all(
-                                        Size(35, 35),
+                                        const Size(35, 35),
                                       ),
                                       shape: MaterialStateProperty.all<
                                           RoundedRectangleBorder>(
@@ -134,14 +134,26 @@ class InitialView extends GetView<InitialController> {
                                                 BorderRadius.circular(20)),
                                       ),
                                     ),
+                                    child: const Text(
+                                      '-',
+                                      style: TextStyle(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold,
+                                        fontSize: 25
+                                      ),
+                                    ),
                                   ),
-                                  Container(
+                                  SizedBox(
                                     width: 40,
                                     child: TextFormField(
+                                      inputFormatters: [
+                                        LengthLimitingTextInputFormatter(3),
+                                      ],//Definindo a quantidade de caracteres
                                       textAlign: TextAlign.center,
                                       controller: controller.contadorController,
-                                      decoration: InputDecoration(
-                                          border: InputBorder.none),
+                                      decoration: const InputDecoration(
+                                          border: InputBorder.none,
+                                      ),
                                       cursorColor: Colors.grey,
                                       keyboardType: TextInputType.number,
                                     ),
@@ -152,18 +164,12 @@ class InitialView extends GetView<InitialController> {
                                       controller.contadorController.text =
                                           controller.contMesa.toString();
                                     },
-                                    child: Text(
-                                      '+',
-                                      style: TextStyle(
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.bold),
-                                    ),
                                     style: ButtonStyle(
                                       backgroundColor:
                                           MaterialStateProperty.all(
                                               Colors.white),
                                       minimumSize: MaterialStateProperty.all(
-                                        Size(35, 35),
+                                        const Size(35, 35),
                                       ),
                                       shape: MaterialStateProperty.all<
                                           RoundedRectangleBorder>(
@@ -171,6 +177,13 @@ class InitialView extends GetView<InitialController> {
                                           borderRadius:
                                               BorderRadius.circular(20),
                                         ),
+                                      ),
+                                    ),
+                                    child: const Text(
+                                      '+',
+                                      style: TextStyle(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold,
                                       ),
                                     ),
                                   ),
@@ -186,30 +199,6 @@ class InitialView extends GetView<InitialController> {
                         () => Visibility(
                           visible: !controller.loadingSend.value,
                           child: ElevatedButton(
-                            onPressed: () {
-                              if(controller.contMesa < 1){
-                                showDialog(
-                                  barrierDismissible: false,
-                                  context: context,
-                                  builder: (contextDialog){
-                                    return AlertDialog(
-                                      title: Center(child: Text('AVISO'),),
-                                      content: Text('Selecione uma quantidade de mesas superior a 0'),
-                                      actions: [
-                                        ElevatedButton(onPressed: ()=>Navigator.pop(context), child: Text('OK'))
-                                      ],
-                                    );
-                                  }
-                                );
-                              }else{
-                                if(controller.enabledFuncBtn.value){
-                                  controller.inserirMesas(controller.contMesa);
-                                }else{
-                                  Get.offAllNamed('/listMesas');
-                                }
-                              }
-                            },
-                            child: Text('${_.acaoBtnLabel}'),
                             style: ButtonStyle(
                               shape: MaterialStateProperty.all<
                                   RoundedRectangleBorder>(
@@ -218,6 +207,34 @@ class InitialView extends GetView<InitialController> {
                                 ),
                               ),
                             ),
+                            onPressed: () {
+                              if(controller.contMesa < 1){
+                                showDialog(
+                                    barrierDismissible: false,
+                                    context: context,
+                                    builder: (contextDialog){
+                                      return AlertDialog(
+                                        title: const Center(child: Text('AVISO'),),
+                                        content: const Text('Selecione uma quantidade de mesas superior a 0'),
+                                        actions: [
+                                          ElevatedButton(
+                                            onPressed: ()=>Navigator.pop(context),
+                                            child: const Text('OK'),
+                                          ),
+                                        ],
+                                      );
+                                    }
+                                );
+                              }
+                              else{
+                                if(controller.enabledFuncBtn.value){
+                                  controller.inserirMesas(controller.contMesa);
+                                }else{
+                                  Get.offAllNamed('/listMesas');
+                                }
+                              }
+                            },
+                            child: Text(_.acaoBtnLabel),
                           ),
                         ),
                       ),
@@ -227,6 +244,7 @@ class InitialView extends GetView<InitialController> {
                           child: Container(
                             margin: const EdgeInsets.symmetric(vertical: 10),
                             width: Get.width * 0.8,
+                            height: 50,
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(29),
                               child: Padding(
@@ -253,7 +271,8 @@ class InitialView extends GetView<InitialController> {
                     ],
                   ),
                 ],
-              ));
+              ),
+          );
         },
       ),
     );

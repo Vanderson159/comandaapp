@@ -19,9 +19,10 @@ class MesaApiClient{
     }
 
     try{
-      var response = await http.post(Uri.parse('${baseUrlMesa}'), headers: {
-        "Authorization": 'Bearer ' + token
-      }, body: {
+      var response = await http.post(Uri.parse(baseUrlMesa), headers: {
+        "Authorization": 'Bearer $token'
+      },
+          body: {
          "estabelecimento_id" : idEstabelecimento.toString(),
          "listMesa": MesaModel.listToJson(mesas).toString(),
          "numeroMesas": mesas.length.toString(),
@@ -45,7 +46,7 @@ class MesaApiClient{
     }
     try{
       var response = await http.get(Uri.parse(baseUrlMesa),
-          headers: {"Authorization": 'Bearer ' + token});
+          headers: {"Authorization": 'Bearer $token'});
       if(response.statusCode == 200){
         List list = json.decode(response.body);
         List<MesaModel>? mesas = [];

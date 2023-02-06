@@ -51,24 +51,23 @@ class InitialController extends GetxController{
         acaoBtnLabel = 'Finalizar',
         labelDialog = 'Para adicionar novas mesas, selecione Adicionar Mesa na aba Disponíveis.',
         update()
-      }else{
+      }
+      else{
         Get.defaultDialog(
           title: 'Falha',
           content: Column(
-            children: [
+            children: const [
               Text('Erro ao inserir as mesas, tente novamente :)')
             ],
           ),
           actions: [
             ElevatedButton(onPressed: (){
               Get.offAllNamed('/initial');
-            }, child: Text('OK'),),
+            }, child: const Text('OK'),),
           ]
         )
       }
     });
-
-
   }
 
   UserModel userLogado(){
