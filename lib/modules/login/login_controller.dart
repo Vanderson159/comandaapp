@@ -31,7 +31,14 @@ class LoginController extends GetxController{
       if(!auth.isNull){
         box.write('auth', auth);
         box.write('userStorage', userModel);
-        Get.offAllNamed('/');
+        if(box.read('mesasDisponiveis') == null){
+          print('NAO EXISTE MESAS');
+          Get.offAllNamed('/');
+        }else{
+          int mesas = box.read('mesasDisponiveis');
+          print('EXISTE MESAS ${mesas}');
+          Get.offAllNamed('/listMesas');
+        }
       }
       loading.value = false;
     }
