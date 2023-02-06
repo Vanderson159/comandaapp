@@ -22,16 +22,8 @@ class ListMesaView extends GetView<ListMesaController> {
               backgroundColor: Colors.black,
               animatedIcon: AnimatedIcons.menu_close,
               children: [
-                SpeedDialChild(
-                    child: Icon(Icons.delete),
-                    onTap: (){
-                    }
-                ),
-                SpeedDialChild(
-                    child: Icon(Icons.add),
-                    onTap: (){
-                    }
-                ),
+                SpeedDialChild(child: Icon(Icons.delete), onTap: () {}),
+                SpeedDialChild(child: Icon(Icons.add), onTap: () {}),
               ],
             ),
             appBar: InitialView.appBar(
@@ -115,6 +107,11 @@ class MesaItem extends GetView<ListMesaController> {
         ? Column(
             children: [
               Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(12),
+                  ),
+                ),
                 child: ListTile(
                   onTap: () {},
                   leading: Image(
@@ -130,6 +127,11 @@ class MesaItem extends GetView<ListMesaController> {
         : Column(
             children: [
               Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(12),
+                  ),
+                ),
                 child: ListTile(
                   onTap: () {},
                   leading: Image(
