@@ -44,6 +44,7 @@ class InitialController extends GetxController{
 
     mesaApiClient.insertMesas(listMesa, idEstabelecimento!, accesstoken).then((value) => {
       if(value == 1){
+        box.write('mesasDisponiveis', listMesa.length),
         loadingSend.value = false,
         enabledFuncBtn.value = false,
         showAdicionarMesa.value = false,
