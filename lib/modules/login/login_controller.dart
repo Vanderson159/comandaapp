@@ -22,7 +22,6 @@ class LoginController extends GetxController{
   RxBool showPassword = false.obs;
   RxBool loading = false.obs;
 
-
   void login() async{
     if(formKey.currentState!.validate()){
       loading.value = true;
@@ -45,10 +44,6 @@ class LoginController extends GetxController{
     }
   }
 
-  void limpar(){
-    usernameCtrl.text = '';
-    passwordCtrl.text = '';
-  }
 
   Future<void> secureScreen() async {
     await FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE);

@@ -1,4 +1,5 @@
 import 'package:comandaapp/modules/login/login_controller.dart';
+import 'package:comandaapp/remember.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -16,32 +17,42 @@ class LoginView extends GetView<LoginController> {
           child: Form(
             key: controller.formKey,
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
+              padding: const EdgeInsets.fromLTRB(30, 30, 30, 0),
               child: Column(
-                // mainAxisAlignment: MainAxisAlignment.start, //Alinhamento não ta funcionando
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const SizedBox(
-                    height: 250,
-                    width: 250,
-                    child: Image(
-                      image: AssetImage('imagens/comanda.png'),
+                  const Padding(
+                    padding: EdgeInsets.only(left: 50),
+                    child: SizedBox(
+                      height: 250,
+                      width: 250,
+                      child: Image(
+                        image: AssetImage('imagens/comanda.png'),
+                      ),
                     ),
                   ),
 
-                  const Text('Email', textAlign: TextAlign.start),
+                  const Padding(
+                    padding: EdgeInsets.only(bottom: 5),
+                    child: Text('Email', textAlign: TextAlign.start),
+                  ),
                   TextField(
                     controller: controller.usernameCtrl,
                     textInputAction: TextInputAction.next,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15),
+                        borderRadius: BorderRadius.circular(12),
                       ),
                       labelText: 'example@gmail.com',
                     ),
-
                   ),
-
-                  const Text('Senha', textAlign: TextAlign.start),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.only(bottom: 5),
+                    child: Text('Senha', textAlign: TextAlign.start),
+                  ),
                   Obx(() => TextField(
                     obscureText: !controller.showPassword.value,
                     enableSuggestions: false,
@@ -53,55 +64,46 @@ class LoginView extends GetView<LoginController> {
                       suffixIcon: IconButton(
                         icon: Icon(
                           controller.showPassword.value ? Icons.visibility : Icons.visibility_off,
-                          color: Get.theme.primaryColor,
+                          color: Colors.black,
                         ),
                         onPressed: (){
                           controller.showPassword.value = !controller.showPassword.value;
                         },
                       ),
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15),
+                        borderRadius: BorderRadius.circular(12),
                       ),
                     ),
                   ),
                   ),
 
+                  //Cria checkbox para lembrar dados
+                  const RememberData(),
+                  //TODO: criar lógica de armazenamento dos dados
+
                   Obx(
                     () => Visibility(
                       visible: !controller.loading.value,
                       child: Padding(
-                        padding: const EdgeInsets.only(top: 40.0),
+                        padding: const EdgeInsets.only(top: 20.0),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Padding(
-                              padding: const EdgeInsets.only(right: 10.0),
-                              child: SizedBox(
-                                width: 100,
-                                height: 50,
-                                child: ElevatedButton(
-                                  onPressed: () => controller.limpar(),
-                                  style: ButtonStyle(
-                                    backgroundColor:
-                                        MaterialStateProperty.all(Colors.white),
-                                  ),
-                                  child: Text(
-                                    'LIMPAR',
-                                    style:
-                                        TextStyle(color: Colors.blue.shade800),
-                                  ),
+
+                            SizedBox(
+                              width: 320,
+                              height: 50,
+                              child: ElevatedButton(
+                                style: ButtonStyle(
+                                    shape: MaterialStatePropertyAll(
+                                        RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(12),
+                                        ),
+                                    ),
                                 ),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 10.0),
-                              child: SizedBox(
-                                width: 100,
-                                height: 50,
-                                child: ElevatedButton(
-                                  onPressed: () => controller.login(),
-                                  child: const Text('LOGIN'),
-                                ),
+                                onPressed: () => controller.login(),
+                                child: const Text('LOGIN'),
+                                //TODO: deixa o botao login desativado até preencher os campos
                               ),
                             ),
                           ],
@@ -109,6 +111,7 @@ class LoginView extends GetView<LoginController> {
                       ),
                     ),
                   ),
+
                   Obx(
                     () => Visibility(
                       visible: controller.loading.value,

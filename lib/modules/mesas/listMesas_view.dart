@@ -2,13 +2,14 @@ import 'package:comandaapp/data/model/mesa_model.dart';
 import 'package:comandaapp/modules/initial/initial_view.dart';
 import 'package:comandaapp/modules/mesas/listMesas_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:get/get.dart';
 
 List<MesaModel>? mesalist = [];
 
 class ListMesaView extends GetView<ListMesaController> {
+  const ListMesaView({super.key});
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -22,8 +23,8 @@ class ListMesaView extends GetView<ListMesaController> {
               backgroundColor: Colors.black,
               animatedIcon: AnimatedIcons.menu_close,
               children: [
-                SpeedDialChild(child: Icon(Icons.delete), onTap: () {}),
-                SpeedDialChild(child: Icon(Icons.add), onTap: () {}),
+                SpeedDialChild(child: const Icon(Icons.delete), onTap: () {}),
+                SpeedDialChild(child: const Icon(Icons.add), onTap: () {}),
               ],
             ),
             appBar: InitialView.appBar(
@@ -33,7 +34,7 @@ class ListMesaView extends GetView<ListMesaController> {
                 Center(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
+                    children: const [
                       Icon(
                         Icons.error_outline,
                         size: 150,
@@ -51,20 +52,20 @@ class ListMesaView extends GetView<ListMesaController> {
                 ),
                 Center(
                   child: FutureBuilder<List<MesaModel>>(
-                    initialData: [],
+                    initialData: const [],
                     future: controller.buscarMesas(),
                     builder: (context, snapshot) {
                       switch (snapshot.connectionState) {
                         case ConnectionState.none:
                           break;
                         case ConnectionState.waiting:
-                          return Progress();
+                          return const Progress();
                         case ConnectionState.active:
                           break;
                         case ConnectionState.done:
                           mesalist = snapshot.data;
                           if (mesalist == null) {
-                            return FailureDialog('Falha ao listar mesas');
+                            return const FailureDialog('Falha ao listar mesas');
                           } else {
                             return ListView.builder(
                               itemBuilder: (context, index) {
@@ -75,7 +76,7 @@ class ListMesaView extends GetView<ListMesaController> {
                             );
                           }
                       }
-                      return Text('Unknown error');
+                      return const Text('Unknown error');
                     },
                   ),
                 )
@@ -93,7 +94,7 @@ class MesaItem extends GetView<ListMesaController> {
   final index;
   final TextEditingController _pesquisaController = TextEditingController();
 
-  MesaItem(this.mesaModel, this.index);
+  MesaItem(this.mesaModel, this.index, {super.key});
 
   String titulo() {
     String aux = mesaModel.numero.toString();
@@ -107,14 +108,14 @@ class MesaItem extends GetView<ListMesaController> {
         ? Column(
             children: [
               Card(
-                shape: RoundedRectangleBorder(
+                shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(
                     Radius.circular(12),
                   ),
                 ),
                 child: ListTile(
                   onTap: () {},
-                  leading: Image(
+                  leading: const Image(
                     width: 50,
                     height: 50,
                     image: AssetImage('imagens/mesaverde.png'),
@@ -127,14 +128,14 @@ class MesaItem extends GetView<ListMesaController> {
         : Column(
             children: [
               Card(
-                shape: RoundedRectangleBorder(
+                shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(
                     Radius.circular(12),
                   ),
                 ),
                 child: ListTile(
                   onTap: () {},
-                  leading: Image(
+                  leading: const Image(
                     width: 50,
                     height: 50,
                     image: AssetImage('imagens/mesaverde.png'),
@@ -149,7 +150,7 @@ class MesaItem extends GetView<ListMesaController> {
 
 class Progress extends StatelessWidget {
   final String message;
-  Progress({this.message = 'Loading'});
+  const Progress({super.key, this.message = 'Loading'});
 
   @override
   Widget build(BuildContext context) {
@@ -163,7 +164,7 @@ class Progress extends StatelessWidget {
             CircularProgressIndicator(
               color: Colors.blue.shade800,
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Text(message)
@@ -180,15 +181,15 @@ class FailureDialog extends StatelessWidget {
   final IconData icon;
   final int? flagAcao;
 
-  FailureDialog(this.message,
-      {this.title = 'Failure', this.icon = Icons.warning, this.flagAcao});
+  const FailureDialog(this.message,
+      {super.key, this.title = 'Failure', this.icon = Icons.warning, this.flagAcao});
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
       title: Visibility(
-        child: Text(title),
         visible: title.isNotEmpty,
+        child: Text(title),
       ),
       content: Column(
         mainAxisSize: MainAxisSize.min,
@@ -196,6 +197,7 @@ class FailureDialog extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           Visibility(
+            visible: icon != null,
             child: Padding(
               padding: const EdgeInsets.only(top: 16.0),
               child: Icon(
@@ -204,27 +206,26 @@ class FailureDialog extends StatelessWidget {
                 color: Colors.red,
               ),
             ),
-            visible: icon != null,
           ),
           Visibility(
+            visible: message.isNotEmpty,
             child: Padding(
               padding: const EdgeInsets.only(top: 16.0),
               child: Text(
                 message,
                 textAlign: TextAlign.center,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 24.0,
                 ),
               ),
             ),
-            visible: message.isNotEmpty,
           )
         ],
       ),
       actions: <Widget>[
         ElevatedButton(
           //////SIMMMM
-          child: Text("OK"),
+          child: const Text("OK"),
           onPressed: () {
             Get.offAllNamed('/initial');
           },
