@@ -46,10 +46,6 @@ class LoginController extends GetxController{
     }
   }
 
-  Future<void> secureScreen() async {
-    await FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE);
-  }
-
   Color activeButton(active){
     if(active){
       return Colors.black;
