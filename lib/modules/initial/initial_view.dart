@@ -247,9 +247,8 @@ class InitialView extends GetView<InitialController> {
                         child: Container(
                           margin: const EdgeInsets.symmetric(vertical: 10),
                           width: Get.width * 0.8,
-                          height: 50,
                           child: ClipRRect(
-                            borderRadius: BorderRadius.circular(29),
+                            borderRadius: BorderRadius.circular(30),
                             child: Padding(
                               padding: const EdgeInsets.symmetric(
                                 vertical: 20,
