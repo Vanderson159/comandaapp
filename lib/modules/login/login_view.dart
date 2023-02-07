@@ -2,6 +2,7 @@ import 'package:comandaapp/modules/login/login_controller.dart';
 import 'package:comandaapp/remember.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:comandaapp/modules/login/login_controller.dart';
 
 class LoginView extends GetView<LoginController> {
   const LoginView({super.key});
@@ -68,6 +69,11 @@ class LoginView extends GetView<LoginController> {
                         ),
                         onPressed: (){
                           controller.showPassword.value = !controller.showPassword.value;
+
+                          if(controller.passwordCtrl.text.length > 1 || controller.usernameCtrl.text.length > 1){
+                            controller.isButtonActive = true.obs; //altera a variavel para alterar o botao de login
+                          }
+
                         },
                       ),
                       border: OutlineInputBorder(
@@ -95,13 +101,17 @@ class LoginView extends GetView<LoginController> {
                               height: 50,
                               child: ElevatedButton(
                                 style: ButtonStyle(
+                                  backgroundColor: MaterialStatePropertyAll(
+                                      controller.activeButton(controller.isButtonActive.value), //deveria alterar a cor do botao
+                                  ),
                                     shape: MaterialStatePropertyAll(
                                         RoundedRectangleBorder(
                                             borderRadius: BorderRadius.circular(12),
                                         ),
                                     ),
                                 ),
-                                onPressed: () => controller.login(),
+                                //TODO: construir logica de observar os campos para alterar o isButtonActive para true
+                                onPressed: () => controller.isButtonActive.value? controller.login() : () {},
                                 child: const Text('LOGIN'),
                                 //TODO: deixa o botao login desativado até preencher os campos
                               ),

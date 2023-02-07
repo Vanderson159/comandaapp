@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
 class LoginController extends GetxController{
+
   final repositoryAuth = Get.find<AuthRepository>(); //pega o auth repository iniciado no bind
   final repositoryUser = Get.find<UserRepository>(); //pega o user repository iniciado no bind
   final formKey = GlobalKey<FormState>(); //formkey do formulario de login
@@ -21,6 +22,7 @@ class LoginController extends GetxController{
 
   RxBool showPassword = false.obs;
   RxBool loading = false.obs;
+  RxBool isButtonActive = false.obs;
 
   void login() async{
     if(formKey.currentState!.validate()){
@@ -44,9 +46,17 @@ class LoginController extends GetxController{
     }
   }
 
-
   Future<void> secureScreen() async {
     await FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE);
+  }
+
+  Color activeButton(active){
+    if(active){
+      return Colors.black;
+    }
+    else{
+      return Colors.grey.shade200;
+    }
   }
 
 }
