@@ -22,7 +22,7 @@ class LoginView extends GetView<LoginController> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Padding(
-                    padding: EdgeInsets.only(left: 50),
+                    padding: EdgeInsets.symmetric(horizontal: 25),
                     child: SizedBox(
                       height: 250,
                       width: 250,
@@ -53,31 +53,36 @@ class LoginView extends GetView<LoginController> {
                     padding: EdgeInsets.only(bottom: 5),
                     child: Text('Senha', textAlign: TextAlign.start),
                   ),
-                  Obx(() => TextField(
-                    obscureText: !controller.showPassword.value,
-                    enableSuggestions: false,
-                    autocorrect: false,
-                    controller: controller.passwordCtrl,
-                    textInputAction: TextInputAction.done,
-                    decoration: InputDecoration(
-                      labelText: 'Digite sua senha',
-                      suffixIcon: IconButton(
-                        icon: Icon(
-                          controller.showPassword.value ? Icons.visibility : Icons.visibility_off,
-                          color: Colors.black,
+                  Obx(
+                    () => TextField(
+                      obscureText: !controller.showPassword.value,
+                      enableSuggestions: false,
+                      autocorrect: false,
+                      controller: controller.passwordCtrl,
+                      textInputAction: TextInputAction.done,
+                      decoration: InputDecoration(
+                        labelText: 'Digite sua senha',
+                        suffixIcon: IconButton(
+                          icon: Icon(
+                            controller.showPassword.value? Icons.visibility : Icons.visibility_off, color: Colors.black,
+                          ),
+                          onPressed: () {
+                            controller.showPassword.value = !controller.showPassword.value;
+
+                            if (controller.passwordCtrl.text.length > 1 && controller.usernameCtrl.text.length > 1) {
+                              controller.isButtonActive = true.obs; //altera a variavel para alterar o botao de login
+                            }
+
+                          },
                         ),
-                        onPressed: (){
-                          controller.showPassword.value = !controller.showPassword.value;
-                        },
-                      ),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
                       ),
                     ),
                   ),
-                  ),
 
-                  //Cria checkbox para lembrar dados
+                  //Cria checkbox para lembrar dados e o campo de "esqueci senha"
                   const RememberData(),
                   //TODO: criar lógica de armazenamento dos dados
 
@@ -89,21 +94,25 @@ class LoginView extends GetView<LoginController> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-
-                            SizedBox(
-                              width: 320,
-                              height: 50,
-                              child: ElevatedButton(
-                                style: ButtonStyle(
-                                    shape: MaterialStatePropertyAll(
-                                        RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(12),
-                                        ),
+                            Expanded(
+                              child: SizedBox(
+                                height: 50,
+                                child: ElevatedButton(
+                                  style: ButtonStyle(
+                                    backgroundColor: MaterialStatePropertyAll(
+                                      controller.activeButton(controller.isButtonActive.value), //deveria alterar a cor do botao
                                     ),
+                                    shape: MaterialStatePropertyAll(
+                                      RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(12),
+                                      ),
+                                    ),
+                                  ),
+                                  //TODO: construir logica de observar os campos para alterar o isButtonActive para true
+                                  onPressed: () => controller.isButtonActive.value? controller.login() : () {},
+                                  child: const Text('LOGIN'),
+                                  //TODO: deixa o botao login desativado até preencher os campos
                                 ),
-                                onPressed: () => controller.login(),
-                                child: const Text('LOGIN'),
-                                //TODO: deixa o botao login desativado até preencher os campos
                               ),
                             ),
                           ],
