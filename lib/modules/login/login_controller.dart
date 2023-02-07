@@ -3,7 +3,7 @@ import 'package:comandaapp/data/model/user_model.dart';
 import 'package:comandaapp/data/repository/auth_repository.dart';
 import 'package:comandaapp/data/repository/user_repository.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_windowmanager/flutter_windowmanager.dart';
+//import 'package:flutter_windowmanager/flutter_windowmanager.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 

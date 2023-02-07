@@ -17,14 +17,16 @@ class _RememberDataState extends State<RememberData> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Checkbox(
-          value: lembrar,
-          onChanged: _lembrarCheck,
-          activeColor: Colors.grey.shade300,
-          checkColor: Colors.black,
+        SizedBox(
+          width: 1,
+          child: CheckboxListTile(
+            value: lembrar,
+            onChanged: _lembrarCheck,
+            activeColor: Colors.grey.shade300,
+            checkColor: Colors.black,
+          ),
         ),
-        const Text('Lembrar meus dados'),
-        const SizedBox(width: 30),
+        const Text('Lembrar de mim'),
         GestureDetector(
             child: const Text(
                 'Esqueci minha senha.',
