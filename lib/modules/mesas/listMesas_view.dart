@@ -1,15 +1,16 @@
 import 'package:comandaapp/data/model/mesa_model.dart';
 import 'package:comandaapp/modules/initial/initial_view.dart';
 import 'package:comandaapp/modules/mesas/listMesas_controller.dart';
+import 'package:comandaapp/modules/mesas/searchMesas/custom_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:get/get.dart';
 
-List<MesaModel>? mesalist = [];
+List<MesaModel> mesalist = [];
 
 class ListMesaView extends GetView<ListMesaController> {
-  const ListMesaView({super.key});
-
+  ListMesaView({super.key});
+  InitialView initialView = InitialView();
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -27,8 +28,49 @@ class ListMesaView extends GetView<ListMesaController> {
                 SpeedDialChild(child: const Icon(Icons.add), onTap: () {}),
               ],
             ),
-            appBar: InitialView.appBar(
-                controller.initialController.nomeEstabelecimento()),
+            appBar: AppBar(
+              backgroundColor: Colors.white,
+              title: Row(
+                children: [
+                  IconButton(
+                    onPressed: () {
+                      showSearch(context: context, delegate: CustomSearchDelegate(_.listMesaModel));
+                    },
+                    icon: Icon(
+                      Icons.search,
+                      color: Colors.black,
+                    ),
+                  ),
+                  Expanded(
+                    child: Text(
+                      controller.initialController.nomeEstabelecimento(),
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(color: Colors.black),
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: () {},
+                    icon: Icon(
+                      Icons.person_outline,
+                      color: Colors.black,
+                    ),
+                  ),
+                ],
+              ),
+              bottom: const TabBar(
+                labelColor: Colors.black,
+                indicatorColor: Colors.black,
+                isScrollable: false,
+                tabs: [
+                  Tab(
+                    text: 'Ocupadas',
+                  ),
+                  Tab(
+                    text: 'Disponíveis',
+                  ),
+                ],
+              ),
+            ),
             body: TabBarView(
               children: [
                 Center(
@@ -63,16 +105,17 @@ class ListMesaView extends GetView<ListMesaController> {
                         case ConnectionState.active:
                           break;
                         case ConnectionState.done:
-                          mesalist = snapshot.data;
+                          mesalist = snapshot.data!;
+                          controller.setListMesa(mesalist);
                           if (mesalist == null) {
                             return const FailureDialog('Falha ao listar mesas');
                           } else {
                             return ListView.builder(
                               itemBuilder: (context, index) {
-                                final MesaModel mesaModel = mesalist![index];
-                                return MesaItem(mesaModel, index);
+                                final MesaModel mesaModel = mesalist[index];
+                                return MesaItem(mesaModel: mesaModel, index: index,);
                               },
-                              itemCount: mesalist!.length,
+                              itemCount: mesalist.length,
                             );
                           }
                       }
@@ -94,7 +137,7 @@ class MesaItem extends GetView<ListMesaController> {
   final index;
   final TextEditingController _pesquisaController = TextEditingController();
 
-  MesaItem(this.mesaModel, this.index, {super.key});
+  MesaItem({required this.mesaModel, this.index,super.key});
 
   String titulo() {
     String aux = mesaModel.numero.toString();

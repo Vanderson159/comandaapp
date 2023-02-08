@@ -9,6 +9,13 @@ class ListMesaController extends GetxController{
   final box = GetStorage('comandaapp');
   MesaApiClient mesaApiClient = MesaApiClient();
   InitialController initialController = InitialController();
+  List<MesaModel> listMesaModel = [];
+
+  void setListMesa(List<MesaModel> listMesa){
+    listMesaModel = listMesa;
+    box.write('cacheListMesa', listMesaModel);
+  }
+
   String tokenAccess(){
     AuthModel auth = box.read('auth');
     String accesstoken = auth.accessToken.toString();
@@ -16,8 +23,6 @@ class ListMesaController extends GetxController{
   }
 
   buscarMesas(){
-    Future<List<MesaModel>> listMesa = mesaApiClient.listarMesas(tokenAccess());
-    box.write('cacheListMesa', listMesa);
-    return listMesa;
+    return  mesaApiClient.listarMesas(tokenAccess());
   }
 }

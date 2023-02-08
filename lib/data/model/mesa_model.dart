@@ -7,6 +7,10 @@ class MesaModel{
 
   MesaModel(this.idmesas, this.numero, this.estabelecimento_id);
 
+  String toString(){
+    return 'Mesa ${this.numero} Mesa -> Id: ${this.idmesas} Numero: ${this.numero} Estabelecimento Id: ${this.estabelecimento_id}  Mesa ${this.numero}';
+  }
+
   MesaModel.fromJson(Map<String, dynamic> json){
     idmesas = json['idmesas'];
     numero = json['numero'];
