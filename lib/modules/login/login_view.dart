@@ -54,29 +54,31 @@ class LoginView extends GetView<LoginController> {
                     child: Text('Senha', textAlign: TextAlign.start),
                   ),
                   Obx(
-                    () => TextField(
-                      obscureText: !controller.showPassword.value,
-                      enableSuggestions: false,
-                      autocorrect: false,
-                      controller: controller.passwordCtrl,
-                      textInputAction: TextInputAction.done,
-                      decoration: InputDecoration(
-                        labelText: 'Digite sua senha',
-                        suffixIcon: IconButton(
-                          icon: Icon(
-                            controller.showPassword.value? Icons.visibility : Icons.visibility_off, color: Colors.black,
+                    () => GestureDetector(
+                      onTap: (){
+                        if (controller.passwordCtrl.text.length > 1 && controller.usernameCtrl.text.length > 1) {
+                          controller.isButtonActive = true.obs; //altera a variavel para alterar o botao de login
+                        }
+                      },
+                      child: TextField(
+                        obscureText: !controller.showPassword.value,
+                        enableSuggestions: false,
+                        autocorrect: false,
+                        controller: controller.passwordCtrl,
+                        textInputAction: TextInputAction.done,
+                        decoration: InputDecoration(
+                          labelText: 'Digite sua senha',
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              controller.showPassword.value? Icons.visibility : Icons.visibility_off, color: Colors.black,
+                            ),
+                            onPressed: () {
+                              controller.showPassword.value = !controller.showPassword.value;
+                            },
                           ),
-                          onPressed: () {
-                            controller.showPassword.value = !controller.showPassword.value;
-
-                            if (controller.passwordCtrl.text.length > 1 && controller.usernameCtrl.text.length > 1) {
-                              controller.isButtonActive = true.obs; //altera a variavel para alterar o botao de login
-                            }
-
-                          },
-                        ),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
                         ),
                       ),
                     ),
