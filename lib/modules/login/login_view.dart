@@ -112,7 +112,8 @@ class LoginView extends GetView<LoginController> {
                                     ),
                                   ),
                                   //TODO: construir logica de observar os campos para alterar o isButtonActive para true
-                                  onPressed: () => controller.isButtonActive.value? controller.login() : () {},
+                                  onPressed: () => controller.login(),
+                                  //onPressed: () => controller.isButtonActive.value? controller.login() : () {},
                                   child: const Text('LOGIN'),
                                   //TODO: deixa o botao login desativado até preencher os campos
                                 ),

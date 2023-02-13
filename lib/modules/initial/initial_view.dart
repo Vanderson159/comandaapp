@@ -5,6 +5,7 @@ import 'initial_controller.dart';
 
 class InitialView extends GetView<InitialController> {
   const InitialView({super.key});
+
   @override
   Widget build(BuildContext context) {
     appBar(String nomeEstabelecimento) {
@@ -97,7 +98,7 @@ class InitialView extends GetView<InitialController> {
                   ),
                 ),
 
-                //Definindo a janela de definição de mesas
+                //Definindo a janela de definição da qntd de mesas
                 AlertDialog(
                   shape: const RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(
