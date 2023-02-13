@@ -85,9 +85,6 @@ class InitialView extends GetView<InitialController> {
                         ],
                       ),
                     ),
-                    const Center(
-                      child: Text("hahaahahah"),
-                    )
                   ],
                 ),
 

@@ -100,7 +100,8 @@ class LoginView extends GetView<LoginController> {
                                 child: ElevatedButton(
                                   style: ButtonStyle(
                                     backgroundColor: MaterialStatePropertyAll(
-                                      controller.activeButton(controller.isButtonActive.value), //deveria alterar a cor do botao
+                                      //retorna a cor do botao
+                                      controller.activeButton(controller.isButtonActive.value),
                                     ),
                                     shape: MaterialStatePropertyAll(
                                       RoundedRectangleBorder(
