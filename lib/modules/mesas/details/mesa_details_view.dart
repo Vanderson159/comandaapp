@@ -1,70 +1,99 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
-class MesaDetails{
+class MesaDetails extends StatelessWidget {
+  const MesaDetails({super.key});
 
+  @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
+    return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          leading: Icon(
+          backgroundColor: Colors.white,
+          leading: const Icon(
             Icons.arrow_back_sharp,
+            color: Colors.black,
           ),
-          title: Text('Numero da mesa'), //TODO: Mostrar numero da mesa
+          title: const Text(
+            'Mesa 33', //TODO: Mostrar numero da mesa
+            style: TextStyle(color: Colors.black),
+          ),
         ),
-        body: Column(
-          children: [
-            Padding(
-              padding: EdgeInsets.all(20),
-              child: Container(
-                decoration: BoxDecoration(
-                  color:  Color(0xffaaaaaa),
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: ListView(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text('Pedidos'),
-                        Icon(Icons.menu_book), //TODO: Alterar para o ícone do app
-                        //TODO: Puxar as informações da mesa selecionada
-                      ],
-                    )
-                  ],
-                ),
-              ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        body: Center(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 20),
+            child: Column(
               children: [
-                SizedBox(
-                  height: 50,
-                  child: ElevatedButton(
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStatePropertyAll(
-                        Colors.black,
-                      ),
+                Expanded(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color:  const Color(0xffebebeb),
+                      borderRadius: BorderRadius.circular(12),
                     ),
-                    onPressed: (){},
-                    child: Text('Encerrar Pedido'),
+                    child: ListView(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              const Text(
+                                'Pedidos',
+                                style: TextStyle(
+                                  fontSize: 30,
+                                ),
+                              ),
+                              Image.asset(
+                                'assets/icons/iconePedidos.png',
+                              ),
+                              //TODO: Alterar para o ícone do app
+                              //TODO: Puxar as informações da mesa selecionada
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-                SizedBox(
-                  height: 50,
-                  child: ElevatedButton(
-                    style: ButtonStyle(
-                        backgroundColor: MaterialStatePropertyAll(
-                            Colors.black,
+                Padding(
+                  padding: const EdgeInsets.only(top: 15),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      SizedBox(
+                        height: 50,
+                        width: 150,
+                        child: ElevatedButton(
+                          style: ButtonStyle(
+                              backgroundColor: const MaterialStatePropertyAll(
+                                Colors.black,
+                              ),
+                              shape: MaterialStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.circular(32)))
+                          ),
+                          onPressed: (){}, //TODO: Adicionar função
+                          child: const Text('Encerrar Pedido'),
                         ),
-                    ),
-                    onPressed: (){},
-                    child: Text('Encerrar Comanda'),
+                      ),
+
+                      SizedBox(
+                        height: 50,
+                        width: 150,
+                        child: ElevatedButton(
+                          style: ButtonStyle(
+                              backgroundColor: const MaterialStatePropertyAll(
+                                Colors.black,
+                              ),
+                              shape: MaterialStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.circular(32)))
+                          ),
+                          onPressed: (){}, //TODO: Adicionar função
+                          child: const Text('Encerrar Comanda'),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ],
-            )
-          ],
+            ),
+          ),
         ),
       ),
     );
