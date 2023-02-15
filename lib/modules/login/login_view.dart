@@ -8,7 +8,6 @@ class LoginView extends GetView<LoginController> {
 
   @override
   Widget build(BuildContext context) {
-    //controller.secureScreen();
     return Scaffold(
       resizeToAvoidBottomInset: true,
       backgroundColor: Colors.white,
@@ -34,7 +33,6 @@ class LoginView extends GetView<LoginController> {
                           ),
                         ),
                       ),
-
                       const Padding(
                         padding: EdgeInsets.only(bottom: 5),
                         child: Text('Email', textAlign: TextAlign.start),
@@ -117,9 +115,7 @@ class LoginView extends GetView<LoginController> {
                                     child: ElevatedButton(
                                       style: ButtonStyle(
                                         backgroundColor: MaterialStatePropertyAll(
-                                          //chama função que retorna a cor do botao
                                            _.isButtonActive ==  true ? Colors.black : Colors.grey.shade200
-                                          //controller.activeButton(controller.isButtonActive.value),
                                         ),
                                         shape: MaterialStatePropertyAll(
                                           RoundedRectangleBorder(
@@ -128,7 +124,6 @@ class LoginView extends GetView<LoginController> {
                                         ),
                                       ),
                                       onPressed: () => _.isButtonActive == true ? controller.login() : null,
-                                      //onPressed: () => controller.isButtonActive.value? controller.login() : () {},
                                       child: const Text('LOGIN'),
                                     ),
                                   ),
