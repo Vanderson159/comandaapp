@@ -55,11 +55,6 @@ class LoginView extends GetView<LoginController> {
                   ),
                   Obx(
                     () => GestureDetector(
-                      onTap: (){
-                        if (controller.passwordCtrl.text.length > 1 && controller.usernameCtrl.text.length > 1) {
-                          controller.isButtonActive = true.obs; //altera a variavel para alterar o botao de login
-                        }
-                      },
                       child: TextField(
                         obscureText: !controller.showPassword.value,
                         enableSuggestions: false,
@@ -73,6 +68,13 @@ class LoginView extends GetView<LoginController> {
                               controller.showPassword.value? Icons.visibility : Icons.visibility_off, color: Colors.black,
                             ),
                             onPressed: () {
+
+                              //lógica de liberar o botão
+                              if (controller.passwordCtrl.text.length > 1 && controller.usernameCtrl.text.length > 1) {
+                                controller.isButtonActive = true.obs; //altera a variavel para alterar o botao de login
+                              }//fim da lógica de liberar o botão
+
+
                               controller.showPassword.value = !controller.showPassword.value;
                             },
                           ),
@@ -102,7 +104,7 @@ class LoginView extends GetView<LoginController> {
                                 child: ElevatedButton(
                                   style: ButtonStyle(
                                     backgroundColor: MaterialStatePropertyAll(
-                                      //retorna a cor do botao
+                                      //chama função que retorna a cor do botao
                                       controller.activeButton(controller.isButtonActive.value),
                                     ),
                                     shape: MaterialStatePropertyAll(

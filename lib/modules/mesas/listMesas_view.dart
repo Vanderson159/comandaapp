@@ -34,6 +34,7 @@ class ListMesaView extends GetView<ListMesaController> {
                 children: [
                   IconButton(
                     onPressed: () {
+
                       showSearch(context: context, delegate: CustomSearchDelegate(_.listMesaModel));
                     },
                     icon: Icon(

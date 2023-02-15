@@ -36,7 +36,7 @@ class LoginController extends GetxController{
         box.write('userStorage', userModel);
         mesaApiClient.verificaMesas(auth!.accessToken.toString()).then((value){
           if(value > 0){
-          //if(value > 500){ //TODO: Mudar pra teste
+          //if(value > 500){ //TODO: Mudar pra testar o dialog de adicionar mesas
             print('EXISTE MESAS ${value}');
             Get.offAllNamed('/listMesas');
           }else{

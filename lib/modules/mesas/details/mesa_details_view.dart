@@ -1,6 +1,8 @@
+import 'package:comandaapp/modules/mesas/details/mesa_details_controler.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-class MesaDetails extends StatelessWidget {
+class MesaDetails extends GetView<MesaDetailsController> {
   const MesaDetails({super.key});
 
   @override
@@ -8,6 +10,7 @@ class MesaDetails extends StatelessWidget {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
+          centerTitle: true,
           backgroundColor: Colors.white,
           leading: const Icon(
             Icons.arrow_back_sharp,
@@ -43,10 +46,10 @@ class MesaDetails extends StatelessWidget {
                                 ),
                               ),
                               Image.asset(
-                                'assets/icons/iconePedidos.png',
+                                'imagens/iconePedidos.png',
                               ),
-                              //TODO: Alterar para o ícone do app
                               //TODO: Puxar as informações da mesa selecionada
+
                             ],
                           ),
                         ),
