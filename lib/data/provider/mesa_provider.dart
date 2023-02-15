@@ -12,6 +12,30 @@ class MesaApiClient{
   final box = GetStorage('guardaapp');
   String erro = 'ERRO NO MESA API CLIENT';
 
+  Future verificaMesas(String accesstoken) async {
+    String token = '';
+    if (accesstoken.isNotEmpty) {
+      token = accesstoken;
+    }
+    try {
+      var response = await http.get(Uri.parse('${baseUrl}/verificaMesas'),
+          headers: {"Authorization": 'Bearer $token'});
+      if (response.statusCode == 200) {
+        print('print do response');
+        var teste = jsonDecode(response.body);
+        int countMesas = teste[0]['COUNT(idmesas)'];
+        return countMesas;
+      } else {
+        return 0;
+      }
+    } catch (err) {
+      Get.defaultDialog(
+        title: "Erro na verificacao das mesas",
+        content: Text("$err"),
+      );
+    }
+  }
+
   Future insertMesas(List<MesaModel> mesas, int idEstabelecimento, String accesstoken) async{
     String token = '';
     if (accesstoken.isNotEmpty) {

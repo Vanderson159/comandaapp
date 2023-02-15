@@ -6,52 +6,53 @@ import 'initial_controller.dart';
 class InitialView extends GetView<InitialController> {
   const InitialView({super.key});
 
-  static appBar(String nomeEstabelecimento) {
-    return AppBar(
-      backgroundColor: Colors.white,
-      title: Row(
-        children: [
-          IconButton(
-            onPressed: () {},
-            icon: Icon(
-              Icons.search,
-              color: Colors.black,
-            ),
-          ),
-          Expanded(
-            child: Text(
-              nomeEstabelecimento,
-              textAlign: TextAlign.center,
-              style: const TextStyle(color: Colors.black),
-            ),
-          ),
-          IconButton(
-            onPressed: () {},
-            icon: Icon(
-              Icons.person_outline,
-              color: Colors.black,
-            ),
-          ),
-        ],
-      ),
-      bottom: const TabBar(
-        labelColor: Colors.black,
-        indicatorColor: Colors.black,
-        isScrollable: false,
-        tabs: [
-          Tab(
-            text: 'Ocupadas',
-          ),
-          Tab(
-            text: 'Disponíveis',
-          ),
-        ],
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
+    appBar(String nomeEstabelecimento) {
+      return AppBar(
+        backgroundColor: Colors.white,
+        title: Row(
+          children: [
+            IconButton(
+              onPressed: () {
+              },
+              icon: Icon(
+                Icons.search,
+                color: Colors.black,
+              ),
+            ),
+            Expanded(
+              child: Text(
+                nomeEstabelecimento,
+                textAlign: TextAlign.center,
+                style: const TextStyle(color: Colors.black),
+              ),
+            ),
+            IconButton(
+              onPressed: () {},
+              icon: Icon(
+                Icons.person_outline,
+                color: Colors.black,
+              ),
+            ),
+          ],
+        ),
+        bottom: const TabBar(
+          labelColor: Colors.black,
+          indicatorColor: Colors.black,
+          isScrollable: false,
+          tabs: [
+            Tab(
+              text: 'Ocupadas',
+            ),
+            Tab(
+              text: 'Disponíveis',
+            ),
+          ],
+        ),
+      );
+    }
+
     controller.contadorController.text = controller.contMesa.toString();
     return DefaultTabController(
       initialIndex: 0,
@@ -85,9 +86,6 @@ class InitialView extends GetView<InitialController> {
                         ],
                       ),
                     ),
-                    const Center(
-                      child: Text("hahaahahah"),
-                    )
                   ],
                 ),
 
@@ -100,7 +98,7 @@ class InitialView extends GetView<InitialController> {
                   ),
                 ),
 
-                //Definindo a janela de definição de mesas
+                //Definindo a janela de definição da qntd de mesas
                 AlertDialog(
                   shape: const RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(
