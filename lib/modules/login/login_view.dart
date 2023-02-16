@@ -35,6 +35,11 @@ class LoginView extends GetView<LoginController> {
                     child: Text('Email', textAlign: TextAlign.start),
                   ),
                   TextFormField(
+                    onChanged: (value){
+                      if(controller.avisoBtnUsername.value){
+                        controller.formKey.currentState!.validate();
+                      }
+                    },
                     validator: (value) {
                       if (value!.length < 3) {
                         return 'O login deve possuir mais de 3 caracteres';
@@ -61,7 +66,11 @@ class LoginView extends GetView<LoginController> {
                     () => GestureDetector(
                       child: TextFormField(
                         onChanged: (value) {
-                          if (value.length > 3) {
+                          if (value.length >= 4) {
+                            if(controller.usernameCtrl.text.length < 3){
+                              controller.avisoBtnUsername.value = true;
+                            }
+                            controller.isButtonActive.value = controller.formKey.currentState!.validate();
                             controller.liberaBotao(true);
                           } else {
                             controller.liberaBotao(false);
