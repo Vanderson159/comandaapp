@@ -24,6 +24,7 @@ class LoginController extends GetxController{
   RxBool showPassword = false.obs;
   RxBool loading = false.obs;
   RxBool isButtonActive = false.obs;
+  RxBool avisoBtnUsername = false.obs;
 
   Color colorBtn = Colors.grey.shade200;
 
@@ -52,12 +53,10 @@ class LoginController extends GetxController{
   }
 
   liberaBotao(bool verifica){
-    if(formKey.currentState!.validate()){
       if(verifica){
         isButtonActive.value = true;
       }else{
         isButtonActive.value = false;
       }
-    }
   }
 }

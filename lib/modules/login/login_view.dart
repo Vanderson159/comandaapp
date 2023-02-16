@@ -13,10 +13,7 @@ class LoginView extends GetView<LoginController> {
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: SafeArea(
-          child: GetBuilder<LoginController>(
-            init: LoginController(),
-            builder: (_){
-              return Form(
+          child: Form(
                 key: controller.formKey,
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(30, 30, 30, 0),
@@ -42,6 +39,7 @@ class LoginView extends GetView<LoginController> {
                           if(value!.length < 3){
                             return 'O login deve possuir mais de 3 caracteres';
                           }
+                          return null;
                         },
                         controller: controller.usernameCtrl,
                         textInputAction: TextInputAction.next,
@@ -115,7 +113,7 @@ class LoginView extends GetView<LoginController> {
                                     child: ElevatedButton(
                                       style: ButtonStyle(
                                         backgroundColor: MaterialStatePropertyAll(
-                                           _.isButtonActive ==  true ? Colors.black : Colors.grey.shade200
+                                           controller.isButtonActive ==  true ? Colors.black : Colors.grey.shade200
                                         ),
                                         shape: MaterialStatePropertyAll(
                                           RoundedRectangleBorder(
@@ -123,7 +121,7 @@ class LoginView extends GetView<LoginController> {
                                           ),
                                         ),
                                       ),
-                                      onPressed: () => _.isButtonActive == true ? controller.login() : null,
+                                      onPressed: () => controller.isButtonActive == true ? controller.login() : null,
                                       child: const Text('LOGIN'),
                                     ),
                                   ),
@@ -161,11 +159,9 @@ class LoginView extends GetView<LoginController> {
                     ],
                   ),
                 ),
-              );
-            },
+              ),
           ),
         ),
-      ),
     );
   }
 }
