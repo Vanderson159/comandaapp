@@ -37,7 +37,7 @@ class LoginView extends GetView<LoginController> {
                   TextFormField(
                     onChanged: (value){
                       if(controller.avisoBtnUsername.value){
-                        controller.formKey.currentState!.validate();
+                        controller.liberaBotao(controller.formKey.currentState!.validate());
                       }
                     },
                     validator: (value) {
@@ -70,8 +70,7 @@ class LoginView extends GetView<LoginController> {
                             if(controller.usernameCtrl.text.length < 3){
                               controller.avisoBtnUsername.value = true;
                             }
-                            controller.isButtonActive.value = controller.formKey.currentState!.validate();
-                            controller.liberaBotao(true);
+                            controller.liberaBotao(controller.formKey.currentState!.validate());
                           } else {
                             controller.liberaBotao(false);
                           }
