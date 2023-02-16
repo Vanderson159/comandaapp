@@ -42,7 +42,7 @@ class LoginView extends GetView<LoginController> {
                     },
                     validator: (value) {
                       if (value!.length < 3) {
-                        return 'O login deve possuir mais de 3 caracteres';
+                        return 'O login deve possuir ao menos 3 caracteres';
                       }
                       return null;
                     },
@@ -77,7 +77,7 @@ class LoginView extends GetView<LoginController> {
                         },
                         validator: (value) {
                           if (value!.length < 3) {
-                            return 'A senha deve possuir mais de 4 caracteres';
+                            return 'A senha deve possuir ao menos 4 caracteres';
                           }
                         },
                         obscureText: !controller.showPassword.value,
@@ -109,6 +109,7 @@ class LoginView extends GetView<LoginController> {
 
                   //Cria checkbox para lembrar dados e o campo de "esqueci senha"
                   const RememberData(),
+                  //TODO: TESTAR PORQUE NÃO ESTÁ FUNCIONANDO
                   //TODO: criar lógica de armazenamento dos dados
 
                   Obx(

@@ -28,6 +28,7 @@ class _RememberDataState extends State<RememberData> {
         ),
         const Text('Lembrar de mim'),
         GestureDetector(
+          onTap: (){},
             child: const Text(
                 'Esqueci minha senha.',
               style: TextStyle(
