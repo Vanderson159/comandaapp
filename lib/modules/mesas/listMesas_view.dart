@@ -1,5 +1,6 @@
 import 'package:comandaapp/data/model/mesa_model.dart';
 import 'package:comandaapp/modules/initial/initial_view.dart';
+import 'package:comandaapp/modules/mesas/deleteMesas/deleteMesas_view.dart';
 import 'package:comandaapp/modules/mesas/listMesas_controller.dart';
 import 'package:comandaapp/modules/mesas/searchMesas/custom_search.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +25,7 @@ class ListMesaView extends GetView<ListMesaController> {
               backgroundColor: Colors.black,
               animatedIcon: AnimatedIcons.menu_close,
               children: [
-                SpeedDialChild(child: const Icon(Icons.delete), onTap: () {}),
+                SpeedDialChild(child: const Icon(Icons.delete), onTap: ()=> Get.to(DeleteMesasView())),
                 SpeedDialChild(child: const Icon(Icons.add), onTap: () {}),
               ],
             ),
@@ -110,29 +111,12 @@ class ListMesaView extends GetView<ListMesaController> {
                           if (mesalist == null) {
                             return const FailureDialog('Falha ao listar mesas');
                           } else {
-                            return Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                ElevatedButton(
-                                    onPressed: (){},
-                                    child: Text('Selecionar Tudo'),
-                                ),
-                                Expanded(
-                                  child: ListView.builder(
-                                    shrinkWrap: true, //força a lista a se encaixar dentro da coluna
-                                    itemBuilder: (context, index) {
-                                      final MesaModel mesaModel = mesalist[index];
-                                      return MesaItem(mesaModel: mesaModel, index: index,);
-                                    },
-                                    itemCount: mesalist.length, //define tamanho da lista
-                                  ),
-                                  flex: 10,
-                                ),
-                                ElevatedButton(
-                                  onPressed: (){},
-                                  child: Text('Deletar Mesa'),
-                                ),
-                              ],
+                            return ListView.builder(
+                              itemBuilder: (context, index) {
+                                final MesaModel mesaModel = mesalist[index];
+                                return MesaItem(mesaModel: mesaModel, index: index,);
+                              },
+                              itemCount: mesalist.length,
                             );
                           }
                       }

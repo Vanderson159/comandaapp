@@ -7,6 +7,8 @@ import 'package:comandaapp/modules/mesas/listMesas_binding.dart';
 import 'package:comandaapp/modules/mesas/listMesas_view.dart';
 import 'package:get/get.dart';
 import '../modules/login/login_binding.dart';
+import '../modules/mesas/deleteMesas/deleteMesas_binding.dart';
+import '../modules/mesas/deleteMesas/deleteMesas_view.dart';
 import 'app_routes.dart';
 
 class AppPages{
@@ -26,11 +28,15 @@ class AppPages{
       page: ()=> ListMesaView(),
       binding: ListMesasBinding(),
     ),
-
     GetPage(
       name: Routes.DETAILS,
       page: ()=> MesaDetails(titulo: ''),
       binding: MesaDetailsBinding(),
+    ),
+    GetPage(
+      name: Routes.DELETEMESAS,
+      page: ()=> DeleteMesasView(),
+      binding: DeleteMesasBinding(),
     ),
   ];
 }
