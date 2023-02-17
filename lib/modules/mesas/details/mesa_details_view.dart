@@ -3,7 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class MesaDetails extends GetView<MesaDetailsController> {
-  const MesaDetails({super.key});
+  //const MesaDetails({super.key});
+
+  String titulo = '';
+
+  MesaDetails({super.key, required this.titulo});
 
   @override
   Widget build(BuildContext context) {
@@ -14,15 +18,15 @@ class MesaDetails extends GetView<MesaDetailsController> {
           backgroundColor: Colors.white,
           leading: GestureDetector(
             onTap: (){
-              Get.back();
+              Get.offAndToNamed('/listMesas');
               },
             child: const Icon(
               Icons.arrow_back_sharp,
               color: Colors.black,
             ),
           ),
-          title: const Text(
-            'Mesa 33', //TODO: Mostrar numero da mesa
+          title: Text(
+            titulo, //TODO: Mostrar numero da mesa
             style: TextStyle(color: Colors.black),
           ),
         ),

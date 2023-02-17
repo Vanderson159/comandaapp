@@ -29,7 +29,7 @@ class AppPages{
 
     GetPage(
       name: Routes.DETAILS,
-      page: ()=> MesaDetails(),
+      page: ()=> MesaDetails(titulo: ''),
       binding: MesaDetailsBinding(),
     ),
   ];

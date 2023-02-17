@@ -10,7 +10,7 @@ List<MesaModel> mesalist = [];
 
 class ListMesaView extends GetView<ListMesaController> {
   ListMesaView({super.key});
-  InitialView initialView = InitialView();
+  InitialView initialView = const InitialView();
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -36,7 +36,7 @@ class ListMesaView extends GetView<ListMesaController> {
                     onPressed: () {
                       showSearch(context: context, delegate: CustomSearchDelegate(_.listMesaModel));
                     },
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.search,
                       color: Colors.black,
                     ),
@@ -50,7 +50,7 @@ class ListMesaView extends GetView<ListMesaController> {
                   ),
                   IconButton(
                     onPressed: () {},
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.person_outline,
                       color: Colors.black,
                     ),
@@ -158,12 +158,12 @@ class MesaItem extends GetView<ListMesaController> {
                   onTap: () {
                     showDialog(context: context, builder: (contextDialog){
                       return AlertDialog(
-                        shape:  RoundedRectangleBorder(
+                        shape:  const RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(
                             Radius.circular(20),
                           ),
                         ),
-                        title: Text('Abrir nova comanda'),
+                        title: const Text('Abrir nova comanda'),
                         content: Text('Deseja abrir uma nova comanda na ${titulo()}?'),
                         actions: [
                           ElevatedButton(
@@ -176,7 +176,7 @@ class MesaItem extends GetView<ListMesaController> {
                               ),
                             ),
                             onPressed: ()=> openMesaDetails(),
-                            child: Text('Sim'),
+                            child: const Text('Sim'),
                           ),
                           ElevatedButton(
                             style: ButtonStyle(
@@ -188,7 +188,7 @@ class MesaItem extends GetView<ListMesaController> {
                               ),
                             ),
                             onPressed: ()=>Get.back(),
-                            child: Text('Não'),
+                            child: const Text('Não'),
                           ),
                         ],
                       );
@@ -209,8 +209,8 @@ class MesaItem extends GetView<ListMesaController> {
   void openMesaDetails() { //passar o numero da mesa
     Get.toNamed('/details');
   }
-  
-} //Pedir pro Vanderson me explicar o pq do operador ternario pq eu fiquei curioso
+
+}
 
 class Progress extends StatelessWidget {
   final String message;

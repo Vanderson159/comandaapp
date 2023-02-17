@@ -32,8 +32,8 @@ class _RememberDataState extends State<RememberData> {
                 }
               });
             },
-            activeColor: Colors.grey.shade300,
-            checkColor: Colors.black,
+            activeColor: Colors.black,
+            checkColor: Colors.white,
           ),
         ),
         const Text('Lembrar de mim'),
