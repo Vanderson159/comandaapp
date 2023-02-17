@@ -108,7 +108,23 @@ class LoginView extends GetView<LoginController> {
                   ),
 
                   //Cria checkbox para lembrar dados e o campo de "esqueci senha"
-                  const RememberData(),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const RememberData(),
+                      GestureDetector(
+                        onTap: (){
+                          print('aí ja era');
+                        },
+                        child: const Text(
+                          'Esqueci minha senha.',
+                          style: TextStyle(
+                              color: Colors.red
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                   //TODO: TESTAR PORQUE NÃO ESTÁ FUNCIONANDO
                   //TODO: criar lógica de armazenamento dos dados
 

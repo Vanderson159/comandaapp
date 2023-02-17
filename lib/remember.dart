@@ -15,40 +15,30 @@ class _RememberDataState extends State<RememberData> {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         SizedBox(
-          width: 1,
-          child: CheckboxListTile(
+          width: 35,
+          child: Checkbox(
             value: lembrar,
-            onChanged: _lembrarCheck,
+            onChanged: (value){
+              setState(() {
+                lembrar = value!;
+
+                if(lembrar){
+                  //TODO: Lembrar dados
+                }
+                else{
+                  //TODO: Não lembrar dados
+                }
+              });
+            },
             activeColor: Colors.grey.shade300,
             checkColor: Colors.black,
           ),
         ),
         const Text('Lembrar de mim'),
-        GestureDetector(
-          onTap: (){},
-            child: const Text(
-                'Esqueci minha senha.',
-              style: TextStyle(
-                color: Colors.red
-              ),
-            ),
-        ),
       ],
     );
   }
-  void _lembrarCheck(novoValor){
-    setState(() {
-      lembrar = novoValor;
 
-      if(lembrar){
-        //TODO: Lembrar dados
-      }
-      else{
-        //TODO: Não lembrar dados
-      }
-    });
-  }
 }
