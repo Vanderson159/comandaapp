@@ -34,7 +34,6 @@ class ListMesaView extends GetView<ListMesaController> {
                 children: [
                   IconButton(
                     onPressed: () {
-
                       showSearch(context: context, delegate: CustomSearchDelegate(_.listMesaModel));
                     },
                     icon: Icon(
@@ -136,7 +135,6 @@ class ListMesaView extends GetView<ListMesaController> {
 class MesaItem extends GetView<ListMesaController> {
   final MesaModel mesaModel;
   final index;
-  final TextEditingController _pesquisaController = TextEditingController();
 
   MesaItem({required this.mesaModel, this.index,super.key});
 
@@ -148,30 +146,7 @@ class MesaItem extends GetView<ListMesaController> {
 
   @override
   Widget build(BuildContext context) {
-    return index == 0
-        ? Column(
-            children: [
-              Card(
-                shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(12),
-                  ),
-                ),
-                child: ListTile(
-                  onTap: () {
-                    openMesaDetails();
-                  },
-                  leading: const Image(
-                    width: 50,
-                    height: 50,
-                    image: AssetImage('imagens/mesaverde.png'),
-                  ),
-                  title: Text(titulo()),
-                ),
-              )
-            ],
-          )
-        : Column(
+    return Column(
             children: [
               Card(
                 shape: const RoundedRectangleBorder(
