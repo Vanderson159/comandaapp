@@ -156,7 +156,43 @@ class MesaItem extends GetView<ListMesaController> {
                 ),
                 child: ListTile(
                   onTap: () {
-                    openMesaDetails();
+                    showDialog(context: context, builder: (contextDialog){
+                      return AlertDialog(
+                        shape:  RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(20),
+                          ),
+                        ),
+                        title: Text('Abrir nova comanda'),
+                        content: Text('Deseja abrir uma nova comanda na ${titulo()}?'),
+                        actions: [
+                          ElevatedButton(
+                            style: ButtonStyle(
+                              shape: MaterialStateProperty.all<
+                                  RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                              ),
+                            ),
+                            onPressed: ()=> openMesaDetails(),
+                            child: Text('Sim'),
+                          ),
+                          ElevatedButton(
+                            style: ButtonStyle(
+                              shape: MaterialStateProperty.all<
+                                  RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                              ),
+                            ),
+                            onPressed: ()=>Get.back(),
+                            child: Text('Não'),
+                          ),
+                        ],
+                      );
+                    });
                   },
                   leading: const Image(
                     width: 50,
