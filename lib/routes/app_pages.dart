@@ -1,6 +1,8 @@
 import 'package:comandaapp/modules/initial/initial_binding.dart';
 import 'package:comandaapp/modules/initial/initial_view.dart';
 import 'package:comandaapp/modules/login/login_view.dart';
+import 'package:comandaapp/modules/mesas/addMesas/addMesas_binding.dart';
+import 'package:comandaapp/modules/mesas/addMesas/addMesas_view.dart';
 import 'package:comandaapp/modules/mesas/details/mesa_details_binding.dart';
 import 'package:comandaapp/modules/mesas/details/mesa_details_view.dart';
 import 'package:comandaapp/modules/mesas/listMesas_binding.dart';
@@ -37,6 +39,11 @@ class AppPages{
       name: Routes.DELETEMESAS,
       page: ()=> DeleteMesasView(),
       binding: DeleteMesasBinding(),
+    ),
+    GetPage(
+      name: Routes.ADDMESAS,
+      page: ()=> AddMesasView(),
+      binding: AddMesasBinding(),
     ),
   ];
 }

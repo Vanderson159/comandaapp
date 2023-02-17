@@ -1,5 +1,6 @@
 import 'package:comandaapp/data/model/mesa_model.dart';
 import 'package:comandaapp/modules/initial/initial_view.dart';
+import 'package:comandaapp/modules/mesas/addMesas/addMesas_view.dart';
 import 'package:comandaapp/modules/mesas/deleteMesas/deleteMesas_view.dart';
 import 'package:comandaapp/modules/mesas/listMesas_controller.dart';
 import 'package:comandaapp/modules/mesas/searchMesas/custom_search.dart';
@@ -26,7 +27,11 @@ class ListMesaView extends GetView<ListMesaController> {
               animatedIcon: AnimatedIcons.menu_close,
               children: [
                 SpeedDialChild(child: const Icon(Icons.delete), onTap: ()=> Get.to(DeleteMesasView())),
-                SpeedDialChild(child: const Icon(Icons.add), onTap: () {}),
+                SpeedDialChild(child: const Icon(Icons.add), onTap: () {
+                  showDialog(context: context, builder: (contextDialog){
+                    return AddMesasView();
+                  });
+                }),
               ],
             ),
             appBar: AppBar(
@@ -96,7 +101,7 @@ class ListMesaView extends GetView<ListMesaController> {
                 Center(
                   child: FutureBuilder<List<MesaModel>>(
                     initialData: const [],
-                    future: controller.buscarMesas(),
+                    future: _.buscarMesas(),
                     builder: (context, snapshot) {
                       switch (snapshot.connectionState) {
                         case ConnectionState.none:
@@ -107,7 +112,7 @@ class ListMesaView extends GetView<ListMesaController> {
                           break;
                         case ConnectionState.done:
                           mesalist = snapshot.data!;
-                          controller.setListMesa(mesalist);
+                          _.setListMesa(mesalist);
                           if (mesalist == null) {
                             return const FailureDialog('Falha ao listar mesas');
                           } else {

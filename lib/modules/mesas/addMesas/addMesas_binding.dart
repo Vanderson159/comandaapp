@@ -1,11 +1,9 @@
 import 'package:comandaapp/modules/mesas/addMesas/addMesas_controller.dart';
-import 'package:comandaapp/modules/mesas/listMesas_controller.dart';
 import 'package:get/get.dart';
 
-class ListMesasBinding implements Bindings{
+class AddMesasBinding implements Bindings{
   @override
   void dependencies() {
-    Get.lazyPut<ListMesaController>(() => ListMesaController());
     Get.lazyPut<AddMesasController>(() => AddMesasController());
   }
 }
