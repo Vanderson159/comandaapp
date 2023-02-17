@@ -12,9 +12,14 @@ class MesaDetails extends GetView<MesaDetailsController> {
         appBar: AppBar(
           centerTitle: true,
           backgroundColor: Colors.white,
-          leading: const Icon(
-            Icons.arrow_back_sharp,
-            color: Colors.black,
+          leading: GestureDetector(
+            onTap: (){
+              Get.back();
+              },
+            child: const Icon(
+              Icons.arrow_back_sharp,
+              color: Colors.black,
+            ),
           ),
           title: const Text(
             'Mesa 33', //TODO: Mostrar numero da mesa
@@ -45,8 +50,13 @@ class MesaDetails extends GetView<MesaDetailsController> {
                                   fontSize: 30,
                                 ),
                               ),
-                              Image.asset(
-                                'imagens/iconePedidos.png',
+                              GestureDetector(
+                                onTap: (){
+                                  addPedido(context);
+                                  },
+                                child: Image.asset(
+                                  'imagens/iconePedidos.png',
+                                ),
                               ),
                               //TODO: Puxar as informações da mesa selecionada
 
@@ -101,5 +111,34 @@ class MesaDetails extends GetView<MesaDetailsController> {
       ),
     );
   }
+
+  Future<void> addPedido(BuildContext context) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Pedidos'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: const <Widget>[
+                Text('Item 1 pedido'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Adicionar'),
+              onPressed: () {
+                
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
 
 }

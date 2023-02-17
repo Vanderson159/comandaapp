@@ -158,7 +158,9 @@ class MesaItem extends GetView<ListMesaController> {
                   ),
                 ),
                 child: ListTile(
-                  onTap: () {},
+                  onTap: () {
+                    openMesaDetails();
+                  },
                   leading: const Image(
                     width: 50,
                     height: 50,
@@ -178,7 +180,9 @@ class MesaItem extends GetView<ListMesaController> {
                   ),
                 ),
                 child: ListTile(
-                  onTap: () {},
+                  onTap: () {
+                    openMesaDetails();
+                  },
                   leading: const Image(
                     width: 50,
                     height: 50,
@@ -190,7 +194,12 @@ class MesaItem extends GetView<ListMesaController> {
             ],
           );
   }
-}
+
+  void openMesaDetails() { //passar o numero da mesa
+    Get.toNamed('/details');
+  }
+  
+} //Pedir pro Vanderson me explicar o pq do operador ternario pq eu fiquei curioso
 
 class Progress extends StatelessWidget {
   final String message;
