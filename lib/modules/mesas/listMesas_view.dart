@@ -110,12 +110,29 @@ class ListMesaView extends GetView<ListMesaController> {
                           if (mesalist == null) {
                             return const FailureDialog('Falha ao listar mesas');
                           } else {
-                            return ListView.builder(
-                              itemBuilder: (context, index) {
-                                final MesaModel mesaModel = mesalist[index];
-                                return MesaItem(mesaModel: mesaModel, index: index,);
-                              },
-                              itemCount: mesalist.length,
+                            return Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                ElevatedButton(
+                                    onPressed: (){},
+                                    child: Text('Selecionar Tudo'),
+                                ),
+                                Expanded(
+                                  child: ListView.builder(
+                                    shrinkWrap: true, //força a lista a se encaixar dentro da coluna
+                                    itemBuilder: (context, index) {
+                                      final MesaModel mesaModel = mesalist[index];
+                                      return MesaItem(mesaModel: mesaModel, index: index,);
+                                    },
+                                    itemCount: mesalist.length, //define tamanho da lista
+                                  ),
+                                  flex: 10,
+                                ),
+                                ElevatedButton(
+                                  onPressed: (){},
+                                  child: Text('Deletar Mesa'),
+                                ),
+                              ],
                             );
                           }
                       }
@@ -125,6 +142,7 @@ class ListMesaView extends GetView<ListMesaController> {
                 )
               ],
             ),
+
           );
         },
       ),
@@ -206,7 +224,7 @@ class MesaItem extends GetView<ListMesaController> {
           );
   }
 
-  void openMesaDetails() { //passar o numero da mesa
+  void openMesaDetails() { //TODO: passar o numero da mesa
     Get.toNamed('/details');
   }
 
