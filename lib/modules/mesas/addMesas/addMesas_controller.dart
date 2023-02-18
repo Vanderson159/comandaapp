@@ -22,7 +22,7 @@ class AddMesasController extends GetxController{
   RxBool showAdicionarMesa = true.obs;
   RxBool enabledFuncBtn = true.obs;
 
-  void inserirMesas(int contMesa){
+  void inserirMesas(int contMesa, int existeMesas){
     loadingSend.value = true;
     AuthModel auth = box.read('auth');
     String accesstoken = auth.accessToken.toString();
@@ -35,29 +35,38 @@ class AddMesasController extends GetxController{
     }while(totalMesa <= contMesa);
 
     mesaApiClient.insertMesas(listMesa, idEstabelecimento!, accesstoken).then((value) => {
-      if(value == 1){
-        box.write('mesasDisponiveis', listMesa.length),
-        loadingSend.value = false,
-        enabledFuncBtn.value = false,
-        showAdicionarMesa.value = false,
-        acaoBtnLabel = 'Finalizar',
-        labelDialog = 'Para adicionar novas mesas, selecione Adicionar Mesa na aba Disponíveis.',
-        update()
-      }
-      else{
-        Get.defaultDialog(
-            title: 'Falha',
-            content: Column(
-              children: const [
-                Text('Erro ao inserir as mesas, tente novamente :)')
-              ],
-            ),
-            actions: [
-              ElevatedButton(onPressed: (){
-                Get.offAllNamed('/initial');
-              }, child: const Text('OK'),),
-            ]
-        )
+      if(existeMesas == 1){
+        if(value == 1){
+          box.write('mesasDisponiveis', listMesa.length),
+          loadingSend.value = false,
+          enabledFuncBtn.value = true,
+          showAdicionarMesa.value = true,
+          Get.offAllNamed('/listMesas'),
+        }
+      }else{
+        if(value == 1){
+          box.write('mesasDisponiveis', listMesa.length),
+          loadingSend.value = false,
+          enabledFuncBtn.value = false,
+          showAdicionarMesa.value = false,
+          acaoBtnLabel = 'Finalizar',
+          labelDialog = 'Para adicionar novas mesas, selecione Adicionar Mesa na aba Disponíveis.',
+          update()
+        }else{
+          Get.defaultDialog(
+              title: 'Falha',
+              content: Column(
+                children: const [
+                  Text('Erro ao inserir as mesas, tente novamente :)')
+                ],
+              ),
+              actions: [
+                ElevatedButton(onPressed: (){
+                  Get.offAllNamed('/initial');
+                }, child: const Text('OK'),),
+              ]
+          )
+        }
       }
     });
   }

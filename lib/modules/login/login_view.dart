@@ -26,7 +26,7 @@ class LoginView extends GetView<LoginController> {
                       height: 250,
                       width: 250,
                       child: Image(
-                        image: AssetImage('imagens/comanda.png'),
+                        image: AssetImage('imagens/ecomanda.png'),
                       ),
                     ),
                   ),
