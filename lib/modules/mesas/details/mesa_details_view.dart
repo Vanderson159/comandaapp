@@ -1,13 +1,12 @@
+import 'package:comandaapp/data/model/mesa_model.dart';
 import 'package:comandaapp/modules/mesas/details/mesa_details_controler.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class MesaDetails extends GetView<MesaDetailsController> {
-  //const MesaDetails({super.key});
+  final MesaModel? mesaModel;
 
-  String titulo = '';
-
-  MesaDetails({super.key, required this.titulo});
+  MesaDetails({this.mesaModel});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +17,7 @@ class MesaDetails extends GetView<MesaDetailsController> {
           backgroundColor: Colors.white,
           leading: GestureDetector(
             onTap: (){
-              Get.offAndToNamed('/listMesas');
+              Get.offAllNamed('/listMesas');
               },
             child: const Icon(
               Icons.arrow_back_sharp,
@@ -26,7 +25,7 @@ class MesaDetails extends GetView<MesaDetailsController> {
             ),
           ),
           title: Text(
-            titulo, //TODO: Mostrar numero da mesa
+            'Mesa ${mesaModel!.numero.toString()}',
             style: TextStyle(color: Colors.black),
           ),
         ),

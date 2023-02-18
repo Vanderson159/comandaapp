@@ -2,6 +2,7 @@ import 'package:comandaapp/data/model/mesa_model.dart';
 import 'package:comandaapp/modules/initial/initial_view.dart';
 import 'package:comandaapp/modules/mesas/addMesas/addMesas_view.dart';
 import 'package:comandaapp/modules/mesas/deleteMesas/deleteMesas_view.dart';
+import 'package:comandaapp/modules/mesas/details/mesa_details_view.dart';
 import 'package:comandaapp/modules/mesas/listMesas_controller.dart';
 import 'package:comandaapp/modules/mesas/searchMesas/custom_search.dart';
 import 'package:flutter/material.dart';
@@ -143,7 +144,7 @@ class MesaItem extends GetView<ListMesaController> {
   final MesaModel mesaModel;
   final index;
 
-  MesaItem({required this.mesaModel, this.index,super.key});
+  MesaItem({required this.mesaModel, this.index,});
 
   String titulo() {
     String aux = mesaModel.numero.toString();
@@ -182,7 +183,7 @@ class MesaItem extends GetView<ListMesaController> {
                                 ),
                               ),
                             ),
-                            onPressed: ()=> openMesaDetails(),
+                            onPressed: ()=> Get.to(MesaDetails(mesaModel: this.mesaModel,)),
                             child: const Text('Sim'),
                           ),
                           ElevatedButton(
@@ -212,11 +213,6 @@ class MesaItem extends GetView<ListMesaController> {
             ],
           );
   }
-
-  void openMesaDetails() { //TODO: passar o numero da mesa
-    Get.toNamed('/details');
-  }
-
 }
 
 class Progress extends StatelessWidget {

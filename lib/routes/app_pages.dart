@@ -32,7 +32,7 @@ class AppPages{
     ),
     GetPage(
       name: Routes.DETAILS,
-      page: ()=> MesaDetails(titulo: ''),
+      page: ()=> MesaDetails(),
       binding: MesaDetailsBinding(),
     ),
     GetPage(
