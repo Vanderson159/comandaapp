@@ -8,6 +8,7 @@ import 'package:get_storage/get_storage.dart';
 import '../../../data/model/mesa_model.dart';
 
 class AddMesasController extends GetxController{
+  //TODO adicionar mesa apartir do numero da ultima
   final box = GetStorage('comandaapp');
   int contMesa = 00;
   int totalMesa = 1;
