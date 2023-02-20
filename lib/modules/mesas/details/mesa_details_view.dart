@@ -16,9 +16,9 @@ class MesaDetails extends GetView<MesaDetailsController> {
           centerTitle: true,
           backgroundColor: Colors.white,
           leading: GestureDetector(
-            onTap: (){
+            onTap: () {
               Get.offAllNamed('/listMesas');
-              },
+            },
             child: const Icon(
               Icons.arrow_back_sharp,
               color: Colors.black,
@@ -37,7 +37,7 @@ class MesaDetails extends GetView<MesaDetailsController> {
                 Expanded(
                   child: Container(
                     decoration: BoxDecoration(
-                      color:  const Color(0xffebebeb),
+                      color: const Color(0xffebebeb),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: ListView(
@@ -54,15 +54,90 @@ class MesaDetails extends GetView<MesaDetailsController> {
                                 ),
                               ),
                               GestureDetector(
-                                onTap: (){
-                                  addPedido(context);
-                                  },
+                                onTap: () {
+                                  showDialog(
+                                      context: context,
+                                      builder: (contextDialog) {
+                                        return Dialog(
+                                          backgroundColor: Colors.grey.shade800,
+                                          child: Container(
+                                            width: Get.width,
+                                            height: Get.height * 0.2,
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Padding(
+                                                  padding: EdgeInsets.only(
+                                                      left: 10, top: 10),
+                                                  child: Text(
+                                                    'Item Pedido',
+                                                    style: TextStyle(
+                                                        fontSize: 20,
+                                                        color: Colors.white),
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          right: 5,
+                                                          left: 5,
+                                                          top: 10),
+                                                  child: Container(
+                                                    height: 40,
+                                                    child: TextField(
+                                                      decoration:
+                                                          InputDecoration(
+                                                        border:
+                                                            OutlineInputBorder(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(20),
+                                                        ),
+                                                        filled:
+                                                            true, //<-- SEE HERE
+                                                        fillColor: Colors.grey
+                                                            .shade400, //<-- SEE HERE
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding: EdgeInsets.only(left: Get.width * 0.50, top: 10),
+                                                  child: ElevatedButton(
+                                                    onPressed: () {},
+                                                    child: Text(
+                                                      'Adicionar',
+                                                      style: TextStyle(
+                                                          color: Colors.black),
+                                                    ),
+                                                    style: ButtonStyle(
+                                                      backgroundColor:
+                                                          MaterialStatePropertyAll(
+                                                              Colors
+                                                                  .grey.shade400),
+                                                      shape:
+                                                          MaterialStatePropertyAll(
+                                                        RoundedRectangleBorder(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(12),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        );
+                                      });
+                                },
                                 child: Image.asset(
                                   'imagens/iconePedidos.png',
                                 ),
                               ),
                               //TODO: Puxar as informações da mesa selecionada
-
                             ],
                           ),
                         ),
@@ -83,13 +158,14 @@ class MesaDetails extends GetView<MesaDetailsController> {
                               backgroundColor: const MaterialStatePropertyAll(
                                 Colors.black,
                               ),
-                              shape: MaterialStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.circular(32)))
-                          ),
-                          onPressed: (){}, //TODO: Adicionar função
+                              shape: MaterialStatePropertyAll(
+                                  RoundedRectangleBorder(
+                                      borderRadius:
+                                          BorderRadius.circular(32)))),
+                          onPressed: () {}, //TODO: Adicionar função
                           child: const Text('Encerrar Pedido'),
                         ),
                       ),
-
                       SizedBox(
                         height: 50,
                         width: 150,
@@ -98,9 +174,11 @@ class MesaDetails extends GetView<MesaDetailsController> {
                               backgroundColor: const MaterialStatePropertyAll(
                                 Colors.black,
                               ),
-                              shape: MaterialStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.circular(32)))
-                          ),
-                          onPressed: (){}, //TODO: Adicionar função
+                              shape: MaterialStatePropertyAll(
+                                  RoundedRectangleBorder(
+                                      borderRadius:
+                                          BorderRadius.circular(32)))),
+                          onPressed: () {}, //TODO: Adicionar função
                           child: const Text('Encerrar Comanda'),
                         ),
                       ),
@@ -133,7 +211,6 @@ class MesaDetails extends GetView<MesaDetailsController> {
             TextButton(
               child: const Text('Adicionar'),
               onPressed: () {
-                
                 Navigator.of(context).pop();
               },
             ),
@@ -142,6 +219,4 @@ class MesaDetails extends GetView<MesaDetailsController> {
       },
     );
   }
-
-
 }
