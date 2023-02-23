@@ -40,7 +40,7 @@ class CustomSearchDelegate extends SearchDelegate {
       itemCount: matchQuery.length,
       itemBuilder: (context, index){
         var result = matchQuery[index];
-        return MesaItem(mesaModel: result, visibleCheckBox: false,);
+        return MesaItem(mesaModel: result, isVisibleCheckBox: false,);
       },
     );
   }
@@ -58,7 +58,7 @@ class CustomSearchDelegate extends SearchDelegate {
       itemCount: matchQuery.length,
       itemBuilder: (context, index){
         var result = matchQuery[index];
-        return MesaItem(mesaModel: result, visibleCheckBox: false,);
+        return MesaItem(mesaModel: result, isVisibleCheckBox: false,);
       },
     );
   }

@@ -1,9 +1,12 @@
 import 'dart:convert';
 
+import 'package:get/get.dart';
+
 class MesaModel{
   int? idmesas;
   int? numero;
   int? estabelecimento_id;
+  RxBool isCheck = false.obs;
 
   MesaModel(this.idmesas, this.numero, this.estabelecimento_id);
 

@@ -122,7 +122,7 @@ class ListMesaView extends GetView<ListMesaController> {
                             return ListView.builder(
                               itemBuilder: (context, index) {
                                 final MesaModel mesaModel = mesalist[index];
-                                return MesaItem(mesaModel: mesaModel, index: index, visibleCheckBox: false,);
+                                return MesaItem(mesaModel: mesaModel, index: index, isVisibleCheckBox: false,);
                               },
                               itemCount: mesalist.length,
                             );
@@ -141,8 +141,9 @@ class ListMesaView extends GetView<ListMesaController> {
     );
   }
 
-  void selectBoxes(bool select){
-    controller.checkBoxes.value = select;
+  void selectBoxes(RxBool select){
+    controller.checkBoxes.value = select.value;
+    //até aqui tudo funcionando
   }
 
 }
@@ -150,9 +151,9 @@ class ListMesaView extends GetView<ListMesaController> {
 class MesaItem extends GetView<ListMesaController> {
   final MesaModel mesaModel;
   final index;
-  final visibleCheckBox;
+  final isVisibleCheckBox;
 
-  MesaItem({required this.mesaModel, this.index, required this.visibleCheckBox});
+  MesaItem({required this.mesaModel, this.index, required this.isVisibleCheckBox,});
 
   String titulo() {
     String aux = mesaModel.numero.toString();
@@ -162,7 +163,6 @@ class MesaItem extends GetView<ListMesaController> {
 
   @override
   Widget build(BuildContext context) {
-
 
     return Column(
             children: [
@@ -222,16 +222,15 @@ class MesaItem extends GetView<ListMesaController> {
                   ),
                   title: Text(titulo()),
                   trailing: Visibility(
-                    visible: visibleCheckBox,
+                    visible: isVisibleCheckBox,
                     child: SizedBox(
                       width: 35,
                       child: Obx( () =>
                         Checkbox(
-                          value: controller.checkBoxes.value,
+                          value: controller.checkBoxes.value? controller.checkBoxes.value : controller.listMesaModel[index].isCheck.value,
                           onChanged: (value){
-                            //controller.checkBoxes.value = value!;
-
-                            //TODO: Ta selecionando todos, pesquisar como selecionar um de cada vez
+                            controller.checkBoxes.value? controller.checkBoxes.value = value! : controller.listMesaModel[index].isCheck.value = value!;
+                            //TODO: if alguma mesa marcada, tornar variável true, else torna false pra alterar a cor e clique do botao de deletar
                           },
                           activeColor: Colors.black,
                           checkColor: Colors.white,
