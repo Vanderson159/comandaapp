@@ -25,6 +25,7 @@ class LoginController extends GetxController{
   RxBool loading = false.obs;
   RxBool isButtonActive = false.obs;
   RxBool avisoBtnUsername = false.obs;
+  RxBool checkBox = false.obs;
 
   Color colorBtn = Colors.grey.shade200;
 
