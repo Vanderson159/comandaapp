@@ -1,3 +1,4 @@
+
 import 'package:comandaapp/modules/mesas/addMesas/addMesas_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -66,6 +67,11 @@ class AddMesasView extends GetView<AddMesasController>{
                         ),
                         cursorColor: Colors.grey,
                         keyboardType: TextInputType.number,
+                        onChanged: (value) {
+                          controller.contMesa = int.parse(value);
+                          controller.contadorController.text =
+                              controller.contMesa.toString();
+                        },
                       ),
                     ),
                     ElevatedButton(

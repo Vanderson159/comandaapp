@@ -120,7 +120,7 @@ class ListMesaView extends GetView<ListMesaController> {
                             return ListView.builder(
                               itemBuilder: (context, index) {
                                 final MesaModel mesaModel = mesalist[index];
-                                return MesaItem(mesaModel: mesaModel, index: index,);
+                                return MesaItem(mesaModel: mesaModel, index: index, visibleCheckBox: false,);
                               },
                               itemCount: mesalist.length,
                             );
@@ -143,8 +143,9 @@ class ListMesaView extends GetView<ListMesaController> {
 class MesaItem extends GetView<ListMesaController> {
   final MesaModel mesaModel;
   final index;
+  final visibleCheckBox;
 
-  MesaItem({required this.mesaModel, this.index,});
+  MesaItem({required this.mesaModel, this.index, required this.visibleCheckBox});
 
   String titulo() {
     String aux = mesaModel.numero.toString();
@@ -154,6 +155,9 @@ class MesaItem extends GetView<ListMesaController> {
 
   @override
   Widget build(BuildContext context) {
+
+    bool selected = false;
+
     return Column(
             children: [
               Card(
@@ -208,6 +212,20 @@ class MesaItem extends GetView<ListMesaController> {
                     image: AssetImage('imagens/mesaverde.png'),
                   ),
                   title: Text(titulo()),
+                  trailing: Visibility(
+                    visible: visibleCheckBox,
+                    child: SizedBox(
+                      width: 35,
+                      child: Checkbox(
+                        value: selected,
+                        onChanged: (value){
+                          selected = value!;
+                        },
+                        activeColor: Colors.black,
+                        checkColor: Colors.white,
+                      ),
+                    ),
+                  ),
                 ),
               )
             ],

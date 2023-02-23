@@ -6,6 +6,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 
 class DeleteMesasView extends GetView<DeleteMesasController>{
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,24 +19,44 @@ class DeleteMesasView extends GetView<DeleteMesasController>{
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          ElevatedButton(
-            onPressed: (){},
-            child: Text('Selecionar Tudo'),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10),
+            child: ElevatedButton(
+              onPressed: (){},
+              child: Text('Selecionar Tudo'),
+            ),
           ),
           Expanded(
             child: ListView.builder(
               shrinkWrap: true, //força a lista a se encaixar dentro da coluna
               itemBuilder: (context, index) {
                 final MesaModel mesaModel = mesalist[index];
-                return MesaItem(mesaModel: mesaModel, index: index,);
+                return MesaItem(mesaModel: mesaModel, index: index, visibleCheckBox: true,);
               },
               itemCount: mesalist.length, //define tamanho da lista
             ),
             flex: 10,
           ),
-          ElevatedButton(
-            onPressed: (){},
-            child: Text('Deletar Mesa'),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 25),
+            child: Row(
+              children: [
+                Expanded(
+                  child: ElevatedButton(
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStatePropertyAll(Colors.red),
+                      shape: MaterialStatePropertyAll<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(6),
+                          ),
+                      ),
+                    ),
+                    onPressed: (){},
+                    child: Text('Deletar Mesa'),
+                  ),
+                ),
+              ],
+            ),
           ),
         ],
       ),
