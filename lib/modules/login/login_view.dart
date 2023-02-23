@@ -111,7 +111,22 @@ class LoginView extends GetView<LoginController> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const RememberData(),
+                      Obx(() => Row(
+                        children: [
+                          SizedBox(
+                            width: 35,
+                            child: Checkbox(
+                              value: controller.checkBox.value,
+                              onChanged: (value){
+                                controller.checkBox.value = value!;
+                              },
+                              activeColor: Colors.black,
+                              checkColor: Colors.white,
+                            ),
+                          ),
+                          const Text('Lembrar de mim'),
+                        ],
+                      ),),
                       GestureDetector(
                         onTap: (){
                           print('aí ja era');
