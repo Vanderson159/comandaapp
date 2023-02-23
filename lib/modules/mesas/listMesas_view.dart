@@ -13,7 +13,9 @@ List<MesaModel> mesalist = [];
 
 class ListMesaView extends GetView<ListMesaController> {
   ListMesaView({super.key});
+
   InitialView initialView = const InitialView();
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -138,6 +140,11 @@ class ListMesaView extends GetView<ListMesaController> {
       ),
     );
   }
+
+  void selectBoxes(bool select){
+    controller.checkBoxes.value = select;
+  }
+
 }
 
 class MesaItem extends GetView<ListMesaController> {
@@ -156,7 +163,6 @@ class MesaItem extends GetView<ListMesaController> {
   @override
   Widget build(BuildContext context) {
 
-    bool selected = false;
 
     return Column(
             children: [
@@ -187,7 +193,10 @@ class MesaItem extends GetView<ListMesaController> {
                                 ),
                               ),
                             ),
-                            onPressed: ()=> Get.to(MesaDetails(mesaModel: this.mesaModel,)),
+                            onPressed: ()=> Get.to(MesaDetails(
+                              mesaModel: mesaModel,
+                            ),
+                            ),
                             child: const Text('Sim'),
                           ),
                           ElevatedButton(
@@ -216,13 +225,17 @@ class MesaItem extends GetView<ListMesaController> {
                     visible: visibleCheckBox,
                     child: SizedBox(
                       width: 35,
-                      child: Checkbox(
-                        value: selected,
-                        onChanged: (value){
-                          selected = value!;
-                        },
-                        activeColor: Colors.black,
-                        checkColor: Colors.white,
+                      child: Obx( () =>
+                        Checkbox(
+                          value: controller.checkBoxes.value,
+                          onChanged: (value){
+                            //controller.checkBoxes.value = value!;
+
+                            //TODO: Ta selecionando todos, pesquisar como selecionar um de cada vez
+                          },
+                          activeColor: Colors.black,
+                          checkColor: Colors.white,
+                        ),
                       ),
                     ),
                   ),

@@ -1,5 +1,4 @@
 import 'package:comandaapp/modules/login/login_controller.dart';
-import 'package:comandaapp/remember.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -126,7 +125,8 @@ class LoginView extends GetView<LoginController> {
                           ),
                           const Text('Lembrar de mim'),
                         ],
-                      ),),
+                      ),
+                      ),
                       GestureDetector(
                         onTap: (){
                           print('aí ja era');

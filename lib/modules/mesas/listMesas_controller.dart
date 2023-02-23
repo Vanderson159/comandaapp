@@ -6,7 +6,10 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
 class ListMesaController extends GetxController{
+
   final box = GetStorage('comandaapp');
+  RxBool checkBoxes = false.obs;
+
   MesaApiClient mesaApiClient = MesaApiClient();
   InitialController initialController = InitialController();
   List<MesaModel> listMesaModel = [];

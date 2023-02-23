@@ -7,6 +7,9 @@ import 'package:get/get.dart';
 
 class DeleteMesasView extends GetView<DeleteMesasController>{
 
+  bool isVisible = true;
+  bool isMarked = true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,7 +25,16 @@ class DeleteMesasView extends GetView<DeleteMesasController>{
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 10),
             child: ElevatedButton(
-              onPressed: (){},
+              onPressed: (){
+
+                if(isMarked == true){
+                  isMarked = false;
+                }
+                else{
+                  isMarked = true;
+                }
+                ListMesaView().selectBoxes(isMarked);
+              },
               child: Text('Selecionar Tudo'),
             ),
           ),
@@ -31,7 +43,7 @@ class DeleteMesasView extends GetView<DeleteMesasController>{
               shrinkWrap: true, //força a lista a se encaixar dentro da coluna
               itemBuilder: (context, index) {
                 final MesaModel mesaModel = mesalist[index];
-                return MesaItem(mesaModel: mesaModel, index: index, visibleCheckBox: true,);
+                return MesaItem(mesaModel: mesaModel, index: index, visibleCheckBox: isVisible,);
               },
               itemCount: mesalist.length, //define tamanho da lista
             ),
