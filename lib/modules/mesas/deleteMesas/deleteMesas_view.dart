@@ -64,7 +64,9 @@ class DeleteMesasView extends GetView<DeleteMesasController>{
                           ),
                       ),
                     ),
-                    onPressed: (){},
+                    onPressed: (){
+
+                    },
                     child: const Text('Deletar Mesa'),
                   ),
                 ),

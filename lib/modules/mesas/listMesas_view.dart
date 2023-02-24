@@ -161,6 +161,12 @@ class MesaItem extends GetView<ListMesaController> {
     return titulo;
   }
 
+  void deleteSelected(){
+    if(controller.listMesaModel[index].isCheck.value == true){
+      //deletar mesa
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
 

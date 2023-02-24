@@ -59,17 +59,17 @@ class MesaDetails extends GetView<MesaDetailsController> {
                                       context: context,
                                       builder: (contextDialog) {
                                         return Dialog(
+                                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
                                           backgroundColor: Colors.grey.shade800,
                                           child: Container(
                                             width: Get.width,
-                                            height: Get.height * 0.2,
+                                            height: Get.height * 0.26,
                                             child: Column(
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
                                               children: [
-                                                Padding(
-                                                  padding: EdgeInsets.only(
-                                                      left: 10, top: 10),
+                                                const Padding(
+                                                  padding: EdgeInsets.only(left: 10, top: 10),
                                                   child: Text(
                                                     'Item Pedido',
                                                     style: TextStyle(
@@ -82,7 +82,7 @@ class MesaDetails extends GetView<MesaDetailsController> {
                                                       const EdgeInsets.only(
                                                           right: 5,
                                                           left: 5,
-                                                          top: 10),
+                                                          top: 15),
                                                   child: Container(
                                                     height: 40,
                                                     child: TextField(
@@ -92,7 +92,7 @@ class MesaDetails extends GetView<MesaDetailsController> {
                                                             OutlineInputBorder(
                                                           borderRadius:
                                                               BorderRadius
-                                                                  .circular(20),
+                                                                  .circular(10),
                                                         ),
                                                         filled:
                                                             true, //<-- SEE HERE
@@ -103,7 +103,8 @@ class MesaDetails extends GetView<MesaDetailsController> {
                                                   ),
                                                 ),
                                                 Padding(
-                                                  padding: EdgeInsets.only(left: Get.width * 0.50, top: 10),
+                                                  // padding: EdgeInsets.only(left: Get.width * 0.50, top: 10),
+                                                  padding: EdgeInsets.only(left: Get.width * 0.50, top: 15),
                                                   child: ElevatedButton(
                                                     onPressed: () {},
                                                     child: Text(
@@ -137,7 +138,6 @@ class MesaDetails extends GetView<MesaDetailsController> {
                                   'imagens/iconePedidos.png',
                                 ),
                               ),
-                              //TODO: Puxar as informações da mesa selecionada
                             ],
                           ),
                         ),
