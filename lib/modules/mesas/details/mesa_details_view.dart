@@ -17,7 +17,7 @@ class MesaDetails extends GetView<MesaDetailsController> {
           backgroundColor: Colors.white,
           leading: GestureDetector(
             onTap: () {
-              Get.offAllNamed('/listMesas');
+              Get.offNamed('/listMesas');
             },
             child: const Icon(
               Icons.arrow_back_sharp,
