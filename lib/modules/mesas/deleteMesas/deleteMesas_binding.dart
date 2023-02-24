@@ -5,5 +5,6 @@ class DeleteMesasBinding implements Bindings{
   @override
   void dependencies() {
     Get.lazyPut<DeleteMesasController>(() => DeleteMesasController());
+
   }
 }

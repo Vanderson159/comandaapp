@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 
 class DeleteMesasView extends GetView<DeleteMesasController>{
 
+  // List<MesaModel> deleteList = [];
   final bool isVisible = true;
   RxBool isAllCheck = false.obs;
 
@@ -13,6 +14,8 @@ class DeleteMesasView extends GetView<DeleteMesasController>{
 
   @override
   Widget build(BuildContext context) {
+    //fui obrigado a declarar o controller porque com o GetView não tava achando
+    DeleteMesasController controller = Get.put(DeleteMesasController());
     return Scaffold(
       appBar: AppBar(
         foregroundColor: Colors.black,
@@ -66,6 +69,8 @@ class DeleteMesasView extends GetView<DeleteMesasController>{
                     ),
                     onPressed: (){
 
+                      //TODO: buscar pela lista as mesas com checkbox marcado e armazenar na deleteList
+                      print(controller.toListDelete(context));//retornando null
                     },
                     child: const Text('Deletar Mesa'),
                   ),
