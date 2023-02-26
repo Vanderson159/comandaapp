@@ -4,6 +4,11 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 
 class ListMesaItem extends GetView<MesaItemController>{
+  String titulo;
+  int qtd = 0;
+
+  ListMesaItem(this.titulo);
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -16,7 +21,7 @@ class ListMesaItem extends GetView<MesaItemController>{
         ),
         child: ListTile(
           textColor: Colors.white,
-          title: Text('Item 1 Pedido'),
+          title: Text(titulo),
           trailing: Wrap(
             crossAxisAlignment: WrapCrossAlignment.center,
             children: [
@@ -31,7 +36,7 @@ class ListMesaItem extends GetView<MesaItemController>{
                 ),
                 width: 30,
                 height: 20,
-                child: Text('1', textAlign: TextAlign.center, style: TextStyle(color: Colors.black),),
+                child: Text('${qtd}', textAlign: TextAlign.center, style: TextStyle(color: Colors.black),),
               ),
               Container(
                 decoration: BoxDecoration(

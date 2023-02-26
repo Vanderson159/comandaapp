@@ -4,6 +4,8 @@ import 'package:comandaapp/modules/mesas/details/mesa_details_controler.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+List<ListMesaItem> itensPedido = [];
+
 class MesaDetails extends GetView<MesaDetailsController> {
   final MesaModel? mesaModel;
   MesaDetails({this.mesaModel});
@@ -29,209 +31,196 @@ class MesaDetails extends GetView<MesaDetailsController> {
             style: TextStyle(color: Colors.black),
           ),
         ),
-        body: Center(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 20),
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      const Text(
-                        'Pedidos',
-                        style: TextStyle(
-                          fontSize: 30,
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          showDialog(
-                              context: context,
-                              builder: (contextDialog) {
-                                return Dialog(
-                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                                  backgroundColor: Colors.grey.shade800,
-                                  child: Container(
-                                    width: Get.width,
-                                    height: Get.height * 0.24,
-                                    child: Column(
-                                      crossAxisAlignment:
-                                      CrossAxisAlignment.start,
-                                      children: [
-                                        const Padding(
-                                          padding: EdgeInsets.only(left: 10, top: 10),
-                                          child: Text(
-                                            'Item Pedido',
-                                            style: TextStyle(
-                                                fontSize: 20,
-                                                color: Colors.white),
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding:
-                                          const EdgeInsets.only(
-                                              right: 5,
-                                              left: 5,
-                                              top: 15),
-                                          child: Container(
-                                            height: 40,
-                                            child: TextField(
-                                              decoration:
-                                              InputDecoration(
-                                                border:
-                                                OutlineInputBorder(
-                                                  borderRadius:
-                                                  BorderRadius
-                                                      .circular(10),
-                                                ),
-                                                filled:
-                                                true, //<-- SEE HERE
-                                                fillColor: Colors.grey
-                                                    .shade400, //<-- SEE HERE
+        body: GetBuilder<MesaDetailsController>(
+          init: MesaDetailsController(),
+          builder: (_) {
+            return Center(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 20),
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          const Text(
+                            'Pedidos',
+                            style: TextStyle(
+                              fontSize: 30,
+                            ),
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              showDialog(
+                                  context: context,
+                                  builder: (contextDialog) {
+                                    return Dialog(
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(15)),
+                                      backgroundColor: Colors.grey.shade800,
+                                      child: Container(
+                                        width: Get.width,
+                                        height: Get.height * 0.24,
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            const Padding(
+                                              padding: EdgeInsets.only(
+                                                  left: 10, top: 10),
+                                              child: Text(
+                                                'Item Pedido',
+                                                style: TextStyle(
+                                                    fontSize: 20,
+                                                    color: Colors.white),
                                               ),
                                             ),
-                                          ),
-                                        ),
-                                        Padding(
-                                          // padding: EdgeInsets.only(left: Get.width * 0.50, top: 10),
-                                          padding: EdgeInsets.only(left: Get.width * 0.50, top: 15),
-                                          child: ElevatedButton(
-                                            onPressed: () {},
-                                            child: Text(
-                                              'Adicionar',
-                                              style: TextStyle(
-                                                  color: Colors.black),
-                                            ),
-                                            style: ButtonStyle(
-                                              backgroundColor:
-                                              MaterialStatePropertyAll(
-                                                  Colors
-                                                      .grey.shade400),
-                                              shape:
-                                              MaterialStatePropertyAll(
-                                                RoundedRectangleBorder(
-                                                  borderRadius:
-                                                  BorderRadius
-                                                      .circular(12),
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  right: 5, left: 5, top: 15),
+                                              child: Container(
+                                                height: 40,
+                                                child: Form(
+                                                  key: _.formKeyDetail,
+                                                  child: TextFormField(
+                                                    decoration: InputDecoration(
+                                                      border:
+                                                          OutlineInputBorder(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10),
+                                                      ),
+                                                      filled:
+                                                          true, //<-- SEE HERE
+                                                      fillColor: Colors.grey
+                                                          .shade400, //<-- SEE HERE
+                                                    ),
+                                                    controller:
+                                                        _.itemPedido,
+                                                  ),
                                                 ),
                                               ),
                                             ),
-                                          ),
+                                            Padding(
+                                              // padding: EdgeInsets.only(left: Get.width * 0.50, top: 10),
+                                              padding: EdgeInsets.only(
+                                                  left: Get.width * 0.50,
+                                                  top: 15),
+                                              child: ElevatedButton(
+                                                onPressed: () {
+                                                   ListMesaItem mesaItem = ListMesaItem(_.itemPedido.text);
+                                                   itensPedido.add(mesaItem);
+                                                   Get.offAll(MesaDetails(mesaModel: mesaModel,));
+                                                },
+                                                style: ButtonStyle(
+                                                  backgroundColor: MaterialStatePropertyAll(Colors.grey.shade400),
+                                                  shape: MaterialStatePropertyAll(RoundedRectangleBorder(
+                                                    borderRadius: BorderRadius.circular(12),
+                                                    ),),
+                                                ),
+                                                child: Text(
+                                                  'Adicionar',
+                                                  style: TextStyle(
+                                                      color: Colors.black),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
                                         ),
-                                      ],
-                                    ),
-                                  ),
-                                );
-                              });
-                        },
-                        child: Image.asset(
-                          'imagens/iconePedidos.png',
-                        ),
+                                      ),
+                                    );
+                                  });
+                            },
+                            child: Image.asset(
+                              'imagens/iconePedidos.png',
+                            ),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
-                ),
-                Expanded(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: const Color(0xffebebeb),
-                      borderRadius: BorderRadius.circular(12),
                     ),
-                    child: verificaPedidos(),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 15),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      SizedBox(
-                        height: 50,
-                        width: 150,
-                        child: ElevatedButton(
-                          style: ButtonStyle(
-                              backgroundColor: const MaterialStatePropertyAll(
-                                Colors.black,
-                              ),
-                              shape: MaterialStatePropertyAll(
-                                  RoundedRectangleBorder(
-                                      borderRadius:
-                                          BorderRadius.circular(32)))),
-                          onPressed: () {}, //TODO: Adicionar função
-                          child: const Text('Encerrar Pedido'),
+                    Expanded(
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: const Color(0xffebebeb),
+                          borderRadius: BorderRadius.circular(12),
                         ),
+                        child: verificaPedidos(),
                       ),
-                      SizedBox(
-                        height: 50,
-                        width: 150,
-                        child: ElevatedButton(
-                          style: ButtonStyle(
-                              backgroundColor: const MaterialStatePropertyAll(
-                                Colors.black,
-                              ),
-                              shape: MaterialStatePropertyAll(
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 15),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          SizedBox(
+                            height: 50,
+                            width: 150,
+                            child: ElevatedButton(
+                              style: ButtonStyle(
+                                backgroundColor: const MaterialStatePropertyAll(
+                                  Colors.black,
+                                ),
+                                shape: MaterialStatePropertyAll(
                                   RoundedRectangleBorder(
-                                      borderRadius:
-                                          BorderRadius.circular(32)))),
-                          onPressed: () {}, //TODO: Adicionar função
-                          child: const Text('Encerrar Comanda'),
-                        ),
+                                    borderRadius: BorderRadius.circular(32),
+                                  ),
+                                ),
+                              ),
+                              onPressed: () {}, //TODO: Adicionar função
+                              child: const Text('Encerrar Pedido'),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 50,
+                            width: 150,
+                            child: ElevatedButton(
+                              style: ButtonStyle(
+                                backgroundColor: const MaterialStatePropertyAll(
+                                  Colors.black,
+                                ),
+                                shape: MaterialStatePropertyAll(
+                                  RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(32),
+                                  ),
+                                ),
+                              ),
+                              onPressed: () {}, //TODO: Adicionar função
+                              child: const Text('Encerrar Comanda'),
+                            ),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
-          ),
+              ),
+            );
+          },
         ),
       ),
     );
   }
 
-  verificaPedidos(){
+  addItemPedido() {}
+
+  verificaPedidos() {
     //logica so para teste
-    if(2 > 1){
+    if (itensPedido.isNotEmpty) {
       return ListView.builder(
         shrinkWrap: true,
-        itemBuilder: (context, index){
+        itemBuilder: (context, index) {
           return Padding(
             padding: const EdgeInsets.all(8.0),
-            child: ListMesaItem(),
+            child: itensPedido[index],
           );
         },
-        itemCount: 1,
+        itemCount: itensPedido.length,
       );
-    }else{
+    } else {
       return null;
     }
   }
 
-  Future<void> addPedido(BuildContext context) async {
-    return showDialog<void>(
-      context: context,
-      barrierDismissible: false, // user must tap button!
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Pedidos'),
-          content: SingleChildScrollView(
-            child: ListBody(
-              children: const <Widget>[
-                Text('Item 1 pedido'),
-              ],
-            ),
-          ),
-          actions: <Widget>[
-            TextButton(
-              child: const Text('Adicionar'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
 }
