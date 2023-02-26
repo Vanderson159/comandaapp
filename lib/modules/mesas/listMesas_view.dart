@@ -39,6 +39,7 @@ class ListMesaView extends GetView<ListMesaController> {
             ),
             appBar: AppBar(
               backgroundColor: Colors.white,
+              automaticallyImplyLeading: false, //desativar seta de voltar
               title: Row(
                 children: [
                   IconButton(

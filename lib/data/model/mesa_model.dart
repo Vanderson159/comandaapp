@@ -3,28 +3,31 @@ import 'dart:convert';
 import 'package:get/get.dart';
 
 class MesaModel{
-  int? idmesas;
+  int? id;
   int? numero;
   int? estabelecimento_id;
+  bool? disponivel;
   RxBool isCheck = false.obs;
 
-  MesaModel(this.idmesas, this.numero, this.estabelecimento_id);
+  MesaModel(this.id, this.numero, this.estabelecimento_id, this.disponivel);
 
   String toString(){
     return 'Mesa ${this.numero}';
   }
 
   MesaModel.fromJson(Map<String, dynamic> json){
-    idmesas = json['idmesas'];
+    id = json['id'];
     numero = json['numero'];
     estabelecimento_id = json['estabelecimento_id'];
+    disponivel = json['disponivel'];
   }
 
   Map<String, dynamic> toJson(){
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['idmesas'] = this.idmesas;
+    data['id'] = this.id;
     data['numero'] = this.numero;
     data['estabelecimento_id'] = this.estabelecimento_id;
+    data['disponivel'] = this.disponivel;
     return data;
   }
 

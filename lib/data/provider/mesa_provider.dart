@@ -21,9 +21,8 @@ class MesaApiClient{
       var response = await http.get(Uri.parse('${baseUrl}/verificaMesas'),
           headers: {"Authorization": 'Bearer $token'});
       if (response.statusCode == 200) {
-        print('print do response');
         var teste = jsonDecode(response.body);
-        int countMesas = teste[0]['COUNT(idmesas)'];
+        int countMesas = teste[0]['COUNT(id)'];
         return countMesas;
       } else {
         return 0;
@@ -75,7 +74,10 @@ class MesaApiClient{
         List list = json.decode(response.body);
         List<MesaModel>? mesas = [];
         for (var i = 0; i < list.length; i++) {
-          mesas.add(MesaModel.fromJson(list[i]));
+          MesaModel aux = MesaModel.fromJson(list[i]);
+          if(aux.disponivel == true){
+            mesas.add(MesaModel.fromJson(list[i]));
+          }
         }
 
         if (mesas.isEmpty) {
@@ -103,5 +105,9 @@ class MesaApiClient{
       );
     }
     return json.decode(erro);
+  }
+
+  Future abrirComanda() async{
+
   }
 }

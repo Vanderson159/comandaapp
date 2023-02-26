@@ -29,7 +29,7 @@ class AddMesasController extends GetxController{
     int? idEstabelecimento = estabelecimentoId();
 
     do{
-      MesaModel mesaAux = MesaModel(0, totalMesa, idEstabelecimento);
+      MesaModel mesaAux = MesaModel(0, totalMesa, idEstabelecimento, true);
       listMesa.add(mesaAux);
       totalMesa++;
     }while(totalMesa <= contMesa);

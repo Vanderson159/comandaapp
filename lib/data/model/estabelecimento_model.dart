@@ -1,6 +1,6 @@
 class EstabelecimentoModel {
   int? id;
-  int? cnpj;
+  String? cnpj;
   String? nome;
   String? email;
   String? telefone;
