@@ -1,5 +1,4 @@
 import 'package:comandaapp/data/model/mesa_model.dart';
-import 'package:comandaapp/modules/mesas/listMesas_controller.dart';
 import 'package:comandaapp/modules/mesas/listMesas_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
@@ -12,7 +11,6 @@ class DeleteMesasController extends GetxController{
 
     mesalist.where((element) {
       if (element.isCheck == true){
-        print(element);
         deleteList.add(element);
       }
       return true;

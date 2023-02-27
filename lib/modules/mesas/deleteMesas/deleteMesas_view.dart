@@ -68,8 +68,46 @@ class DeleteMesasView extends GetView<DeleteMesasController>{
                     ),
                     onPressed: (){
                       //TODO: buscar pela lista as mesas com checkbox marcado e armazenar na deleteList
-                      print(controller.toListDelete(context));//retorna a lista com as mesas marcadas
-
+                      showDialog(context: context, builder: (contextDialog){
+                      return AlertDialog(
+                        shape:  const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(20),
+                          ),
+                        ),
+                        title: const Text('Deletar mesas'),
+                        content: const Text('Tem certeza que deseja deletar as mesas selecionadas?'),
+                        actions: [
+                          ElevatedButton(
+                            style: ButtonStyle(
+                              shape: MaterialStateProperty.all<
+                                  RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                              ),
+                            ),
+                            onPressed: (){
+                              print(controller.toListDelete(context));//retorna a lista com as mesas marcadas
+                              Get.back();
+                            },
+                            child: const Text('Sim'),
+                          ),//sim
+                          ElevatedButton(
+                            style: ButtonStyle(
+                              shape: MaterialStateProperty.all<
+                                  RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                              ),
+                            ),
+                            onPressed: ()=>Get.back(),
+                            child: const Text('Não'),
+                          ),
+                        ],
+                      );
+                      });
                     },
                     child: const Text('Deletar Mesa'),
                   ),

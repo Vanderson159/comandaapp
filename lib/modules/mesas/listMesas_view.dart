@@ -14,6 +14,7 @@ class ListMesaView extends GetView<ListMesaController> {
   ListMesaView({super.key});
 
   InitialView initialView = const InitialView();
+  ListMesaController controller = Get.put(ListMesaController());
 
   @override
   Widget build(BuildContext context) {

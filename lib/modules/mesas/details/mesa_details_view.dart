@@ -28,7 +28,7 @@ class MesaDetails extends GetView<MesaDetailsController> {
           ),
           title: Text(
             'Mesa ${mesaModel!.numero.toString()}',
-            style: TextStyle(color: Colors.black),
+            style: const TextStyle(color: Colors.black),
           ),
         ),
         body: GetBuilder<MesaDetailsController>(
@@ -120,7 +120,7 @@ class MesaDetails extends GetView<MesaDetailsController> {
                                                     borderRadius: BorderRadius.circular(12),
                                                     ),),
                                                 ),
-                                                child: Text(
+                                                child: const Text(
                                                   'Adicionar',
                                                   style: TextStyle(
                                                       color: Colors.black),
@@ -218,7 +218,8 @@ class MesaDetails extends GetView<MesaDetailsController> {
         },
         itemCount: itensPedido.length,
       );
-    } else {
+    }
+    else {
       return null;
     }
   }
