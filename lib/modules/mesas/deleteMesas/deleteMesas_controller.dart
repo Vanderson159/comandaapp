@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 
 class DeleteMesasController extends GetxController{
 
+  //TODO: preciso que essa func retorne uma List<MesaModel> contendo as mesas que devem ser deletadas, vou precisar ter acesso ao id delas para poder deletar na api
   List<dynamic>? toListDelete(BuildContext context, bool isAllCheck){
     List<MesaModel> deleteList = [];
     mesalist.where((element) {
