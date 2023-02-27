@@ -6,7 +6,6 @@ import 'package:get/get.dart';
 
 class DeleteMesasView extends GetView<DeleteMesasController>{
 
-  // List<MesaModel> deleteList = [];
   final bool isVisible = true;
   RxBool isAllCheck = false.obs;
 
@@ -68,9 +67,9 @@ class DeleteMesasView extends GetView<DeleteMesasController>{
                       ),
                     ),
                     onPressed: (){
-
                       //TODO: buscar pela lista as mesas com checkbox marcado e armazenar na deleteList
-                      print(controller.toListDelete(context));//retornando null
+                      print(controller.toListDelete(context));//retorna a lista com as mesas marcadas
+
                     },
                     child: const Text('Deletar Mesa'),
                   ),

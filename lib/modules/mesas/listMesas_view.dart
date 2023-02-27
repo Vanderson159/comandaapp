@@ -2,7 +2,6 @@ import 'package:comandaapp/data/model/mesa_model.dart';
 import 'package:comandaapp/modules/initial/initial_view.dart';
 import 'package:comandaapp/modules/mesas/addMesas/addMesas_view.dart';
 import 'package:comandaapp/modules/mesas/deleteMesas/deleteMesas_view.dart';
-import 'package:comandaapp/modules/mesas/details/mesa_details_view.dart';
 import 'package:comandaapp/modules/mesas/listMesas_controller.dart';
 import 'package:comandaapp/modules/mesas/searchMesas/custom_search.dart';
 import 'package:flutter/material.dart';
@@ -161,13 +160,13 @@ class MesaItem extends GetView<ListMesaController> {
     String titulo = 'Mesa $aux';
     return titulo;
   }
-
+/*
   void deleteSelected(){
     if(controller.listMesaModel[index].isCheck.value == true){
       //deletar mesa
     }
   }
-
+*/
   @override
   Widget build(BuildContext context) {
 
