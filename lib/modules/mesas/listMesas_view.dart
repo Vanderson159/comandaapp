@@ -183,7 +183,6 @@ class ListMesaView extends GetView<ListMesaController> {
                 )
               ],
             ),
-
           );
         },
       ),
@@ -192,7 +191,6 @@ class ListMesaView extends GetView<ListMesaController> {
 
   void selectBoxes(RxBool select){
     controller.checkBoxes.value = select.value;
-    //até aqui tudo funcionando
   }
 
 }
@@ -209,13 +207,7 @@ class MesaItem extends GetView<ListMesaController> {
     String titulo = 'Mesa $aux';
     return titulo;
   }
-/*
-  void deleteSelected(){
-    if(controller.listMesaModel[index].isCheck.value == true){
-      //deletar mesa
-    }
-  }
-*/
+
   @override
   Widget build(BuildContext context) {
 

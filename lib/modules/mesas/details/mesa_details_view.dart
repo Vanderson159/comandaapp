@@ -36,7 +36,7 @@ class MesaDetails extends GetView<MesaDetailsController> {
           builder: (_) {
             return Center(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 20),
+                padding: const EdgeInsets.only(left: 25, right: 25, top: 0, bottom: 10),
                 child: Column(
                   children: [
                     Padding(
@@ -147,6 +147,27 @@ class MesaDetails extends GetView<MesaDetailsController> {
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: verificaPedidos(),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 15),
+                      child: SizedBox(
+                        height: 30,
+                        width: 170,
+                        child: ElevatedButton(
+                          style: ButtonStyle(
+                            backgroundColor: const MaterialStatePropertyAll(
+                              Colors.black,
+                            ),
+                            shape: MaterialStatePropertyAll(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(32),
+                              ),
+                            ),
+                          ),
+                          onPressed: () {}, //TODO: Adicionar função
+                          child: const Text('Apagar todos os itens'),
+                        ),
                       ),
                     ),
                     Padding(
