@@ -107,7 +107,27 @@ class MesaApiClient{
     return json.decode(erro);
   }
 
-  Future abrirComanda() async{
-
+  Future indisponibilizar(String accesstoken, MesaModel mesaModel) async{
+    String token = '';
+    if (accesstoken.isNotEmpty) {
+      token = accesstoken;
+    }
+    try{
+      var response = await http.put(Uri.parse('${baseUrlMesa}/${mesaModel.id}'), headers: {
+        "Authorization": 'Bearer $token'
+      }, body: {
+        "numero" : mesaModel.numero.toString(),
+        "estabelecimento_id" : mesaModel.estabelecimento_id.toString(),
+        "disponivel" : 0.toString()
+      });
+      if (response.statusCode == 200) {
+        print(response.body);
+        return 1;
+      } else {
+        return 0;
+      }
+    }catch(err){
+      return 0;
+    }
   }
 }

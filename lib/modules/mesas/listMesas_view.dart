@@ -200,12 +200,11 @@ class MesaItem extends GetView<ListMesaController> {
                                 ),
                               ),
                             ),
-                            onPressed: ()=> Get.to(MesaDetails(
-                              mesaModel: mesaModel,
-                            ),
-                            ),
+                            onPressed: (){
+                              controller.abrirComanda(mesaModel);
+                            },
                             child: const Text('Sim'),
-                          ),
+                          ),//sim
                           ElevatedButton(
                             style: ButtonStyle(
                               shape: MaterialStateProperty.all<
