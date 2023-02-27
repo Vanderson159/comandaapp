@@ -5,12 +5,13 @@ import 'package:get/get.dart';
 
 class DeleteMesasController extends GetxController{
 
-  List<MesaModel> deleteList = [];
-
-  List<dynamic>? toListDelete(BuildContext context){
-
+  List<dynamic>? toListDelete(BuildContext context, bool isAllCheck){
+    List<MesaModel> deleteList = [];
     mesalist.where((element) {
-      if (element.isCheck == true){
+      if(isAllCheck == true){
+        deleteList = mesalist;
+      }
+      else if(element.isCheck == true){ //TODO: Quando seleciona todas não funciona
         deleteList.add(element);
       }
       return true;

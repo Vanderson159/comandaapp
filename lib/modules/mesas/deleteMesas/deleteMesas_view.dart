@@ -88,7 +88,7 @@ class DeleteMesasView extends GetView<DeleteMesasController>{
                               ),
                             ),
                             onPressed: (){
-                              print(controller.toListDelete(context));//retorna a lista com as mesas marcadas
+                              print(controller.toListDelete(context, isAllCheck.value));//retorna a lista com as mesas marcadas
                               Get.back();
                             },
                             child: const Text('Sim'),

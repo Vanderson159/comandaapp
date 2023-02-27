@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:get/get.dart';
 
 class MesaModel{
@@ -14,7 +13,7 @@ class MesaModel{
   String toString(){
     return 'Mesa ${this.numero}';
   }
-
+  
   MesaModel.fromJson(Map<String, dynamic> json){
     id = json['id'];
     numero = json['numero'];

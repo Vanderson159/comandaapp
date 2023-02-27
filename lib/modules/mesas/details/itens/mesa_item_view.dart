@@ -31,18 +31,22 @@ class ListMesaItem extends GetView<MesaItemController>{
                 decoration: BoxDecoration(
                   border: Border.all(
                     width: 3,
-                    color: Colors.white
+                    color: Colors.grey.shade600
                   ),
-                  color: Colors.grey.shade600,
+                  color: Colors.white,
                   borderRadius: BorderRadius.circular(8),
                 ),
                 width: 30,
-                height: 23,
-                child: Obx( ()=>
-                  Text(
-                    controller.contadorController.text = controller.qtd.value.toString(),
-                    textAlign: TextAlign.center,
-                    style: TextStyle(color: Colors.black),
+                height: 25,
+                child: Obx(
+                      ()=>
+                  Padding(
+                    padding: const EdgeInsets.only(top: 2),
+                    child: Text( //TODO: Quando altera a quantidade de um item altera de todos
+                      controller.contadorController.text = controller.qtd.value.toString(),
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+                    ),
                   ),
                 ),
               ),
@@ -59,21 +63,23 @@ class ListMesaItem extends GetView<MesaItemController>{
                 children: [
                   GestureDetector(
                     onTap: (){
-                      controller.decrementar();
-                      //controller.contadorController.text = controller.qtd.toString();
+                      controller.decrementar(context);
                     },
-                    child: SizedBox(
+                    child: const SizedBox(
                       width: 30,
-                      child: Icon(Icons.remove, size: 20, color: Colors.black,),
+                      child: Icon(Icons.remove,
+                        size: 20,
+                        color: Colors.black,
+                      ),
                     ),
                   ),
-                  Text('|'),
+                  const Text('|', style: TextStyle(fontSize: 20),
+                  ),
                   GestureDetector(
                     onTap: (){
                       controller.incrementar();
-                      //controller.contadorController.text = controller.qtd.toString();
                     },
-                    child: SizedBox(
+                    child: const SizedBox(
                       width: 30,
                       child: Icon(Icons.add, size: 20, color: Colors.black,),
                     ),
