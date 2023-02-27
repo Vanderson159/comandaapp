@@ -11,6 +11,7 @@ class ListMesaController extends GetxController{
 
   final box = GetStorage('comandaapp');
   RxBool checkBoxes = false.obs;
+  RxBool loadingComanda = false.obs;
 
   MesaApiClient mesaApiClient = MesaApiClient();
   ComandaApiClient comandaApiClient = ComandaApiClient();
@@ -36,11 +37,13 @@ class ListMesaController extends GetxController{
     return  mesaApiClient.listarMesas(tokenAccess(), 1);
   }
 
-  abrirComanda(MesaModel mesaModel){
+  abrirComanda(MesaModel mesaModel) async{
+    loadingComanda.value = true;
     comandaApiClient.abrirComanda(mesaModel, tokenAccess()).then((value){
       if(value == 1){
         mesaApiClient.indisponibilizar(tokenAccess(), mesaModel).then((value){
           if(value == 1){
+            loadingComanda.value = true;
             Get.to(MesaDetails(
               mesaModel: mesaModel,
             ),);

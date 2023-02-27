@@ -259,6 +259,9 @@ class MesaItem extends GetView<ListMesaController> {
                               ),
                             ),
                             onPressed: (){
+                              showDialog(barrierDismissible: false, context: context, builder: (contextDialog){
+                                return Obx(() => Visibility(visible: controller.loadingComanda.value, child: Center(child: Container(height: 20, width: 20, child: CircularProgressIndicator(),),),),);
+                              });
                               controller.abrirComanda(mesaModel);
                             },
                             child: const Text('Sim'),
