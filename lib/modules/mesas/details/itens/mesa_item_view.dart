@@ -5,26 +5,28 @@ import 'package:get/get.dart';
 
 class ListMesaItem extends GetView<MesaItemController>{
   String titulo;
-  int qtd = 0;
 
   ListMesaItem(this.titulo);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Card(
-        color: Colors.black,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(
-            Radius.circular(12),
-          ),
+
+    MesaItemController controller = Get.put(MesaItemController());
+
+    return Card(
+      color: Colors.black,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(
+          Radius.circular(12),
         ),
-        child: ListTile(
-          textColor: Colors.white,
-          title: Text(titulo),
-          trailing: Wrap(
-            crossAxisAlignment: WrapCrossAlignment.center,
-            children: [
+      ),
+      child: ListTile(
+        textColor: Colors.white,
+        title: Text(titulo),
+        trailing: Wrap(
+          crossAxisAlignment: WrapCrossAlignment.center,
+          children: [
+
               Container(
                 decoration: BoxDecoration(
                   border: Border.all(
@@ -35,43 +37,51 @@ class ListMesaItem extends GetView<MesaItemController>{
                   borderRadius: BorderRadius.circular(8),
                 ),
                 width: 30,
-                height: 20,
-                child: Text('${qtd}', textAlign: TextAlign.center, style: TextStyle(color: Colors.black),),
-              ),
-              Container(
-                decoration: BoxDecoration(
-                  color: Colors.grey.shade500,
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                width: 70,
-                height: 25,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    GestureDetector(
-                      onTap: (){
-                        print('MENOS');
-                      },
-                      child: SizedBox(
-                        width: 30,
-                        child: Icon(Icons.remove, size: 20, color: Colors.black,),
-                      ),
-                    ),
-                    Text('|'),
-                    GestureDetector(
-                      onTap: (){
-                        print('MAIS');
-                      },
-                      child: SizedBox(
-                        width: 30,
-                        child: Icon(Icons.add, size: 20, color: Colors.black,),
-                      ),
-                    ),
-                  ],
+                height: 23,
+                child: Obx( ()=>
+                  Text(
+                    controller.contadorController.text = controller.qtd.value.toString(),
+                    textAlign: TextAlign.center,
+                    style: TextStyle(color: Colors.black),
+                  ),
                 ),
               ),
-            ],
-          ),
+
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.grey.shade500,
+                borderRadius: BorderRadius.circular(8),
+              ),
+              width: 70,
+              height: 25,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  GestureDetector(
+                    onTap: (){
+                      controller.decrementar();
+                      //controller.contadorController.text = controller.qtd.toString();
+                    },
+                    child: SizedBox(
+                      width: 30,
+                      child: Icon(Icons.remove, size: 20, color: Colors.black,),
+                    ),
+                  ),
+                  Text('|'),
+                  GestureDetector(
+                    onTap: (){
+                      controller.incrementar();
+                      //controller.contadorController.text = controller.qtd.toString();
+                    },
+                    child: SizedBox(
+                      width: 30,
+                      child: Icon(Icons.add, size: 20, color: Colors.black,),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );
