@@ -29,7 +29,11 @@ class ListMesaController extends GetxController{
   }
 
   buscarMesas(){
-    return  mesaApiClient.listarMesas(tokenAccess());
+    return  mesaApiClient.listarMesas(tokenAccess(), 0);
+  }
+
+  buscarMesasOcupadas(){
+    return  mesaApiClient.listarMesas(tokenAccess(), 1);
   }
 
   abrirComanda(MesaModel mesaModel){
