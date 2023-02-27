@@ -84,22 +84,70 @@ class ListMesaView extends GetView<ListMesaController> {
             body: TabBarView(
               children: [
                 Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Icon(
-                        Icons.error_outline,
-                        size: 150,
-                      ),
-                      Text(
-                        'Atenção',
-                        style: TextStyle(fontSize: 30),
-                      ),
-                      Text(
-                        'Não há mesa ocupada',
-                        style: TextStyle(fontSize: 30),
-                      ),
-                    ],
+                  child: FutureBuilder<List<MesaModel>>(
+                    initialData: const [],
+                    future: _.buscarMesasOcupadas(),
+                    builder: (context, snapshot) {
+                      switch (snapshot.connectionState) {
+                        case ConnectionState.none:
+                          break;
+                        case ConnectionState.waiting:
+                          return const Progress();
+                        case ConnectionState.active:
+                          break;
+                        case ConnectionState.done:
+                          mesalist = snapshot.data!;
+                          _.setListMesa(mesalist);
+                          if (mesalist == null) {
+                            return const FailureDialog('Falha ao listar mesas');
+                          } else {
+                            if(mesalist.isEmpty){
+                              return  Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: const [
+                                  Icon(
+                                    Icons.error_outline,
+                                    size: 150,
+                                  ),
+                                  Text(
+                                    'Atenção',
+                                    style: TextStyle(fontSize: 30),
+                                  ),
+                                  Text(
+                                    'Não há mesa ocupada',
+                                    style: TextStyle(fontSize: 30),
+                                  ),
+                                ],
+                              );
+                            }else{
+                              return ListView.builder(
+                                itemBuilder: (context, index) {
+                                  final MesaModel mesaModel = mesalist[index];
+                                  return MesaItem(mesaModel: mesaModel, index: index, isVisibleCheckBox: false,);
+                                },
+                                itemCount: mesalist.length,
+                              );
+                            }
+                          }
+                      }
+                      return  Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: const [
+                          Icon(
+                            Icons.error_outline,
+                            size: 150,
+                          ),
+                          Text(
+                            'Atenção',
+                            style: TextStyle(fontSize: 30),
+                          ),
+                          Text(
+                            'Não há mesa ocupada',
+                            style: TextStyle(fontSize: 30),
+                          ),
+                        ],
+                      );
+                    },
                   ),
                 ),
                 Center(
@@ -171,6 +219,16 @@ class MesaItem extends GetView<ListMesaController> {
   @override
   Widget build(BuildContext context) {
 
+    disponivelImage(){
+      if(mesaModel.disponivel == true){
+        return AssetImage('imagens/mesaverde.png');
+      }
+      if(mesaModel.disponivel == false){
+        return AssetImage('imagens/mesavermelha.png');
+      }
+      return AssetImage('imagens/mesaverde.png');
+    }
+
     return Column(
             children: [
               Card(
@@ -221,10 +279,10 @@ class MesaItem extends GetView<ListMesaController> {
                       );
                     });
                   },
-                  leading: const Image(
+                  leading: Image(
                     width: 50,
                     height: 50,
-                    image: AssetImage('imagens/mesaverde.png'),
+                    image: disponivelImage(),
                   ),
                   title: Text(titulo()),
                   trailing: Visibility(
