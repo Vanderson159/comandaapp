@@ -1,5 +1,6 @@
 import 'package:comandaapp/data/model/mesa_model.dart';
 import 'package:comandaapp/modules/mesas/deleteMesas/deleteMesas_controller.dart';
+import 'package:comandaapp/modules/mesas/listMesas_controller.dart';
 import 'package:comandaapp/modules/mesas/listMesas_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -35,7 +36,9 @@ class DeleteMesasView extends GetView<DeleteMesasController>{
                 else{
                   isAllCheck = false.obs;
                 }
-                ListMesaView().selectBoxes(isAllCheck);
+                //ListMesaView().selectBoxes(isAllCheck);
+                //TODO: Testar!!!
+                ListMesaController().listMesaModel.forEach((element) {ListMesaController().listMesaModel[element.numero!].isCheck.value = true;});
               },
               child: const Text('Selecionar Tudo'),
             ),
