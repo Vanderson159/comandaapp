@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:comandaapp/data/model/mesa_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
