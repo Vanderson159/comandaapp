@@ -13,7 +13,7 @@ class DeleteMesasController extends GetxController{
       if(isAllCheck == true){
         deleteList = mesalist;
       }
-      else if(element.isCheck == true){ //TODO: Quando seleciona todas não funciona
+      else if(element.isCheck == true){
         deleteList.add(element);
       }
       return true;

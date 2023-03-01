@@ -36,9 +36,7 @@ class DeleteMesasView extends GetView<DeleteMesasController>{
                 else{
                   isAllCheck = false.obs;
                 }
-                //ListMesaView().selectBoxes(isAllCheck);
-                //TODO: Testar!!!
-                ListMesaController().listMesaModel.forEach((element) {ListMesaController().listMesaModel[element.numero!].isCheck.value = true;});
+                ListMesaView().selectBoxes(isAllCheck);
               },
               child: const Text('Selecionar Tudo'),
             ),
