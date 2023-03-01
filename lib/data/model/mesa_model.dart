@@ -6,9 +6,9 @@ class MesaModel{
   int? numero;
   int? estabelecimento_id;
   bool? disponivel;
-  RxBool isCheck = false.obs;
+  RxBool? isCheck = false.obs;
 
-  MesaModel(this.id, this.numero, this.estabelecimento_id, this.disponivel);
+  MesaModel(this.id, this.numero, this.estabelecimento_id, this.disponivel, this.isCheck);
 
   String toString(){
     return 'Mesa ${this.numero}';

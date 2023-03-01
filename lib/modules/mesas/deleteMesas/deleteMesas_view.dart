@@ -1,6 +1,5 @@
 import 'package:comandaapp/data/model/mesa_model.dart';
 import 'package:comandaapp/modules/mesas/deleteMesas/deleteMesas_controller.dart';
-import 'package:comandaapp/modules/mesas/listMesas_controller.dart';
 import 'package:comandaapp/modules/mesas/listMesas_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -30,29 +29,21 @@ class DeleteMesasView extends GetView<DeleteMesasController>{
             padding: const EdgeInsets.symmetric(vertical: 10),
             child: ElevatedButton(
               onPressed: (){
-                if(isAllCheck == false.obs){
-                  isAllCheck = true.obs;
-                }
-                else{
-                  isAllCheck = false.obs;
-                }
-                //ListMesaView().selectBoxes(isAllCheck);
-                //TODO: Testar!!!
-                ListMesaController().listMesaModel.forEach((element) {ListMesaController().listMesaModel[element.numero!].isCheck.value = true;});
+                controller.selectAll();
               },
               child: const Text('Selecionar Tudo'),
             ),
           ),
           Expanded(
             flex: 10,
-            child: ListView.builder(
+            child: Obx(() => ListView.builder(
               shrinkWrap: true, //força a lista a se encaixar dentro da coluna
               itemBuilder: (context, index) {
-                final MesaModel mesaModel = mesalist[index];
+                final MesaModel mesaModel = controller.listaMesas[index];
                 return MesaItem(mesaModel: mesaModel, index: index, isVisibleCheckBox: isVisible,);
               },
-              itemCount: mesalist.length, //define tamanho da lista
-            ),
+              itemCount: controller.listaMesas.length, //define tamanho da lista
+            ),),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 25),

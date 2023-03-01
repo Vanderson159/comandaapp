@@ -200,6 +200,7 @@ class MesaItem extends GetView<ListMesaController> {
   final index;
   final isVisibleCheckBox;
 
+
   MesaItem({required this.mesaModel, this.index, required this.isVisibleCheckBox,});
 
   String titulo() {
@@ -286,10 +287,9 @@ class MesaItem extends GetView<ListMesaController> {
                       width: 35,
                       child: Obx( () =>
                         Checkbox(
-                          value: controller.checkBoxes.value? controller.checkBoxes.value : controller.listMesaModel[index].isCheck.value,
+                          value: mesaModel.isCheck!.value,
                           onChanged: (value){
-                            controller.checkBoxes.value? controller.checkBoxes.value = value! : controller.listMesaModel[index].isCheck.value = value!;
-                            //TODO: if alguma mesa marcada, tornar variável true, else torna false pra alterar a cor e clique do botao de deletar
+                            mesaModel.isCheck!.value = !mesaModel.isCheck!.value;
                           },
                           activeColor: Colors.black,
                           checkColor: Colors.white,

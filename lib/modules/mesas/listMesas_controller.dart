@@ -3,6 +3,7 @@ import 'package:comandaapp/data/model/mesa_model.dart';
 import 'package:comandaapp/data/provider/comanda_provider.dart';
 import 'package:comandaapp/data/provider/mesa_provider.dart';
 import 'package:comandaapp/modules/initial/initial_controller.dart';
+import 'package:comandaapp/modules/mesas/deleteMesas/deleteMesas_controller.dart';
 import 'package:comandaapp/modules/mesas/details/mesa_details_view.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -16,6 +17,7 @@ class ListMesaController extends GetxController{
   MesaApiClient mesaApiClient = MesaApiClient();
   ComandaApiClient comandaApiClient = ComandaApiClient();
   InitialController initialController = InitialController();
+  DeleteMesasController deleteMesasController = DeleteMesasController();
   List<MesaModel> listMesaModel = [];
 
   void setListMesa(List<MesaModel> listMesa){

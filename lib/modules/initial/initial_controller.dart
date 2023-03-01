@@ -37,7 +37,7 @@ class InitialController extends GetxController{
     int? idEstabelecimento = estabelecimentoId();
 
     do{
-      MesaModel mesaAux = MesaModel(0, totalMesa, idEstabelecimento, true);
+      MesaModel mesaAux = MesaModel(0, totalMesa, idEstabelecimento, true, false.obs);
       listMesa.add(mesaAux);
       totalMesa++;
     }while(totalMesa <= contMesa);
