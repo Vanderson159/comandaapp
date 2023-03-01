@@ -33,7 +33,10 @@ class MesaModel{
   static listToJson(List<MesaModel> list){
     var mesaMap = list.map((e){
       return{
+        "id" : e.id,
         "numero" : e.numero,
+        "estabelecimento_id" : e.estabelecimento_id,
+        "disponivel" : e.disponivel,
       };
     }).toList();
     String mesasString = jsonEncode(mesaMap);

@@ -1,10 +1,14 @@
 import 'package:comandaapp/data/model/mesa_model.dart';
+import 'package:comandaapp/data/provider/mesa_provider.dart';
+import 'package:comandaapp/modules/mesas/listMesas_controller.dart';
 import 'package:comandaapp/modules/mesas/listMesas_view.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 class DeleteMesasController extends GetxController{
 
+  //para acessar o token salvo no storage
+  ListMesaController listMesaController = ListMesaController();
+  MesaApiClient mesaApiClient = MesaApiClient();
   final listaMesas = <MesaModel>[].obs;
   bool tagMarcados = false;
 
@@ -56,26 +60,27 @@ class DeleteMesasController extends GetxController{
     }
   }
 
-
-
-
-
-  //TODO: preciso que essa func retorne uma List<MesaModel> contendo as mesas que devem ser deletadas, vou precisar ter acesso ao id delas para poder deletar na api
-  //TODO: tem que ser uma lista List<MesaModel> também para usar os parses para json que ja tem nas models
-  List<dynamic>? toListDelete(BuildContext context, bool isAllCheck){
-    List<MesaModel> deleteList = [];
-    mesalist.where((element) {
-      if(isAllCheck == true){
-        deleteList = mesalist;
+  rXListToList(){
+    List<MesaModel> listMesa = [];
+    for(int i = 0; i < listaMesas.length; i++){
+      var mesaModel = MesaModel(listaMesas[i].id, listaMesas[i].numero, listaMesas[i].estabelecimento_id, listaMesas[i].disponivel, listaMesas[i].isCheck);
+      if(mesaModel.isCheck == true){
+        listMesa.add(mesaModel);
       }
-      else if(element.isCheck == true){ //TODO: Quando seleciona todas não funciona
-        deleteList.add(element);
-      }
-      return true;
-    }).toList();
-
-    return deleteList;
+    }
+    return listMesa;
   }
 
-
+  deletarMesas(){
+    mesaApiClient.deletarMesas(rXListToList(), listMesaController.tokenAccess()).then((value) => {
+      if(value == 1){
+        print('DELETADO COM SUCESSO'),
+        Get.offAllNamed('/listMesas'),
+      }else{
+        if(value == 0){
+          print('ERRO AO DELETAR')
+        }
+      }
+    });
+  }
 }

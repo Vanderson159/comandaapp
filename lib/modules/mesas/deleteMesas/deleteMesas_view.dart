@@ -82,8 +82,7 @@ class DeleteMesasView extends GetView<DeleteMesasController>{
                               ),
                             ),
                             onPressed: (){
-                              print(controller.toListDelete(context, isAllCheck.value));//retorna a lista com as mesas marcadas
-                              Get.back();
+                              controller.deletarMesas();
                             },
                             child: const Text('Sim'),
                           ),//sim
@@ -96,7 +95,9 @@ class DeleteMesasView extends GetView<DeleteMesasController>{
                                 ),
                               ),
                             ),
-                            onPressed: ()=>Get.back(),
+                            onPressed: (){
+                              Get.back();
+                            },
                             child: const Text('Não'),
                           ),
                         ],

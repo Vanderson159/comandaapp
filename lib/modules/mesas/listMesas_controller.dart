@@ -17,7 +17,6 @@ class ListMesaController extends GetxController{
   MesaApiClient mesaApiClient = MesaApiClient();
   ComandaApiClient comandaApiClient = ComandaApiClient();
   InitialController initialController = InitialController();
-  DeleteMesasController deleteMesasController = DeleteMesasController();
   List<MesaModel> listMesaModel = [];
 
   void setListMesa(List<MesaModel> listMesa){

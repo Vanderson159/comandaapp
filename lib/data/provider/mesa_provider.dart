@@ -185,6 +185,7 @@ class MesaApiClient{
             "listMesa": MesaModel.listToJson(mesas).toString(),
             "numeroMesas": mesas.length.toString(),
           });
+      print(response.body);
       if (response.statusCode == 200) {
         return 1;
       } else {
