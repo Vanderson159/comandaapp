@@ -189,10 +189,6 @@ class ListMesaView extends GetView<ListMesaController> {
     );
   }
 
-  void selectBoxes(RxBool select){
-    controller.checkBoxes.value = select.value;
-  }
-
 }
 
 class MesaItem extends GetView<ListMesaController> {

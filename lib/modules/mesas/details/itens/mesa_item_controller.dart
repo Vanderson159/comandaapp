@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 class MesaItemController extends GetxController{
 
   TextEditingController contadorController = TextEditingController();
-  RxInt qtd = 00.obs;
+  RxInt qtd = 01.obs;
 
   void incrementar(){
     qtd.value++;

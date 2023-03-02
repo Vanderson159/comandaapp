@@ -26,7 +26,6 @@ class ListMesaItem extends GetView<MesaItemController>{
         trailing: Wrap(
           crossAxisAlignment: WrapCrossAlignment.center,
           children: [
-
               Container(
                 decoration: BoxDecoration(
                   border: Border.all(

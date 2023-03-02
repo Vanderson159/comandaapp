@@ -19,14 +19,14 @@ class DeleteMesasController extends GetxController{
     super.onInit();
   }
 
-  gerarLista(){
+  gerarLista(){ //Percorre a primeira lista de mesas e adiciona os itens na nova lista observável
     for(int i = 0; i < mesalist.length; i++){
       final mesa = MesaModel(mesalist[i].id, mesalist[i].numero, mesalist[i].estabelecimento_id, mesalist[i].disponivel, false.obs);
       listaMesas.add(mesa);
     }
   }
 
-  selectAll(){
+  selectAll(){ //Atualiza a lista obs para marcar ou desmarcar todos os checkbox
     if(tagMarcados == false){
       for(int i = 0; i < listaMesas.length; i++){
         final mesa = MesaModel(listaMesas[i].id, listaMesas[i].numero, listaMesas[i].estabelecimento_id, listaMesas[i].disponivel, true.obs);
@@ -80,7 +80,8 @@ class DeleteMesasController extends GetxController{
         loadingDelete.value = false,
         print('DELETADO COM SUCESSO'),
         Get.offAllNamed('/listMesas'),
-      }else{
+      }
+      else{
         if(value == 0){
           loadingDelete.value = false,
           print('ERRO AO DELETAR')

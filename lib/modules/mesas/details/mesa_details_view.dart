@@ -19,7 +19,41 @@ class MesaDetails extends GetView<MesaDetailsController> {
           backgroundColor: Colors.white,
           leading: GestureDetector(
             onTap: () {
-              Get.offNamed('/listMesas');
+              if (itensPedido.length > 0) {
+                //TODO: Mostrar dialog de atenção
+
+                showDialog(context: context, builder: (contextDialog){
+                  return AlertDialog(
+                    shape:  const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(20),
+                      ),
+                    ),
+                    title: const Text('Atenção!'),
+                    content: Text('Foram feitas alterações no pedido. Selecione Encerrar Pedido para confirmar.'),
+                    actions: [
+                      ElevatedButton(
+                        style: ButtonStyle(
+                          shape: MaterialStateProperty.all<
+                              RoundedRectangleBorder>(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                          ),
+                        ),
+                        onPressed: ()=>Get.back(),
+                        child: const Text('Ok'),
+                      ),//sim
+
+                    ],
+                  );
+                });
+
+
+
+              } else {
+                Get.offNamed('/listMesas');
+              }
             },
             child: const Icon(
               Icons.arrow_back_sharp,
@@ -36,7 +70,8 @@ class MesaDetails extends GetView<MesaDetailsController> {
           builder: (_) {
             return Center(
               child: Padding(
-                padding: const EdgeInsets.only(left: 25, right: 25, top: 0, bottom: 10),
+                padding: const EdgeInsets.only(
+                    left: 25, right: 25, top: 0, bottom: 10),
                 child: Column(
                   children: [
                     Padding(
@@ -85,7 +120,8 @@ class MesaDetails extends GetView<MesaDetailsController> {
                                                 child: Form(
                                                   key: _.formKeyDetail,
                                                   child: TextFormField(
-                                                    decoration: InputDecoration(
+                                                    decoration:
+                                                        InputDecoration(
                                                       border:
                                                           OutlineInputBorder(
                                                         borderRadius:
@@ -97,8 +133,7 @@ class MesaDetails extends GetView<MesaDetailsController> {
                                                       fillColor: Colors.grey
                                                           .shade400, //<-- SEE HERE
                                                     ),
-                                                    controller:
-                                                        _.itemPedido,
+                                                    controller: _.itemPedido,
                                                   ),
                                                 ),
                                               ),
@@ -110,15 +145,27 @@ class MesaDetails extends GetView<MesaDetailsController> {
                                                   top: 15),
                                               child: ElevatedButton(
                                                 onPressed: () {
-                                                   ListMesaItem mesaItem = ListMesaItem(_.itemPedido.text);
-                                                   itensPedido.add(mesaItem);
-                                                   Get.offAll(MesaDetails(mesaModel: mesaModel,));
+                                                  ListMesaItem mesaItem =
+                                                      ListMesaItem(
+                                                          _.itemPedido.text);
+                                                  itensPedido.add(mesaItem);
+                                                  Get.offAll(MesaDetails(
+                                                    mesaModel: mesaModel,
+                                                  ));
                                                 },
                                                 style: ButtonStyle(
-                                                  backgroundColor: MaterialStatePropertyAll(Colors.grey.shade400),
-                                                  shape: MaterialStatePropertyAll(RoundedRectangleBorder(
-                                                    borderRadius: BorderRadius.circular(12),
-                                                    ),),
+                                                  backgroundColor:
+                                                      MaterialStatePropertyAll(
+                                                          Colors
+                                                              .grey.shade400),
+                                                  shape:
+                                                      MaterialStatePropertyAll(
+                                                    RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius
+                                                              .circular(12),
+                                                    ),
+                                                  ),
                                                 ),
                                                 child: const Text(
                                                   'Adicionar',
@@ -180,7 +227,8 @@ class MesaDetails extends GetView<MesaDetailsController> {
                             width: 150,
                             child: ElevatedButton(
                               style: ButtonStyle(
-                                backgroundColor: const MaterialStatePropertyAll(
+                                backgroundColor:
+                                    const MaterialStatePropertyAll(
                                   Colors.black,
                                 ),
                                 shape: MaterialStatePropertyAll(
@@ -198,7 +246,8 @@ class MesaDetails extends GetView<MesaDetailsController> {
                             width: 150,
                             child: ElevatedButton(
                               style: ButtonStyle(
-                                backgroundColor: const MaterialStatePropertyAll(
+                                backgroundColor:
+                                    const MaterialStatePropertyAll(
                                   Colors.black,
                                 ),
                                 shape: MaterialStatePropertyAll(
@@ -239,10 +288,8 @@ class MesaDetails extends GetView<MesaDetailsController> {
         },
         itemCount: itensPedido.length,
       );
-    }
-    else {
+    } else {
       return null;
     }
   }
-
 }
