@@ -2,7 +2,6 @@ import 'package:comandaapp/data/model/mesa_model.dart';
 import 'package:comandaapp/modules/initial/initial_view.dart';
 import 'package:comandaapp/modules/mesas/addMesas/addMesas_view.dart';
 import 'package:comandaapp/modules/mesas/deleteMesas/deleteMesas_view.dart';
-import 'package:comandaapp/modules/mesas/details/mesa_details_view.dart';
 import 'package:comandaapp/modules/mesas/listMesas_controller.dart';
 import 'package:comandaapp/modules/mesas/searchMesas/custom_search.dart';
 import 'package:flutter/material.dart';
@@ -233,54 +232,48 @@ class MesaItem extends GetView<ListMesaController> {
                 ),
                 child: ListTile(
                   onTap: () {
-                    if(mesaModel.disponivel == true){
-                      showDialog(context: context, builder: (contextDialog){
-                        return AlertDialog(
-                          shape:  const RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(20),
-                            ),
+                    showDialog(context: context, builder: (contextDialog){
+                      return AlertDialog(
+                        shape:  const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(20),
                           ),
-                          title: const Text('Abrir nova comanda'),
-                          content: Text('Deseja abrir uma nova comanda na ${titulo()}?'),
-                          actions: [
-                            ElevatedButton(
-                              style: ButtonStyle(
-                                shape: MaterialStateProperty.all<
-                                    RoundedRectangleBorder>(
-                                  RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(20),
-                                  ),
+                        ),
+                        title: const Text('Abrir nova comanda'),
+                        content: Text('Deseja abrir uma nova comanda na ${titulo()}?'),
+                        actions: [
+                          ElevatedButton(
+                            style: ButtonStyle(
+                              shape: MaterialStateProperty.all<
+                                  RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20),
                                 ),
                               ),
-                              onPressed: (){
-                                showDialog(barrierDismissible: false, context: context, builder: (contextDialog){
-                                  return Obx(() => Visibility(visible: controller.loadingComanda.value, child: Center(child: Container(height: 20, width: 20, child: CircularProgressIndicator(),),),),);
-                                });
-                                controller.abrirComanda(mesaModel);
-                              },
-                              child: const Text('Sim'),
-                            ),//sim
-                            ElevatedButton(
-                              style: ButtonStyle(
-                                shape: MaterialStateProperty.all<
-                                    RoundedRectangleBorder>(
-                                  RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(20),
-                                  ),
-                                ),
-                              ),
-                              onPressed: ()=>Get.back(),
-                              child: const Text('Não'),
                             ),
-                          ],
-                        );
-                      });
-                    }else{
-                      Get.to(MesaDetails(
-                        mesaModel: mesaModel,
-                      ),);
-                    }
+                            onPressed: (){
+                              showDialog(barrierDismissible: false, context: context, builder: (contextDialog){
+                                return Obx(() => Visibility(visible: controller.loadingComanda.value, child: Center(child: Container(height: 20, width: 20, child: CircularProgressIndicator(),),),),);
+                              });
+                              controller.abrirComanda(mesaModel);
+                            },
+                            child: const Text('Sim'),
+                          ),//sim
+                          ElevatedButton(
+                            style: ButtonStyle(
+                              shape: MaterialStateProperty.all<
+                                  RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                              ),
+                            ),
+                            onPressed: ()=>Get.back(),
+                            child: const Text('Não'),
+                          ),
+                        ],
+                      );
+                    });
                   },
                   leading: Image(
                     width: 50,

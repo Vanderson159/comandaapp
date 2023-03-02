@@ -33,7 +33,8 @@ class DeleteMesasController extends GetxController{
         listaMesas[i] = mesa;
       }
       tagMarcados = true;
-    }else{
+    }
+    else{
       if(tagMarcados = true){
         for(int i = 0; i < listaMesas.length; i++){
           final mesa = MesaModel(listaMesas[i].id, listaMesas[i].numero, listaMesas[i].estabelecimento_id, listaMesas[i].disponivel, false.obs);
@@ -44,22 +45,22 @@ class DeleteMesasController extends GetxController{
     }
   }
 
-  selectCheckBox(int id){
-    for(int i = 0; i < listaMesas.length; i++){
-      if(listaMesas[i].id == id){
-        var checkBox = listaMesas[i].isCheck;
-        if(checkBox == true.obs){
-          checkBox == false.obs;
-        }else{
-          if(checkBox == false.obs){
-            checkBox == true.obs;
-          }
-        }
-        final mesa = MesaModel(listaMesas[i].id, listaMesas[i].numero, listaMesas[i].estabelecimento_id, listaMesas[i].disponivel, checkBox);
-        listaMesas[i] = mesa;
-      }
-    }
-  }
+  // selectCheckBox(int id){
+  //   for(int i = 0; i < listaMesas.length; i++){
+  //     if(listaMesas[i].id == id){
+  //       var checkBox = listaMesas[i].isCheck;
+  //       if(checkBox == true.obs){
+  //         checkBox == false.obs;
+  //       }else{
+  //         if(checkBox == false.obs){
+  //           checkBox == true.obs;
+  //         }
+  //       }
+  //       final mesa = MesaModel(listaMesas[i].id, listaMesas[i].numero, listaMesas[i].estabelecimento_id, listaMesas[i].disponivel, checkBox);
+  //       listaMesas[i] = mesa;
+  //     }
+  //   }
+  // }
 
   rXListToList(){
     List<MesaModel> listMesa = [];
