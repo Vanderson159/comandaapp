@@ -82,6 +82,9 @@ class DeleteMesasView extends GetView<DeleteMesasController>{
                               ),
                             ),
                             onPressed: (){
+                              showDialog(barrierDismissible: false, context: context, builder: (contextDialog){
+                                return Obx(() => Visibility(visible: controller.loadingDelete.value, child: Center(child: Container(height: 20, width: 20, child: CircularProgressIndicator(),),),),);
+                              });
                               controller.deletarMesas();
                             },
                             child: const Text('Sim'),

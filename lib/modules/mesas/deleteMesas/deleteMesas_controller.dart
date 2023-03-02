@@ -11,6 +11,7 @@ class DeleteMesasController extends GetxController{
   MesaApiClient mesaApiClient = MesaApiClient();
   final listaMesas = <MesaModel>[].obs;
   bool tagMarcados = false;
+  RxBool loadingDelete = false.obs;
 
   @override
   void onInit(){
@@ -72,12 +73,15 @@ class DeleteMesasController extends GetxController{
   }
 
   deletarMesas(){
+    loadingDelete.value = true;
     mesaApiClient.deletarMesas(rXListToList(), listMesaController.tokenAccess()).then((value) => {
       if(value == 1){
+        loadingDelete.value = false,
         print('DELETADO COM SUCESSO'),
         Get.offAllNamed('/listMesas'),
       }else{
         if(value == 0){
+          loadingDelete.value = false,
           print('ERRO AO DELETAR')
         }
       }
