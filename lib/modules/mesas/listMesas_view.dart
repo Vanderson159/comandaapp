@@ -232,6 +232,7 @@ class MesaItem extends GetView<ListMesaController> {
                 ),
                 child: ListTile(
                   onTap: () {
+                    //TODO: Definir esse clique vazio se estiver na tela de delete
                     showDialog(context: context, builder: (contextDialog){
                       return AlertDialog(
                         shape:  const RoundedRectangleBorder(

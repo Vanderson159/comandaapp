@@ -40,10 +40,15 @@ class DeleteMesasView extends GetView<DeleteMesasController>{
               shrinkWrap: true, //força a lista a se encaixar dentro da coluna
               itemBuilder: (context, index) {
                 final MesaModel mesaModel = controller.listaMesas[index];
-                return MesaItem(mesaModel: mesaModel, index: index, isVisibleCheckBox: isVisible,);
+                return MesaItem(
+                  mesaModel: mesaModel,
+                  index: index,
+                  isVisibleCheckBox: isVisible,
+                );
               },
               itemCount: controller.listaMesas.length, //define tamanho da lista
-            ),),
+            ),
+            ),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 25),

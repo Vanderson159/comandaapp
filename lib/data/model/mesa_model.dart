@@ -22,7 +22,7 @@ class MesaModel{
   }
 
   Map<String, dynamic> toJson(){
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['id'] = this.id;
     data['numero'] = this.numero;
     data['estabelecimento_id'] = this.estabelecimento_id;
