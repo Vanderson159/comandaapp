@@ -144,6 +144,7 @@ class AddMesasView extends GetView<AddMesasController>{
                       });
                 } else {
                   if (controller.enabledFuncBtn.value) {
+                    print("cont mesa na view: ${controller.contMesa}");
                     controller.inserirMesas(controller.contMesa, 1);
                   } else {
                     Get.offAllNamed('/listMesas');
