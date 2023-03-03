@@ -32,18 +32,15 @@ class AddMesasController extends GetxController{
       MesaModel mesaAux = MesaModel(0, totalMesa, idEstabelecimento, true, false.obs);
       listMesa.add(mesaAux);
       totalMesa++;
-      print(mesaAux);
     }while(totalMesa <= contMesa);
 
     mesaApiClient.insertMesas(listMesa, idEstabelecimento!, accesstoken).then((value) => {
       if(existeMesas == 1){
         if(value == 1){
+          contadorController.text = '',
           totalMesa = 1,
           contMesa = 0,
-          print("total mesa = ${totalMesa} cont mesa = ${contMesa}"),
-          print("tamanho da lista: ${listMesa.length}"),
           listMesa.clear(),
-          print("tamanho da lista: ${listMesa.length}"),
           box.write('mesasDisponiveis', listMesa.length),
           loadingSend.value = false,
           enabledFuncBtn.value = true,
@@ -54,7 +51,6 @@ class AddMesasController extends GetxController{
         if(value == 1){
           totalMesa = 1,
           contMesa = 0,
-          print("total mesa = ${totalMesa} cont mesa = ${contMesa}"),
           box.write('mesasDisponiveis', listMesa.length),
           loadingSend.value = false,
           enabledFuncBtn.value = false,

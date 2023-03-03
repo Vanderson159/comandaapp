@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 class AddMesasView extends GetView<AddMesasController>{
   @override
   Widget build(BuildContext context) {
+    controller.contMesa = 0;
     controller.contadorController.text = controller.contMesa.toString();
     return AlertDialog(
       shape: const RoundedRectangleBorder(
@@ -71,6 +72,7 @@ class AddMesasView extends GetView<AddMesasController>{
                           controller.contMesa = int.parse(value);
                           controller.contadorController.text =
                               controller.contMesa.toString();
+
                         },
                       ),
                     ),
@@ -144,7 +146,6 @@ class AddMesasView extends GetView<AddMesasController>{
                       });
                 } else {
                   if (controller.enabledFuncBtn.value) {
-                    print("cont mesa na view: ${controller.contMesa}");
                     controller.inserirMesas(controller.contMesa, 1);
                   } else {
                     Get.offAllNamed('/listMesas');

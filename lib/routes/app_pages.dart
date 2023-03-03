@@ -49,7 +49,7 @@ class AppPages{
     ),
     GetPage(
       name: Routes.MESAITEM,
-      page: ()=> ListMesaItem(''),
+      page: ()=> ListMesaItem('',),
       binding: MesaItemBinding(),
     ),
   ];

@@ -30,7 +30,7 @@ class ListMesaView extends GetView<ListMesaController> {
               backgroundColor: Colors.black,
               animatedIcon: AnimatedIcons.menu_close,
               children: [
-                SpeedDialChild(child: const Icon(Icons.delete), onTap: ()=> Get.to(DeleteMesasView())),
+                SpeedDialChild(child: const Icon(Icons.delete), onTap: ()=> Get.to(()=>DeleteMesasView())),
                 SpeedDialChild(child: const Icon(Icons.add), onTap: () {
                   showDialog(context: context, builder: (contextDialog){
                     return AddMesasView();
@@ -273,9 +273,7 @@ class MesaItem extends GetView<ListMesaController> {
                         );
                       });
                     }else{
-                      Get.to(MesaDetails(
-                        mesaModel: mesaModel,
-                      ),);
+                      Get.to(() => MesaDetails(mesaModel: mesaModel,));
                     }
                   },
                   leading: Image(
