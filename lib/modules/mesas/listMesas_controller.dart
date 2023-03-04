@@ -3,8 +3,8 @@ import 'package:comandaapp/data/model/mesa_model.dart';
 import 'package:comandaapp/data/provider/comanda_provider.dart';
 import 'package:comandaapp/data/provider/mesa_provider.dart';
 import 'package:comandaapp/modules/initial/initial_controller.dart';
-import 'package:comandaapp/modules/mesas/deleteMesas/deleteMesas_controller.dart';
 import 'package:comandaapp/modules/mesas/details/mesa_details_view.dart';
+import 'package:timezone/standalone.dart' as tz;
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
@@ -18,6 +18,12 @@ class ListMesaController extends GetxController{
   ComandaApiClient comandaApiClient = ComandaApiClient();
   InitialController initialController = InitialController();
   List<MesaModel> listMesaModel = [];
+
+  horarioBrasilia(){
+    final brasil = tz.getLocation('America/Sao_Paulo');
+    final localizedDt = tz.TZDateTime.from(DateTime.now(), brasil);
+    return localizedDt;
+  }
 
   void setListMesa(List<MesaModel> listMesa){
     listMesaModel = listMesa;
@@ -40,7 +46,7 @@ class ListMesaController extends GetxController{
 
   abrirComanda(MesaModel mesaModel) async{
     loadingComanda.value = true;
-    comandaApiClient.abrirComanda(mesaModel, tokenAccess()).then((value){
+    comandaApiClient.abrirComanda(mesaModel, tokenAccess(), horarioBrasilia()).then((value){
       if(value == 1){
         mesaApiClient.indisponibilizar(tokenAccess(), mesaModel).then((value){
           if(value == 1){

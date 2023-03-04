@@ -2,10 +2,13 @@ import 'package:comandaapp/routes/app_pages.dart';
 import 'package:comandaapp/routes/app_routes.dart';
 import 'package:comandaapp/theme/app_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:timezone/data/latest.dart' as tz;
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
 void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  tz.initializeTimeZones();
   //scrcpy --tcpip=192.168.1.116:5555
   await GetStorage.init('comandaapp'); // nome  para o storage do app
   runApp(
@@ -15,6 +18,7 @@ void main() async{
         theme: appThemeData,
         initialRoute: Routes.LOGIN,
         getPages: AppPages.routes,
+
         //initialBinding: ,
       )
   );

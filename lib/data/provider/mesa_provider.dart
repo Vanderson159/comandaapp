@@ -102,50 +102,7 @@ class MesaApiClient{
     return json.decode(erro);
   }
 
-  Future<List<MesaModel>> listarMesasOcupadas(String accesstoken) async{
-    String token = '';
-    if (accesstoken.isNotEmpty) {
-      token = accesstoken;
-    }
-    try{
-      var response = await http.get(Uri.parse('${baseUrl}/listMesasOcupadas'),
-          headers: {"Authorization": 'Bearer $token'});
-      if(response.statusCode == 200){
-        List list = json.decode(response.body);
-        List<MesaModel>? mesas = [];
-        for (var i = 0; i < list.length; i++) {
-          MesaModel aux = MesaModel.fromJson(list[i]);
-          if(aux.disponivel == false){
-            mesas.add(MesaModel.fromJson(list[i]));
-          }
-        }
 
-        if (mesas.isEmpty) {
-          Get.defaultDialog(
-              title: "Nenhuma mesa encontrada",
-              content: Text(':('),
-              actions: [
-                ElevatedButton(
-                  onPressed: () => Get.offAllNamed('/initial'),
-                  child: Text('OK'),
-                ),
-              ]);
-        }
-        return mesas;
-      }else{
-        Get.defaultDialog(
-            title: "Erro ao listar mesas",
-            content: Text(
-                "${jsonDecode(response.body)['error']} : Falha ao listar"));
-      }
-    }catch (err){
-      Get.defaultDialog(
-        title: "Erro na listagem das mesas",
-        content: Text("$err"),
-      );
-    }
-    return json.decode(erro);
-  }
 
   Future indisponibilizar(String accesstoken, MesaModel mesaModel) async{
     String token = '';

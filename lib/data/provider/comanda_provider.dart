@@ -7,7 +7,7 @@ class ComandaApiClient{
   final http.Client httpClient = http.Client();
   final box = GetStorage('guardaapp');
 
-  Future abrirComanda(MesaModel mesaModel, String accesstoken) async{
+  Future abrirComanda(MesaModel mesaModel, String accesstoken, var dateTime) async{
     String token = '';
     if (accesstoken.isNotEmpty) {
       token = accesstoken;
@@ -18,7 +18,7 @@ class ComandaApiClient{
         "Authorization": 'Bearer $token'
       }, body: {
         "itens" : "",
-        "inicio_comanda": "",
+        "inicio_comanda": dateTime.toString(),
         "fim_comanda": "",
         "mesa_idmesas": mesaModel.id.toString(),
         "mesa_estabelecimento_id": mesaModel.estabelecimento_id.toString(),
