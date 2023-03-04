@@ -84,6 +84,7 @@ class ListMesaView extends GetView<ListMesaController> {
             ),
             body: TabBarView(
               children: [
+                //guia de mesas ocupadas
                 Center(
                   child: FutureBuilder<List<MesaModel>>(
                     initialData: const [],
@@ -151,6 +152,7 @@ class ListMesaView extends GetView<ListMesaController> {
                     },
                   ),
                 ),
+                //guia de mesas disponiveis
                 Center(
                   child: FutureBuilder<List<MesaModel>>(
                     initialData: const [],
@@ -169,13 +171,33 @@ class ListMesaView extends GetView<ListMesaController> {
                           if (mesalist == null) {
                             return const FailureDialog('Falha ao listar mesas');
                           } else {
-                            return ListView.builder(
-                              itemBuilder: (context, index) {
-                                final MesaModel mesaModel = mesalist[index];
-                                return MesaItem(mesaModel: mesaModel, index: index, isVisibleCheckBox: false,);
-                              },
-                              itemCount: mesalist.length,
-                            );
+                            if(mesalist.isEmpty){
+                              return  Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: const [
+                                  Icon(
+                                    Icons.error_outline,
+                                    size: 150,
+                                  ),
+                                  Text(
+                                    'Atenção',
+                                    style: TextStyle(fontSize: 30),
+                                  ),
+                                  Text(
+                                    'Não há mesa disponíveis',
+                                    style: TextStyle(fontSize: 30),
+                                  ),
+                                ],
+                              );
+                            }else{
+                              return ListView.builder(
+                                itemBuilder: (context, index) {
+                                  final MesaModel mesaModel = mesalist[index];
+                                  return MesaItem(mesaModel: mesaModel, index: index, isVisibleCheckBox: false,);
+                                },
+                                itemCount: mesalist.length,
+                              );
+                            }
                           }
                       }
                       return const Text('Unknown error');
