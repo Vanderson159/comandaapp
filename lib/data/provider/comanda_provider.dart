@@ -1,5 +1,10 @@
+import 'dart:convert';
+
 import 'package:comandaapp/data/base_url.dart';
+import 'package:comandaapp/data/model/item_model.dart';
 import 'package:comandaapp/data/model/mesa_model.dart';
+import 'package:comandaapp/modules/mesas/details/mesa_details_controler.dart';
+import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 
@@ -40,9 +45,6 @@ class ComandaApiClient{
       token = accesstoken;
     }
 
-    print('print do idddddddddd');
-    print(id);
-
     try{
       var response = await http.post(Uri.parse('${baseUrl}/itensToComanda'), headers: {
         "Authorization": 'Bearer $token'
@@ -60,6 +62,30 @@ class ComandaApiClient{
     }catch(err){
       print('ERRO inserir intens comanda');
       return 0;
+    }
+  }
+
+  Future getItensComanda(String accesstoken, int idMesa) async{
+    String token = '';
+    if (accesstoken.isNotEmpty) {
+      token = accesstoken;
+    }
+    try{
+      var response = await http.post(Uri.parse('${baseUrl}/getItensComanda'),
+          headers: {"Authorization": 'Bearer $token'},
+          body: {"id" : idMesa.toString()},
+      );
+      if(response.statusCode == 200){
+        List list = json.decode(response.body);
+        for(int i = 0; i < list.length; i++){
+          int quantidade = list[i]['quantidade'];
+          ItemModel item = ItemModel(list[i]['nome'], quantidade.obs);
+          listItens.add(item);
+        }
+        return 1;
+      }
+    }catch(err){
+      print('ERRo');
     }
   }
 }

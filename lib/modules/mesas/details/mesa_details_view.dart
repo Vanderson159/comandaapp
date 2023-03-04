@@ -11,6 +11,7 @@ class MesaDetails extends GetView<MesaDetailsController> {
 
   @override
   Widget build(BuildContext context) {
+    controller.getItensComanda(mesaModel!.id);
     return MaterialApp(
       home: WillPopScope(
         onWillPop: () async {

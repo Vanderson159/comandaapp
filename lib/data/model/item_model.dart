@@ -7,6 +7,11 @@ class ItemModel{
 
   ItemModel(this.nome, this.quantidade);
 
+  ItemModel.fromJson(Map<String, dynamic> json){
+    nome = json['nomw'];
+    quantidade = json['quantidade'];
+  }
+
   static listToJson(List<ItemModel> list){
     var mesaMap = list.map((e){
       return{
