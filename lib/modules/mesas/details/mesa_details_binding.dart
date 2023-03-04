@@ -7,6 +7,7 @@ class MesaDetailsBinding implements Bindings{
   @override
   void dependencies() {
     Get.lazyPut<MesaDetailsController>(() => MesaDetailsController());
+    Get.lazyPut<MesaDetailsController>(() => MesaDetailsController());
   }
 
 }

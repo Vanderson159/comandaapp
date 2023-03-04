@@ -1,12 +1,14 @@
 import 'dart:convert';
+import 'package:comandaapp/data/model/item_model.dart';
 import 'package:get/get.dart';
 
 class MesaModel{
-  int? id;
+  int id = 0;
   int? numero;
   int? estabelecimento_id;
   bool? disponivel;
   RxBool? isCheck = false.obs;
+  ItemModel itemModel = ItemModel('', 0.obs);
 
   MesaModel(this.id, this.numero, this.estabelecimento_id, this.disponivel, this.isCheck);
 

@@ -1,12 +1,15 @@
+import 'package:comandaapp/data/model/item_model.dart';
 import 'package:comandaapp/modules/mesas/details/itens/mesa_item_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 
 class ListMesaItem extends GetView<MesaItemController>{
-  String titulo;
+  ItemModel itemModel;
+  RxInt qtd = 01.obs;
+  int posicaoNoArray;
 
-  ListMesaItem(this.titulo);
+  ListMesaItem(this.itemModel, this.posicaoNoArray);
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +25,7 @@ class ListMesaItem extends GetView<MesaItemController>{
       ),
       child: ListTile(
         textColor: Colors.white,
-        title: Text(titulo),
+        title: Text(itemModel.nome),
         trailing: Wrap(
           crossAxisAlignment: WrapCrossAlignment.center,
           children: [
@@ -41,8 +44,8 @@ class ListMesaItem extends GetView<MesaItemController>{
                       ()=>
                   Padding(
                     padding: const EdgeInsets.only(top: 2),
-                    child: Text( //TODO: Quando altera a quantidade de um item altera de todos
-                      controller.contadorController.text = controller.qtd.value.toString(),
+                    child: Text( //TODO: Quando altera a quantidade de um item altera de todos -- para resolver isso passei o valor qtd como atributo da class ListMesaItem assim fica separados os valores e náo ocorre esse erro
+                      itemModel.quantidade.value.toString(),
                       textAlign: TextAlign.center,
                       style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
                     ),
@@ -62,7 +65,12 @@ class ListMesaItem extends GetView<MesaItemController>{
                 children: [
                   GestureDetector(
                     onTap: (){
-                      controller.decrementar(context);
+                      if(qtd.value < 2){
+                        controller.removeItem(context, itemModel.nome, posicaoNoArray);
+                      }else{
+                        qtd--;
+                      }
+                      itemModel.quantidade.value = qtd.value;
                     },
                     child: const SizedBox(
                       width: 30,
@@ -76,7 +84,8 @@ class ListMesaItem extends GetView<MesaItemController>{
                   ),
                   GestureDetector(
                     onTap: (){
-                      controller.incrementar();
+                      qtd++;
+                      itemModel.quantidade.value = qtd.value;
                     },
                     child: const SizedBox(
                       width: 30,

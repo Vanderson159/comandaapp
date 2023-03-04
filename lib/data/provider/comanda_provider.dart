@@ -33,4 +33,33 @@ class ComandaApiClient{
       return 0;
     }
   }
+
+  Future inserirItensToComanda(String jsonListItens, String accesstoken, int id ) async{
+    String token = '';
+    if (accesstoken.isNotEmpty) {
+      token = accesstoken;
+    }
+
+    print('print do idddddddddd');
+    print(id);
+
+    try{
+      var response = await http.post(Uri.parse('${baseUrl}/itensToComanda'), headers: {
+        "Authorization": 'Bearer $token'
+      }, body: {
+        "jsonItens" : jsonListItens,
+        "idMesa" : id.toString(),
+      });
+      print(response.body);
+      if (response.statusCode == 200) {
+        print('SUCESSO');
+        return 1;
+      } else {
+        return 0;
+      }
+    }catch(err){
+      print('ERRO inserir intens comanda');
+      return 0;
+    }
+  }
 }

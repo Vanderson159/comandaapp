@@ -1,3 +1,4 @@
+import 'package:comandaapp/data/model/item_model.dart';
 import 'package:comandaapp/modules/initial/initial_binding.dart';
 import 'package:comandaapp/modules/initial/initial_view.dart';
 import 'package:comandaapp/modules/login/login_view.dart';
@@ -49,7 +50,7 @@ class AppPages{
     ),
     GetPage(
       name: Routes.MESAITEM,
-      page: ()=> ListMesaItem('',),
+      page: ()=> ListMesaItem(ItemModel('', 0.obs,), 0),
       binding: MesaItemBinding(),
     ),
   ];

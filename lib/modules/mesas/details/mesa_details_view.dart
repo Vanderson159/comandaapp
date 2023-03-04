@@ -1,10 +1,9 @@
+import 'package:comandaapp/data/model/item_model.dart';
 import 'package:comandaapp/data/model/mesa_model.dart';
 import 'package:comandaapp/modules/mesas/details/itens/mesa_item_view.dart';
 import 'package:comandaapp/modules/mesas/details/mesa_details_controler.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-List<ListMesaItem> itensPedido = [];
 
 class MesaDetails extends GetView<MesaDetailsController> {
   final MesaModel? mesaModel;
@@ -51,7 +50,7 @@ class MesaDetails extends GetView<MesaDetailsController> {
             backgroundColor: Colors.white,
             leading: GestureDetector(
               onTap: () {
-                if (itensPedido.isNotEmpty) {
+                if (listItens.isNotEmpty) {
                   //Mostra dialog de atenção para alterações no pedido
                   showDialog(context: context, builder: (contextDialog){
                     return AlertDialog(  //TODO: Jogar dentro de uma função
@@ -173,10 +172,8 @@ class MesaDetails extends GetView<MesaDetailsController> {
                                                     top: 15),
                                                 child: ElevatedButton(
                                                   onPressed: () {
-                                                    ListMesaItem mesaItem =
-                                                        ListMesaItem(_.itemPedido.text);
-                                                    itensPedido.add(mesaItem);
-                                                    Get.offAll(()=>MesaDetails(mesaModel: mesaModel,));
+                                                    ItemModel item = ItemModel(_.itemPedido.text, 1.obs);
+                                                    _.adicionarItem(item);
                                                   },
                                                   style: ButtonStyle(
                                                     backgroundColor:
@@ -213,12 +210,20 @@ class MesaDetails extends GetView<MesaDetailsController> {
                         ),
                       ),
                       Expanded(
+                        flex: 10,
                         child: Container(
                           decoration: BoxDecoration(
                             color: const Color(0xffebebeb),
                             borderRadius: BorderRadius.circular(12),
                           ),
-                          child: verificaPedidos(),
+                          child: Obx(() => ListView.builder(
+                            shrinkWrap: true, //força a lista a se encaixar dentro da coluna
+                            itemBuilder: (context, index){
+                              final ItemModel item = listItens[index];
+                              return ListMesaItem(item, index); //passo index para indicar a posicao na lista para poder deletar caso ele fica decrementando a quantidade
+                            },
+                            itemCount: listItens.length,
+                          ),),
                         ),
                       ),
                       Padding(
@@ -237,7 +242,9 @@ class MesaDetails extends GetView<MesaDetailsController> {
                                 ),
                               ),
                             ),
-                            onPressed: () {}, //TODO: Adicionar função
+                            onPressed: () {
+                              _.cleanList();
+                            },
                             child: const Text('Apagar todos os itens'),
                           ),
                         ),
@@ -262,7 +269,9 @@ class MesaDetails extends GetView<MesaDetailsController> {
                                     ),
                                   ),
                                 ),
-                                onPressed: () {}, //TODO: Adicionar função
+                                onPressed: () {
+                                  controller.encerrarPedido(mesaModel!.id);
+                                }, //TODO: Adicionar função
                                 child: const Text('Encerrar Pedido'),
                               ),
                             ),
@@ -281,7 +290,9 @@ class MesaDetails extends GetView<MesaDetailsController> {
                                     ),
                                   ),
                                 ),
-                                onPressed: () {}, //TODO: Adicionar função
+                                onPressed: () {
+                                  controller.printarItens();
+                                }, //TODO: Adicionar função
                                 child: const Text('Encerrar Comanda'),
                               ),
                             ),
@@ -297,25 +308,5 @@ class MesaDetails extends GetView<MesaDetailsController> {
         ),
       ),
     );
-  }
-
-  addItemPedido() {}
-
-  verificaPedidos() {
-    //logica so para teste
-    if (itensPedido.isNotEmpty) {
-      return ListView.builder(
-        shrinkWrap: true,
-        itemBuilder: (context, index) {
-          return Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: itensPedido[index],
-          );
-        },
-        itemCount: itensPedido.length,
-      );
-    } else {
-      return null;
-    }
   }
 }
