@@ -2,6 +2,7 @@ import 'package:comandaapp/data/model/mesa_model.dart';
 import 'package:comandaapp/modules/initial/initial_view.dart';
 import 'package:comandaapp/modules/mesas/addMesas/addMesas_view.dart';
 import 'package:comandaapp/modules/mesas/deleteMesas/deleteMesas_view.dart';
+import 'package:comandaapp/modules/mesas/details/mesa_details_controler.dart';
 import 'package:comandaapp/modules/mesas/details/mesa_details_view.dart';
 import 'package:comandaapp/modules/mesas/listMesas_controller.dart';
 import 'package:comandaapp/modules/mesas/searchMesas/custom_search.dart';
@@ -19,6 +20,7 @@ class ListMesaView extends GetView<ListMesaController> {
 
   @override
   Widget build(BuildContext context) {
+    Get.put(MesaDetailsController());
     return DefaultTabController(
       initialIndex: 1,
       length: 2,

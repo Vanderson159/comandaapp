@@ -14,6 +14,11 @@ class ListMesaItem extends GetView<MesaItemController>{
   @override
   Widget build(BuildContext context) {
 
+    //if que verifica se o item possui uma quantidade maior que 1 caso sim ele atualiza o qtd com o valor do item, serve para quando os itens da comanda sao retornados do BD
+    if(itemModel.quantidade.value > 1){
+      qtd.value = itemModel.quantidade.value;
+    }
+
     MesaItemController controller = Get.put(MesaItemController());
 
     return Card(

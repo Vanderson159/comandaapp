@@ -6,8 +6,8 @@ import 'package:get/get.dart';
 class ListMesasBinding implements Bindings{
   @override
   void dependencies() {
+    Get.lazyPut<MesaDetailsController>(() => MesaDetailsController());
     Get.lazyPut<ListMesaController>(() => ListMesaController());
     Get.lazyPut<AddMesasController>(() => AddMesasController());
-    Get.lazyPut<MesaDetailsController>(() => MesaDetailsController());
   }
 }
