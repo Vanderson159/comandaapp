@@ -29,6 +29,16 @@ class LoginController extends GetxController{
 
   Color colorBtn = Colors.grey.shade200;
 
+  @override
+  void onInit(){
+    //somente para desenvolvimento
+    usernameCtrl.text = 'admin';
+    passwordCtrl.text = 'secret';
+    isButtonActive.value = true;
+    //somente para desenvolvimento
+    super.onInit();
+  }
+
   void login() async{
     if(formKey.currentState!.validate()){
       loading.value = true;
