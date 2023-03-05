@@ -19,6 +19,13 @@ class ListMesaController extends GetxController{
   InitialController initialController = InitialController();
   List<MesaModel> listMesaModel = [];
 
+
+  @override
+  void onInit(){
+    mesasDisponiveis.clear(); //isso impede de duplicar na tela de delete mesas e em outros possiveis lugares (a principio)
+    super.onInit();
+  }
+
   horarioBrasilia(){
     final brasil = tz.getLocation('America/Sao_Paulo');
     final localizedDt = tz.TZDateTime.from(DateTime.now(), brasil);
