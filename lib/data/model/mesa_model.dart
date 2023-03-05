@@ -8,7 +8,7 @@ class MesaModel{
   int? estabelecimento_id;
   bool? disponivel;
   RxBool? isCheck = false.obs;
-  ItemModel itemModel = ItemModel('', 0.obs);
+  ItemModel itemModel = ItemModel('', 0.obs, 0);
 
   MesaModel(this.id, this.numero, this.estabelecimento_id, this.disponivel, this.isCheck);
 

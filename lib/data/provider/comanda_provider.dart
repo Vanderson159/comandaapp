@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:comandaapp/data/base_url.dart';
 import 'package:comandaapp/data/model/item_model.dart';
 import 'package:comandaapp/data/model/mesa_model.dart';
@@ -39,7 +38,7 @@ class ComandaApiClient{
     }
   }
 
-  Future inserirItensToComanda(String jsonListItens, String accesstoken, int id ) async{
+  Future inserirItensToComanda(String jsonListItens, String accesstoken, int id) async{
     String token = '';
     if (accesstoken.isNotEmpty) {
       token = accesstoken;
@@ -79,7 +78,7 @@ class ComandaApiClient{
         List list = json.decode(response.body);
         for(int i = 0; i < list.length; i++){
           int quantidade = list[i]['quantidade'];
-          ItemModel item = ItemModel(list[i]['nome'], quantidade.obs);
+          ItemModel item = ItemModel(list[i]['nome'], quantidade.obs, 0);
           listItens.add(item);
         }
         return 1;

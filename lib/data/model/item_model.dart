@@ -4,13 +4,9 @@ import 'package:get/get.dart';
 class ItemModel{
   String nome = '';
   RxInt quantidade = 01.obs;
+  int idMesa;
 
-  ItemModel(this.nome, this.quantidade);
-
-  ItemModel.fromJson(Map<String, dynamic> json){
-    nome = json['nomw'];
-    quantidade = json['quantidade'];
-  }
+  ItemModel(this.nome, this.quantidade, this.idMesa);
 
   static listToJson(List<ItemModel> list){
     var mesaMap = list.map((e){

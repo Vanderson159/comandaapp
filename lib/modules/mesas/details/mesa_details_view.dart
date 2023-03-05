@@ -102,7 +102,7 @@ class MesaDetails extends GetView<MesaDetailsController> {
                                                 top: 15),
                                             child: ElevatedButton(
                                               onPressed: () {
-                                                ItemModel item = ItemModel(_.itemPedido.text, 1.obs);
+                                                ItemModel item = ItemModel(_.itemPedido.text, 1.obs, 0);
                                                 _.adicionarItem(item);
                                               },
                                               style: ButtonStyle(
@@ -150,6 +150,7 @@ class MesaDetails extends GetView<MesaDetailsController> {
                         shrinkWrap: true, //força a lista a se encaixar dentro da coluna
                         itemBuilder: (context, index){
                           final ItemModel item = listItens[index];
+                          item.idMesa = mesaModel!.id;
                           return ListMesaItem(item, index); //passo index para indicar a posicao na lista para poder deletar caso ele fica decrementando a quantidade
                         },
                         itemCount: listItens.length,
