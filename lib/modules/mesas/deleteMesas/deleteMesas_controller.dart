@@ -1,13 +1,11 @@
 import 'package:comandaapp/data/model/mesa_model.dart';
 import 'package:comandaapp/data/provider/mesa_provider.dart';
 import 'package:comandaapp/modules/mesas/listMesas_controller.dart';
-import 'package:comandaapp/modules/mesas/listMesas_view.dart';
 import 'package:get/get.dart';
 
 class DeleteMesasController extends GetxController{
 
-  //para acessar o token salvo no storage
-  ListMesaController listMesaController = ListMesaController();
+  ListMesaController listMesaController = ListMesaController();//para acessar o token salvo no storage
   MesaApiClient mesaApiClient = MesaApiClient();
   final listaMesas = <MesaModel>[].obs;
   bool tagMarcados = false;
@@ -20,10 +18,12 @@ class DeleteMesasController extends GetxController{
   }
 
   gerarLista(){ //Percorre a primeira lista de mesas e adiciona os itens na nova lista observável
-    for(int i = 0; i < mesalist.length; i++){
-      final mesa = MesaModel(mesalist[i].id, mesalist[i].numero, mesalist[i].estabelecimento_id, mesalist[i].disponivel, false.obs);
+    listMesaController.buscarMesas();
+    for(int i = 0; i < mesasDisponiveis.length; i++){
+      final mesa = MesaModel(mesasDisponiveis[i].id, mesasDisponiveis[i].numero, mesasDisponiveis[i].estabelecimento_id, mesasDisponiveis[i].disponivel, false.obs);
       listaMesas.add(mesa);
     }
+    mesasDisponiveis.clear();// limpar essa list senao duplica quando for chamada dnv
   }
 
   selectAll(){ //Atualiza a lista obs para marcar ou desmarcar todos os checkbox
@@ -45,23 +45,6 @@ class DeleteMesasController extends GetxController{
     }
   }
 
-  // selectCheckBox(int id){
-  //   for(int i = 0; i < listaMesas.length; i++){
-  //     if(listaMesas[i].id == id){
-  //       var checkBox = listaMesas[i].isCheck;
-  //       if(checkBox == true.obs){
-  //         checkBox == false.obs;
-  //       }else{
-  //         if(checkBox == false.obs){
-  //           checkBox == true.obs;
-  //         }
-  //       }
-  //       final mesa = MesaModel(listaMesas[i].id, listaMesas[i].numero, listaMesas[i].estabelecimento_id, listaMesas[i].disponivel, checkBox);
-  //       listaMesas[i] = mesa;
-  //     }
-  //   }
-  // }
-
   rXListToList(){
     List<MesaModel> listMesa = [];
     for(int i = 0; i < listaMesas.length; i++){
@@ -78,8 +61,8 @@ class DeleteMesasController extends GetxController{
     mesaApiClient.deletarMesas(rXListToList(), listMesaController.tokenAccess()).then((value) => {
       if(value == 1){
         loadingDelete.value = false,
-        print('DELETADO COM SUCESSO'),
         Get.offAllNamed('/listMesas'),
+        mesasDisponiveis.clear(), // limpar essa list senao duplica quando for chamada dnv
       }
       else{
         if(value == 0){

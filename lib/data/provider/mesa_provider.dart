@@ -6,6 +6,8 @@ import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:comandaapp/data/base_url.dart';
 
+List<MesaModel> mesasDisponiveis = [];
+
 class MesaApiClient{
   final http.Client httpClient = http.Client();
   final box = GetStorage('guardaapp');
@@ -77,6 +79,7 @@ class MesaApiClient{
           if(ocupada == 0){
             if(aux.disponivel == true){
               mesas.add(MesaModel.fromJson(list[i]));
+              mesasDisponiveis.add(MesaModel.fromJson(list[i]));
             }
           }
           if(ocupada == 1){
