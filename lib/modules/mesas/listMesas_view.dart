@@ -220,9 +220,11 @@ class MesaItem extends GetView<ListMesaController> {
   final MesaModel mesaModel;
   final index;
   final isVisibleCheckBox;
+  bool? abrirComandaFunc = true; // atributo para definir quando o MesaItem deve abrir a janela de comanda e quando nao
+  bool? toComanda = true; // atributo para definir quando o MesaItem deve levar direto para a chenela da comanda (como ocorre com as mesas ocupadas)
 
 
-  MesaItem({required this.mesaModel, this.index, required this.isVisibleCheckBox,});
+  MesaItem({required this.mesaModel, this.index, required this.isVisibleCheckBox, this.abrirComandaFunc, this.toComanda});
 
   String titulo() {
     String aux = mesaModel.numero.toString();
@@ -253,7 +255,7 @@ class MesaItem extends GetView<ListMesaController> {
                 ),
                 child: ListTile(
                   onTap: () {
-                    if(mesaModel.disponivel == true){
+                    if(mesaModel.disponivel == true && abrirComandaFunc == true){
                       showDialog(context: context, builder: (contextDialog){
                         return AlertDialog(
                           shape:  const RoundedRectangleBorder(
@@ -297,7 +299,9 @@ class MesaItem extends GetView<ListMesaController> {
                         );
                       });
                     }else{
-                      Get.to(() => MesaDetails(mesaModel: mesaModel,));
+                      if(toComanda == true){
+                        Get.to(() => MesaDetails(mesaModel: mesaModel,));
+                      }
                     }
                   },
                   leading: Image(

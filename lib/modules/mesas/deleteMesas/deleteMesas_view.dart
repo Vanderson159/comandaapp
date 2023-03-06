@@ -44,6 +44,8 @@ class DeleteMesasView extends GetView<DeleteMesasController>{
                   mesaModel: mesaModel,
                   index: index,
                   isVisibleCheckBox: isVisible,
+                  abrirComandaFunc: false,
+                  toComanda: false,
                 );
               },
               itemCount: controller.listaMesas.length, //define tamanho da lista
