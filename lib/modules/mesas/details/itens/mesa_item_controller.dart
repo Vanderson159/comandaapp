@@ -25,8 +25,8 @@ class MesaItemController extends GetxController{
           ),
         ),
         //TODO: Não ta pegando o estilo do app
-        title: const Text('AVISO'),
-        content: Text('Tem certeza que deseja remover o ultimo item de ${itemModel.nome}'),
+        title: const Text('Deletar Item!', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20), textAlign: TextAlign.center,),
+        content: Text('Tem certeza que deseja remover o ultimo item de ${itemModel.nome}', style: const TextStyle(fontSize: 16),),
         actions: [
           ElevatedButton(
             style: ButtonStyle(
