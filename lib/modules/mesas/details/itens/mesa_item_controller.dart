@@ -39,7 +39,7 @@ class MesaItemController extends GetxController{
             ),
             onPressed: (){
               listItens.removeAt(posicaoArray);//removendo pela posicao no array
-              mesaDetailsController.encerrarPedido(itemModel.idMesa);
+              mesaDetailsController.encerrarPedido(itemModel.idMesa, context);
               Get.back();
             },
             child: const Text('Sim'),

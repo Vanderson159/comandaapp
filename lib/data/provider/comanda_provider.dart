@@ -59,7 +59,6 @@ class ComandaApiClient{
         return 0;
       }
     }catch(err){
-      print('ERRO inserir intens comanda');
       return 0;
     }
   }

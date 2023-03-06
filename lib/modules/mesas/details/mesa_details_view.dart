@@ -35,6 +35,7 @@ class MesaDetails extends GetView<MesaDetailsController> {
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 10),
                     child: Row(
+                      //TODO verificar se o mainAxisAlignment: MainAxisAlignment.spaceBetween não fica melhor, pedir opinão dos guri
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         const Text(
@@ -201,8 +202,11 @@ class MesaDetails extends GetView<MesaDetailsController> {
                               ),
                             ),
                             onPressed: () {
-                              controller.encerrarPedido(mesaModel!.id);
-                            }, //TODO: Adicionar função
+                              showDialog(barrierDismissible: false, context: context, builder: (contextDialog){
+                                return Obx(() => Visibility(visible: controller.loadingEncerrarPedido.value, child: Center(child: Container(height: 20, width: 20, child: CircularProgressIndicator(),),),),);
+                              });
+                              controller.encerrarPedido(mesaModel!.id, context);
+                            },
                             child: const Text('Encerrar Pedido'),
                           ),
                         ),
