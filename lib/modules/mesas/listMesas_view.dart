@@ -127,7 +127,7 @@ class ListMesaView extends GetView<ListMesaController> {
                               return ListView.builder(
                                 itemBuilder: (context, index) {
                                   final MesaModel mesaModel = mesalist[index];
-                                  return MesaItem(mesaModel: mesaModel, index: index, isVisibleCheckBox: false,);
+                                  return MesaItem(mesaModel: mesaModel, index: index, isVisibleCheckBox: false, toComanda: true,);
                                 },
                                 itemCount: mesalist.length,
                               );
@@ -195,7 +195,7 @@ class ListMesaView extends GetView<ListMesaController> {
                               return ListView.builder(
                                 itemBuilder: (context, index) {
                                   final MesaModel mesaModel = mesalist[index];
-                                  return MesaItem(mesaModel: mesaModel, index: index, isVisibleCheckBox: false,);
+                                  return MesaItem(mesaModel: mesaModel, index: index, isVisibleCheckBox: false, abrirComandaFunc: true,);
                                 },
                                 itemCount: mesalist.length,
                               );
