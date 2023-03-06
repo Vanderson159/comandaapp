@@ -16,7 +16,7 @@ class AddMesasView extends GetView<AddMesasController>{
           Radius.circular(10),
         ),
       ),
-      title: const Text('Mesas'),
+      title: const Text('Mesas', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),),
       content: SizedBox(
         height: 110,
         child: Column(
