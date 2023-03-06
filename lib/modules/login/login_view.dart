@@ -181,25 +181,34 @@ class LoginView extends GetView<LoginController> {
                   ),
 
                   Obx(
-                    () => Visibility(
+                        () => Visibility(
                       visible: controller.loading.value,
-                      child: Container(
-                        margin: const EdgeInsets.symmetric(vertical: 10),
-                        width: Get.width * 0.8,
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(29),
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                              vertical: 20,
-                              horizontal: 40,
-                            ),
-                            child: ElevatedButton(
-                              onPressed: null,
-                              child: CircularProgressIndicator(
-                                color: Colors.blue.shade800,
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 20.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Expanded(
+                              child: SizedBox(
+                                height: 50,
+                                child: ElevatedButton(
+                                  style: ButtonStyle(
+                                    backgroundColor: MaterialStatePropertyAll(
+                                        controller.isButtonActive == true
+                                            ? Colors.black
+                                            : Colors.grey.shade200),
+                                    shape: MaterialStatePropertyAll(
+                                      RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(12),
+                                      ),
+                                    ),
+                                  ),
+                                  onPressed: () => null,
+                                  child: CircularProgressIndicator(),
+                                ),
                               ),
                             ),
-                          ),
+                          ],
                         ),
                       ),
                     ),
