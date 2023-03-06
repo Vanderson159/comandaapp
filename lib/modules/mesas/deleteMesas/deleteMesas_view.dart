@@ -76,8 +76,8 @@ class DeleteMesasView extends GetView<DeleteMesasController>{
                             Radius.circular(20),
                           ),
                         ),
-                        title: const Text('Deletar mesas'),
-                        content: const Text('Tem certeza que deseja deletar as mesas selecionadas?'),
+                        title: const Text('Deletar mesas!', textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
+                        content: const Text('Tem certeza que deseja deletar as mesas selecionadas?', style: TextStyle(fontSize: 16),),
                         actions: [
                           ElevatedButton(
                             style: ButtonStyle(
