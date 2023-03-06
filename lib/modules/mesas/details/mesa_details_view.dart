@@ -222,7 +222,7 @@ class MesaDetails extends GetView<MesaDetailsController> {
                               ),
                             ),
                             onPressed: () {
-                              listItens.clear();
+                              //listItens.clear();
                             }, //TODO: Adicionar função
                             child: const Text('Encerrar Comanda'),
                           ),

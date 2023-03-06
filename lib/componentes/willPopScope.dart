@@ -42,7 +42,7 @@ class _WillPopScopeViewState extends State<WillPopScopeView> {
                     ),
                   ),
                   onPressed: (){
-                    listItens.clear();
+                    listItens.clear(); // limpa a lista para nao duplicar os itens quando acessar a mesa novamente
                     Get.offAllNamed('/listMesas');
                   },
                   child: const Text('SIM'),
