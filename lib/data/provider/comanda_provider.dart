@@ -86,4 +86,28 @@ class ComandaApiClient{
       print('ERRo');
     }
   }
+
+  Future fecharComanda(String accesstoken, int idMesa, String fim_comanda) async{
+    String token = '';
+    if (accesstoken.isNotEmpty) {
+      token = accesstoken;
+    }
+
+    try{
+      var response = await http.post(Uri.parse('${baseUrl}/encerrarComanda'),
+          headers: {
+            "Authorization": 'Bearer $token'
+          }, body: {
+            "id" : idMesa.toString(),
+            "fim_comanda" : fim_comanda.toString(),
+          });
+      if (response.statusCode == 200) {
+        return 1;
+      } else {
+        return 0;
+      }
+    }catch(err){
+      return 0;
+    }
+  }
 }

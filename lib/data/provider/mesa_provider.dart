@@ -105,8 +105,6 @@ class MesaApiClient{
     return json.decode(erro);
   }
 
-
-
   Future indisponibilizar(String accesstoken, MesaModel mesaModel) async{
     String token = '';
     if (accesstoken.isNotEmpty) {

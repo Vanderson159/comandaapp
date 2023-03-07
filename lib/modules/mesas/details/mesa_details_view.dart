@@ -226,8 +226,11 @@ class MesaDetails extends GetView<MesaDetailsController> {
                               ),
                             ),
                             onPressed: () {
-                              //listItens.clear();
-                            }, //TODO: Adicionar função
+                              showDialog(barrierDismissible: false, context: context, builder: (contextDialog){
+                                return Obx(() => Visibility(visible: controller.loadingEncerrarComanda.value, child: Center(child: Container(height: 20, width: 20, child: CircularProgressIndicator(),),),),);
+                              });
+                              controller.encerrarComanda(mesaModel!.id, context);
+                            },
                             child: const Text('Encerrar Comanda'),
                           ),
                         ),

@@ -17,6 +17,7 @@ class MesaDetailsController extends GetxController {
   RxBool attWidget = false.obs;
   RxBool listaVazia = true.obs;
   RxBool loadingEncerrarPedido = false.obs;
+  RxBool loadingEncerrarComanda = false.obs;
 
   void getItensComanda(int idMesa) {
     comandaApiClient.getItensComanda(listMesaController.tokenAccess(), idMesa);
@@ -81,6 +82,59 @@ class MesaDetailsController extends GetxController {
               ),
               title: const Text('Erro ao encerrar pedido :(', style: TextStyle(fontWeight: FontWeight.bold),),
               content: const Text('Ocorreu algum problema ao tentar encerrar seu pedido, seus itens não foram salvos. Por favor tente novamente!'),
+              actions: [
+                ElevatedButton(
+                  onPressed: ()=> Get.back(),
+                  child: Text('OK'),
+                )
+              ],
+            );
+          },
+        );
+      }
+    });
+  }
+
+  void encerrarComanda(int idMesa, BuildContext context){
+    loadingEncerrarComanda.value = true;
+    comandaApiClient.fecharComanda(listMesaController.tokenAccess(), idMesa, listMesaController.horarioBrasilia().toString()).then((value){
+      if(value == 1){
+        listItens.clear();
+        loadingEncerrarComanda.value = false;
+        return showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              shape:  RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(20),
+                ),
+              ),
+              title: const Text('Comanda Encerrada', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20), textAlign: TextAlign.center),
+              content: const Text('Sua comanda foi encerrada com sucesso!', style: TextStyle(fontSize: 16),),
+              actions: [
+                ElevatedButton(
+                  onPressed: ()=> Get.offAllNamed('/listMesas'),
+                  child: Text('OK'),
+                )
+              ],
+            );
+          },
+        );
+      }else{
+        Get.back();
+        loadingEncerrarComanda.value = false;
+        return showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              shape:  RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(20),
+                ),
+              ),
+              title: const Text('Aviso', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20), textAlign: TextAlign.center),
+              content: const Text('Erro ao tentar encerrar a comanda, tente novamente!!', style: TextStyle(fontSize: 16),),
               actions: [
                 ElevatedButton(
                   onPressed: ()=> Get.back(),
