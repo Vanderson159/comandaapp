@@ -20,7 +20,7 @@ class MesaModel{
     id = json['id'];
     numero = json['numero'];
     estabelecimento_id = json['estabelecimento_id'];
-    disponivel = json['disponivel'];
+    disponivel = json['disponivel'] == 1 ? true : false;
   }
 
   Map<String, dynamic> toJson(){

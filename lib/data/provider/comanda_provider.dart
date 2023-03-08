@@ -25,7 +25,6 @@ class ComandaApiClient{
         "inicio_comanda": dateTime.toString(),
         "fim_comanda": "",
         "mesa_idmesas": mesaModel.id.toString(),
-        "mesa_estabelecimento_id": mesaModel.estabelecimento_id.toString(),
       });
       print(response.body);
       if (response.statusCode == 200) {
