@@ -269,7 +269,7 @@ class MesaItem extends GetView<ListMesaController> {
                             children: <TextSpan>[
                               //Text('Deseja abrir uma nova comanda na ${titulo()}?')
                               TextSpan(text: 'Deseja abrir uma nova comanda para a ', style: TextStyle(fontSize: 16),),
-                              TextSpan(text: '${titulo()}', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),),
+                              TextSpan(text: '${titulo()}?', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),),
                             ],
                           ),),
                           actions: [

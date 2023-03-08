@@ -15,7 +15,6 @@ class MesaDetailsController extends GetxController {
   final formKeyDetail =
       GlobalKey<FormState>(); //formkey do formulario de mesa detail
   RxBool attWidget = false.obs;
-  RxBool listaVazia = true.obs;
   RxBool loadingEncerrarPedido = false.obs;
   RxBool loadingEncerrarComanda = false.obs;
 
@@ -33,14 +32,18 @@ class MesaDetailsController extends GetxController {
     Get.back();
   }
 
+
+
   void printarItens() {
     listItens.forEach((element) {
       print(element.nome);
       print(element.quantidade);
     });
   }
+//TODO: n é aqui, mas se eu tenho dois itens e removo um, o app fecha a janela de pedidos
 
   void encerrarPedido(int id, BuildContext context) {
+
     loadingEncerrarPedido.value = true;
     comandaApiClient
         .inserirItensToComanda(ItemModel.listToJson(listItens).toString(),

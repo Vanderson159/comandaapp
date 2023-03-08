@@ -119,7 +119,7 @@ class LoginView extends GetView<LoginController> {
                               onChanged: (value){
                                 controller.checkBox.value = value!;
                                 if(controller.checkBox.value == true){
-                                  //TODO: armazenar dos dados
+                                  //TODO: armazenar dos dados usando get storage
                                 }
                               },
                               activeColor: Colors.black,

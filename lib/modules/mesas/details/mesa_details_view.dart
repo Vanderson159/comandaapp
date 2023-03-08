@@ -10,10 +10,19 @@ class MesaDetails extends GetView<MesaDetailsController> {
   final MesaModel? mesaModel;
   MesaDetails({this.mesaModel});
 
+  bool showWarning() {
+    if(listItens.isNotEmpty){
+      return false;
+    }
+    return true;
+  }
+
   @override
   Widget build(BuildContext context) {
     controller.getItensComanda(mesaModel!.id);
-    return WillPopScopeView(Scaffold(
+    return WillPopScopeView(
+        Scaffold(
+          resizeToAvoidBottomInset: false, //coloquei false pq o teclado tava quebrando o layout
       appBar: AppBar(
         foregroundColor: Colors.black,
         centerTitle: true,
@@ -28,8 +37,7 @@ class MesaDetails extends GetView<MesaDetailsController> {
         builder: (_) {
           return Center(
             child: Padding(
-              padding: const EdgeInsets.only(
-                  left: 25, right: 25, top: 0, bottom: 10),
+              padding: const EdgeInsets.only(left: 25, right: 25, top: 0, bottom: 10),
               child: Column(
                 children: [
                   Padding(
@@ -78,18 +86,12 @@ class MesaDetails extends GetView<MesaDetailsController> {
                                               child: Form(
                                                 key: _.formKeyDetail,
                                                 child: TextFormField(
-                                                  decoration:
-                                                  InputDecoration(
-                                                    border:
-                                                    OutlineInputBorder(
-                                                      borderRadius:
-                                                      BorderRadius
-                                                          .circular(10),
+                                                  decoration: InputDecoration(
+                                                    border: OutlineInputBorder(
+                                                      borderRadius: BorderRadius.circular(10),
                                                     ),
-                                                    filled:
-                                                    true, //<-- SEE HERE
-                                                    fillColor: Colors.grey
-                                                        .shade400, //<-- SEE HERE
+                                                    filled: true, //deixa o textformfield prenchido com a cor abaixo
+                                                    fillColor: Colors.grey.shade400, //essa é a cor abaixo do filled acima :)
                                                   ),
                                                   controller: _.itemPedido,
                                                 ),
@@ -97,26 +99,20 @@ class MesaDetails extends GetView<MesaDetailsController> {
                                             ),
                                           ),
                                           Padding(
-                                            // padding: EdgeInsets.only(left: Get.width * 0.50, top: 10),
-                                            padding: EdgeInsets.only(
-                                                left: Get.width * 0.50,
-                                                top: 15),
+                                            padding: EdgeInsets.only(left: Get.width * 0.50,top: 15),
                                             child: ElevatedButton(
                                               onPressed: () {
                                                 ItemModel item = ItemModel(_.itemPedido.text, 1.obs, 0);
                                                 _.adicionarItem(item);
+                                                controller.itemPedido.text = '';
                                               },
                                               style: ButtonStyle(
                                                 backgroundColor:
                                                 MaterialStatePropertyAll(
-                                                    Colors
-                                                        .grey.shade400),
-                                                shape:
-                                                MaterialStatePropertyAll(
+                                                    Colors.grey.shade400),
+                                                shape:MaterialStatePropertyAll(
                                                   RoundedRectangleBorder(
-                                                    borderRadius:
-                                                    BorderRadius
-                                                        .circular(12),
+                                                    borderRadius:BorderRadius.circular(12),
                                                   ),
                                                 ),
                                               ),
@@ -144,18 +140,47 @@ class MesaDetails extends GetView<MesaDetailsController> {
                     flex: 10,
                     child: Container(
                       decoration: BoxDecoration(
+                        // color: const Color(0xffebebeb),
                         color: const Color(0xffebebeb),
                         borderRadius: BorderRadius.circular(12),
                       ),
-                      child: Obx(() => ListView.builder(
-                        shrinkWrap: true, //força a lista a se encaixar dentro da coluna
-                        itemBuilder: (context, index){
-                          final ItemModel item = listItens[index];
-                          item.idMesa = mesaModel!.id;
-                          return ListMesaItem(item, index); //passo index para indicar a posicao na lista para poder deletar caso ele fica decrementando a quantidade
-                        },
-                        itemCount: listItens.length,
-                      ),),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                        Obx(() =>
+                          Visibility(
+                            visible: showWarning(),
+                            child: Column(
+                            children: const [
+                              Icon(
+                                Icons.error_outline,
+                                size: 80,
+                              ),
+                              Text(
+                                'Para disponibilizar a mesa \n encerre a comanda vazia',
+                                style: TextStyle(fontSize: 20),
+                                textAlign: TextAlign.start,
+                              ),
+                            ],
+                      ),
+                          ),
+                        ),
+                          Expanded(
+                            child: Obx(() =>
+                                ListView.builder(
+                              shrinkWrap: false, //força a lista a se encaixar dentro da coluna
+                              itemBuilder: (context, index){
+                                final ItemModel item = listItens[index];
+                                item.idMesa = mesaModel!.id;
+                                  return ListMesaItem(item, index); //passo index para indicar a posicao na lista para poder deletar caso ele fica decrementando a quantidade
+                                //TODO: ta saindo de mesa_details_view e dando mensagem de pedido encerrado quando remove um item
+                                },
+                              itemCount: listItens.length,
+                            ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                   Padding(
@@ -203,7 +228,17 @@ class MesaDetails extends GetView<MesaDetailsController> {
                             ),
                             onPressed: () {
                               showDialog(barrierDismissible: false, context: context, builder: (contextDialog){
-                                return Obx(() => Visibility(visible: controller.loadingEncerrarPedido.value, child: Center(child: Container(height: 20, width: 20, child: CircularProgressIndicator(),),),),);
+                                return Obx(() => Visibility(
+                                  visible: controller.loadingEncerrarPedido.value,
+                                  child: Center(
+                                    child: Container(
+                                      height: 20,
+                                      width: 20,
+                                      child: CircularProgressIndicator(),
+                                    ),
+                                  ),
+                                ),
+                                );
                               });
                               controller.encerrarPedido(mesaModel!.id, context);
                             },

@@ -14,8 +14,7 @@ class MesaItemController extends GetxController{
   void onInit(){
     super.onInit();
   }
-
-
+  
  removeItem(BuildContext context, ItemModel itemModel, int posicaoArray){
     return showDialog(context: context, builder: (contextDialog){
       return AlertDialog(
@@ -24,9 +23,8 @@ class MesaItemController extends GetxController{
             Radius.circular(20),
           ),
         ),
-        //TODO: Não ta pegando o estilo do app
         title: const Text('Deletar Item!', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20), textAlign: TextAlign.center,),
-        content: Text('Tem certeza que deseja remover o ultimo item de ${itemModel.nome}', style: const TextStyle(fontSize: 16),),
+        content: Text('Deseja deletar o item: ${itemModel.nome} ?', style: const TextStyle(fontSize: 16),),
         actions: [
           ElevatedButton(
             style: ButtonStyle(
@@ -39,7 +37,6 @@ class MesaItemController extends GetxController{
             ),
             onPressed: (){
               listItens.removeAt(posicaoArray);//removendo pela posicao no array
-              mesaDetailsController.encerrarPedido(itemModel.idMesa, context);
               Get.back();
             },
             child: const Text('Sim'),
