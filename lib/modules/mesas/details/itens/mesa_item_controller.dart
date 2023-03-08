@@ -14,7 +14,7 @@ class MesaItemController extends GetxController{
   void onInit(){
     super.onInit();
   }
-  
+
  removeItem(BuildContext context, ItemModel itemModel, int posicaoArray){
     return showDialog(context: context, builder: (contextDialog){
       return AlertDialog(

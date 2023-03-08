@@ -65,7 +65,9 @@ class MesaDetailsController extends GetxController {
               content: const Text('Seu pedido foi efetuado com sucesso!', style: TextStyle(fontSize: 16),),
               actions: [
                 ElevatedButton(
-                  onPressed: ()=> Get.back(),
+                  onPressed: (){
+                    Get.toNamed('/listMesas');
+                    },
                   child: Text('OK'),
                 )
               ],

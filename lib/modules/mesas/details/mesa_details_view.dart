@@ -157,9 +157,9 @@ class MesaDetails extends GetView<MesaDetailsController> {
                                 size: 80,
                               ),
                               Text(
-                                'Para disponibilizar a mesa \n encerre a comanda vazia',
+                                'Para disponibilizar a mesa \n encerre a comanda',
                                 style: TextStyle(fontSize: 20),
-                                textAlign: TextAlign.start,
+                                textAlign: TextAlign.center,
                               ),
                             ],
                       ),
