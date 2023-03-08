@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class WillPopScopeView extends StatefulWidget {
+
+
   Widget? view;
   int? tipo;
 
@@ -12,25 +14,31 @@ class WillPopScopeView extends StatefulWidget {
   State<WillPopScopeView> createState() => _WillPopScopeViewState(view!, tipo!);
 }
 
+
 class _WillPopScopeViewState extends State<WillPopScopeView> {
   bool saved = false;
   Widget view;
   int? tipo;
   _WillPopScopeViewState(this.view, this.tipo);
 
+
   Future<bool?> showConfirmationDialog() {
-    return showDialog(
-        barrierDismissible: false,
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-              shape:  const RoundedRectangleBorder(
+
+      return showDialog(
+          barrierDismissible: false,
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(
                   Radius.circular(20),
                 ),
               ),
               title: const Text('Atenção!'),
-              content: const Text('Ao sair sem encerrar os pedidos todas as alterações serão perdidas. Tem certeza que deseja sair?'),
+              content: const Text(
+                  //'Ao sair sem encerrar os pedidos todas as alterações serão perdidas. Tem certeza que deseja sair?'
+                'Deseja sair sem salvar as alterações no pedido?'
+            ),
               actions: [
                 ElevatedButton(
                   style: ButtonStyle(
@@ -41,12 +49,13 @@ class _WillPopScopeViewState extends State<WillPopScopeView> {
                       ),
                     ),
                   ),
-                  onPressed: (){
-                    listItens.clear(); // limpa a lista para nao duplicar os itens quando acessar a mesa novamente
+                  onPressed: () {
+                    listItens
+                        .clear(); // limpa a lista para nao duplicar os itens quando acessar a mesa novamente
                     Get.offAllNamed('/listMesas');
                   },
                   child: const Text('SIM'),
-                ),//sim
+                ), //sim
                 ElevatedButton(
                   style: ButtonStyle(
                     shape: MaterialStateProperty.all<
@@ -56,13 +65,13 @@ class _WillPopScopeViewState extends State<WillPopScopeView> {
                       ),
                     ),
                   ),
-                  onPressed: ()=>Get.back(),
+                  onPressed: () => Get.back(),
                   child: const Text('NÃO'),
-                ),//sim
+                ), //sim
 
               ],
             );
-        });
+          });
   }
 
   @override

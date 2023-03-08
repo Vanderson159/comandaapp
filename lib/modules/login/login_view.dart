@@ -1,9 +1,12 @@
 import 'package:comandaapp/modules/login/login_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 class LoginView extends GetView<LoginController> {
-  const LoginView({super.key});
+  LoginView({super.key});
+
+  final storage = GetStorage();
 
   @override
   Widget build(BuildContext context) {
@@ -65,13 +68,20 @@ class LoginView extends GetView<LoginController> {
                     () => GestureDetector(
                       child: TextFormField(
                         onChanged: (value) {
-                          if (value.length >= 4) {
-                            if(controller.usernameCtrl.text.length < 3){
-                              controller.avisoBtnUsername.value = true;
+                          if(storage.read('username').toString().isNotEmpty){
+                            controller.usernameCtrl.text = storage.read('username').toString();
+                            //TODO: tlvz n seja assim nesse caso mas por enqt ta assim ksaokdsao
+                          }
+                          else {
+                            if (value.length >= 4) {
+                              if (controller.usernameCtrl.text.length < 3) {
+                                controller.avisoBtnUsername.value = true;
+                              }
+                              controller.liberaBotao(
+                                  controller.formKey.currentState!.validate());
+                            } else {
+                              controller.liberaBotao(false);
                             }
-                            controller.liberaBotao(controller.formKey.currentState!.validate());
-                          } else {
-                            controller.liberaBotao(false);
                           }
                         },
                         validator: (value) {
@@ -118,10 +128,7 @@ class LoginView extends GetView<LoginController> {
                               value: controller.checkBox.value,
                               onChanged: (value){
                                 controller.checkBox.value = value!;
-                                if(controller.checkBox.value == true){
-                                  //TODO: armazenar dos dados
-                                }
-                              },
+                                },
                               activeColor: Colors.black,
                               checkColor: Colors.white,
                             ),
@@ -167,10 +174,13 @@ class LoginView extends GetView<LoginController> {
                                       ),
                                     ),
                                   ),
-                                  onPressed: () =>
-                                      controller.isButtonActive == true
-                                          ? controller.login()
-                                          : null,
+                                  onPressed: () {
+                                    controller.isButtonActive == true ? controller.login() : null;
+                                    if(controller.checkBox.value == true){
+                                      //armazenar dos dados usando get storage se a checkbox estiver marcada
+                                      storage.write('username', controller.usernameCtrl.text);
+                                    }
+                                    },
                                   child: const Text('LOGIN'),
                                 ),
                               ),

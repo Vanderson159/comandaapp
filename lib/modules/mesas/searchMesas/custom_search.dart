@@ -1,6 +1,7 @@
 import 'package:comandaapp/data/model/mesa_model.dart';
 import 'package:comandaapp/modules/mesas/listMesas_view.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class CustomSearchDelegate extends SearchDelegate {
   List<MesaModel> cacheList;
@@ -29,12 +30,29 @@ class CustomSearchDelegate extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
-    List<MesaModel> matchQuery = cacheList
-        .where(
+    List<MesaModel> matchQuery = cacheList.where(
           (element) =>
           element.toString().toLowerCase().contains((query.toLowerCase())),
-    )
-        .toList();
+    ).toList();
+
+    if(matchQuery.isEmpty){
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+              children: const [
+                Icon(
+                  Icons.search_off_outlined,
+                  size: 150,
+                ),
+                Text(
+                  'Nenhum resultado encontrado',
+                  style: TextStyle(fontSize: 25),
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            ),
+      );
+    }
 
     return ListView.builder(
       itemCount: matchQuery.length,
