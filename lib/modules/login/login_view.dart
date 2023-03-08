@@ -118,6 +118,9 @@ class LoginView extends GetView<LoginController> {
                               value: controller.checkBox.value,
                               onChanged: (value){
                                 controller.checkBox.value = value!;
+                                if(controller.checkBox.value == true){
+                                  //TODO: armazenar dos dados
+                                }
                               },
                               activeColor: Colors.black,
                               checkColor: Colors.white,
@@ -127,21 +130,19 @@ class LoginView extends GetView<LoginController> {
                         ],
                       ),
                       ),
-                      GestureDetector(
-                        onTap: (){
-                          print('aí ja era');
-                        },
-                        child: const Text(
-                          'Esqueci minha senha.',
-                          style: TextStyle(
-                              color: Colors.red
-                          ),
-                        ),
-                      ),
+                      // GestureDetector(
+                      //   onTap: (){
+                      //     print('aí ja era');
+                      //   },
+                      //   child: const Text(
+                      //     'Esqueci minha senha.',
+                      //     style: TextStyle(
+                      //         color: Colors.red
+                      //     ),
+                      //   ),
+                      // ),
                     ],
                   ),
-                  //TODO: TESTAR PORQUE NÃO ESTÁ FUNCIONANDO
-                  //TODO: criar lógica de armazenamento dos dados
 
                   Obx(
                     () => Visibility(
