@@ -45,10 +45,7 @@ class MesaDetailsController extends GetxController {
   void encerrarPedido(int id, BuildContext context) {
 
     loadingEncerrarPedido.value = true;
-    comandaApiClient
-        .inserirItensToComanda(ItemModel.listToJson(listItens).toString(),
-            listMesaController.tokenAccess(), id)
-        .then((value) {
+    comandaApiClient.inserirItensToComanda(ItemModel.listToJson(listItens).toString(), listMesaController.tokenAccess(), id).then((value) {
       if (value == 1) {
         loadingEncerrarPedido.value = false;
         Get.back(); // chamo esse get back pq senao fica uma tela escura depois de clicar em OK
@@ -66,7 +63,8 @@ class MesaDetailsController extends GetxController {
               actions: [
                 ElevatedButton(
                   onPressed: (){
-                    Get.toNamed('/listMesas');
+                    listItens.clear();
+                    Get.offAllNamed('/listMesas');
                     },
                   child: Text('OK'),
                 )

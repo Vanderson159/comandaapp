@@ -8,7 +8,7 @@ import 'package:get/get.dart';
 class MesaItemController extends GetxController{
   TextEditingController contadorController = TextEditingController();
   MesaDetailsController mesaDetailsController = MesaDetailsController();
-  final pedidosList = <ListMesaItem>[].obs;
+ // final pedidosList = <ListMesaItem>[].obs;
 
   @override
   void onInit(){
