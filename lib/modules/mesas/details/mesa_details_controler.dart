@@ -40,7 +40,6 @@ class MesaDetailsController extends GetxController {
       print(element.quantidade);
     });
   }
-//TODO: n é aqui, mas se eu tenho dois itens e removo um, o app fecha a janela de pedidos
 
   void encerrarPedido(int id, BuildContext context) {
 

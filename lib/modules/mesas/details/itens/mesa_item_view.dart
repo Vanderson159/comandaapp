@@ -49,7 +49,7 @@ class ListMesaItem extends GetView<MesaItemController>{
                       ()=>
                   Padding(
                     padding: const EdgeInsets.only(top: 2),
-                    child: Text( //TODO: Quando altera a quantidade de um item altera de todos -- para resolver isso passei o valor qtd como atributo da class ListMesaItem assim fica separados os valores e náo ocorre esse erro
+                    child: Text(
                       itemModel.quantidade.value.toString(),
                       textAlign: TextAlign.center,
                       style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold),

@@ -68,7 +68,6 @@ class DeleteMesasView extends GetView<DeleteMesasController>{
                       ),
                     ),
                     onPressed: (){
-                      //TODO: buscar pela lista as mesas com checkbox marcado e armazenar na deleteList
                       showDialog(context: context, builder: (contextDialog){
                       return AlertDialog(
                         shape:  const RoundedRectangleBorder(

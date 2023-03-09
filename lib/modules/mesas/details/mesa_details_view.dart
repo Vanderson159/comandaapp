@@ -43,7 +43,6 @@ class MesaDetails extends GetView<MesaDetailsController> {
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 10),
                     child: Row(
-                      //TODO verificar se o mainAxisAlignment: MainAxisAlignment.spaceBetween não fica melhor, pedir opinão dos guri
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         const Text(
@@ -173,7 +172,6 @@ class MesaDetails extends GetView<MesaDetailsController> {
                                 final ItemModel item = listItens[index];
                                 item.idMesa = mesaModel!.id;
                                   return ListMesaItem(item, index); //passo index para indicar a posicao na lista para poder deletar caso ele fica decrementando a quantidade
-                                //TODO: ta saindo de mesa_details_view e dando mensagem de pedido encerrado quando remove um item
                                 },
                               itemCount: listItens.length,
                             ),
