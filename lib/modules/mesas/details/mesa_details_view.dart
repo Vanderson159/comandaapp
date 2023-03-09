@@ -165,6 +165,7 @@ class MesaDetails extends GetView<MesaDetailsController> {
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: [
+                              //TODO: centralizar esse aviso de alguma forma
                               Obx(
                                 () => Visibility(
                                   visible: showWarning(),
