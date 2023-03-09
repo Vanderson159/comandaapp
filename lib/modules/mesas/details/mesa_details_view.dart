@@ -16,6 +16,57 @@ class MesaDetails extends GetView<MesaDetailsController> {
     }
     return true;
   }
+  //func para verificar se mostra o aviso ou a lista de item
+  warnOrItens(){
+    if(listItens.isNotEmpty){
+      print(listItens[0]);
+      return Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Expanded(
+            child: Obx(
+                  () => ListView.builder(
+                shrinkWrap:
+                false, //força a lista a se encaixar dentro da coluna
+                itemBuilder: (context, index) {
+                  final ItemModel item = listItens[index];
+                  item.idMesa = mesaModel!.id;
+                  return ListMesaItem(item,
+                      index); //passo index para indicar a posicao na lista para poder deletar caso ele fica decrementando a quantidade
+                },
+                itemCount: listItens.length,
+              ),
+            ),
+          ),
+        ],
+      );
+    }else{
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Obx(
+                () => Visibility(
+              visible: showWarning(),
+              child: Column(
+                children: const [
+                  Icon(
+                    Icons.error_outline,
+                    size: 80,
+                  ),
+                  Text(
+                    'Para disponibilizar a mesa \n encerre a comanda',
+                    style: TextStyle(fontSize: 20),
+                    textAlign: TextAlign.center,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -162,45 +213,7 @@ class MesaDetails extends GetView<MesaDetailsController> {
                             color: const Color(0xffebebeb),
                             borderRadius: BorderRadius.circular(12),
                           ),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              //TODO: centralizar esse aviso de alguma forma
-                              Obx(
-                                () => Visibility(
-                                  visible: showWarning(),
-                                  child: Column(
-                                    children: const [
-                                      Icon(
-                                        Icons.error_outline,
-                                        size: 80,
-                                      ),
-                                      Text(
-                                        'Para disponibilizar a mesa \n encerre a comanda',
-                                        style: TextStyle(fontSize: 20),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              Expanded(
-                                child: Obx(
-                                  () => ListView.builder(
-                                    shrinkWrap:
-                                        false, //força a lista a se encaixar dentro da coluna
-                                    itemBuilder: (context, index) {
-                                      final ItemModel item = listItens[index];
-                                      item.idMesa = mesaModel!.id;
-                                      return ListMesaItem(item,
-                                          index); //passo index para indicar a posicao na lista para poder deletar caso ele fica decrementando a quantidade
-                                    },
-                                    itemCount: listItens.length,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
+                          child: Obx(() =>  warnOrItens(),), // colocar aqui
                         ),
                       ),
                       Padding(
