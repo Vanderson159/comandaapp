@@ -1,13 +1,13 @@
 import 'package:comandaapp/data/model/auth_model.dart';
 import 'package:comandaapp/data/model/estabelecimento_model.dart';
-import 'package:comandaapp/data/model/mesa_model.dart';
 import 'package:comandaapp/data/model/user_model.dart';
 import 'package:comandaapp/data/provider/mesa_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import '../../../data/model/mesa_model.dart';
 
-class InitialController extends GetxController{
+class AddMesasController extends GetxController{
   final box = GetStorage('comandaapp');
   int contMesa = 00;
   int totalMesa = 1;
@@ -21,16 +21,7 @@ class InitialController extends GetxController{
   RxBool showAdicionarMesa = true.obs;
   RxBool enabledFuncBtn = true.obs;
 
-  int? estabelecimentoId(){
-    UserModel userModel = box.read('userStorage');
-    EstabelecimentoModel? estabelecimentoModel = userModel.estabelecimentoModel;
-    if(estabelecimentoModel!.id != null){
-      return estabelecimentoModel.id;
-    }
-    return 0;
-  }
-
-  void inserirMesas(int contMesa){
+  void inserirMesas(int contMesa, int existeMesas){
     loadingSend.value = true;
     AuthModel auth = box.read('auth');
     String accesstoken = auth.accessToken.toString();
@@ -43,50 +34,55 @@ class InitialController extends GetxController{
     }while(totalMesa <= contMesa);
 
     mesaApiClient.insertMesas(listMesa, idEstabelecimento!, accesstoken).then((value) => {
-      if(value == 1){
-        box.write('mesasDisponiveis', listMesa.length),
-        loadingSend.value = false,
-        enabledFuncBtn.value = false,
-        showAdicionarMesa.value = false,
-        acaoBtnLabel = 'Finalizar',
-        labelDialog = 'Para adicionar novas mesas, selecione Adicionar Mesa na aba Disponíveis.',
-        update()
-      }
-      else{
-        Get.defaultDialog(
-          title: 'Falha',
-          content: Column(
-            children: const [
-              Text('Erro ao inserir as mesas, tente novamente :)')
-            ],
-          ),
-          actions: [
-            ElevatedButton(onPressed: (){
-              Get.offAllNamed('/initial');
-            }, child: const Text('OK'),),
-          ]
-        )
+      if(existeMesas == 1){
+        if(value == 1){
+          contadorController.text = '',
+          totalMesa = 1,
+          contMesa = 0,
+          listMesa.clear(),
+          box.write('mesasDisponiveis', listMesa.length),
+          loadingSend.value = false,
+          enabledFuncBtn.value = true,
+          showAdicionarMesa.value = true,
+          Get.offAllNamed('/listMesas'),
+        }
+      }else{
+        if(value == 1){
+          totalMesa = 1,
+          contMesa = 0,
+          box.write('mesasDisponiveis', listMesa.length),
+          loadingSend.value = false,
+          enabledFuncBtn.value = false,
+          showAdicionarMesa.value = false,
+          acaoBtnLabel = 'Finalizar',
+          labelDialog = 'Para adicionar novas mesas, selecione Adicionar Mesa na aba Disponíveis.',
+          update()
+        }else{
+          Get.defaultDialog(
+              title: 'Falha',
+              content: Column(
+                children: const [
+                  Text('Erro ao inserir as mesas, tente novamente :)')
+                ],
+              ),
+              actions: [
+                ElevatedButton(onPressed: (){
+                  Get.offAllNamed('/initial');
+                }, child: const Text('OK'),),
+              ]
+          )
+        }
       }
     });
   }
 
-  UserModel userLogado(){
-     UserModel userModel = box.read('userStorage');
-     return userModel;
-  }
-
-  EstabelecimentoModel? estabelecimento(){
+  int? estabelecimentoId(){
     UserModel userModel = box.read('userStorage');
     EstabelecimentoModel? estabelecimentoModel = userModel.estabelecimentoModel;
-    return estabelecimentoModel;
-  }
-
-  String nomeEstabelecimento(){
-    String? nome = estabelecimento()!.nome;
-    if(nome!.isNotEmpty){
-      return nome;
+    if(estabelecimentoModel!.id != null){
+      return estabelecimentoModel.id;
     }
-    return '';
+    return 0;
   }
 
   void incrementar(){

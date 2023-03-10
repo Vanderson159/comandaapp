@@ -1,5 +1,9 @@
 import 'package:comandaapp/data/model/mesa_model.dart';
 import 'package:comandaapp/modules/initial/initial_view.dart';
+import 'package:comandaapp/modules/mesas/addMesas/addMesas_view.dart';
+import 'package:comandaapp/modules/mesas/deleteMesas/deleteMesas_view.dart';
+import 'package:comandaapp/modules/mesas/details/mesa_details_controler.dart';
+import 'package:comandaapp/modules/mesas/details/mesa_details_view.dart';
 import 'package:comandaapp/modules/mesas/listMesas_controller.dart';
 import 'package:comandaapp/modules/mesas/searchMesas/custom_search.dart';
 import 'package:flutter/material.dart';
@@ -10,9 +14,13 @@ List<MesaModel> mesalist = [];
 
 class ListMesaView extends GetView<ListMesaController> {
   ListMesaView({super.key});
-  InitialView initialView = InitialView();
+
+  InitialView initialView = const InitialView();
+  ListMesaController controller = Get.put(ListMesaController());
+
   @override
   Widget build(BuildContext context) {
+    Get.put(MesaDetailsController());
     return DefaultTabController(
       initialIndex: 1,
       length: 2,
@@ -24,20 +32,24 @@ class ListMesaView extends GetView<ListMesaController> {
               backgroundColor: Colors.black,
               animatedIcon: AnimatedIcons.menu_close,
               children: [
-                SpeedDialChild(child: const Icon(Icons.delete), onTap: () {}),
-                SpeedDialChild(child: const Icon(Icons.add), onTap: () {}),
+                SpeedDialChild(child: const Icon(Icons.delete), onTap: ()=> Get.to(()=>DeleteMesasView())),
+                SpeedDialChild(child: const Icon(Icons.add), onTap: () {
+                  showDialog(context: context, builder: (contextDialog){
+                    return AddMesasView();
+                  });
+                }),
               ],
             ),
             appBar: AppBar(
               backgroundColor: Colors.white,
+              automaticallyImplyLeading: false, //desativar seta de voltar
               title: Row(
                 children: [
                   IconButton(
                     onPressed: () {
-
                       showSearch(context: context, delegate: CustomSearchDelegate(_.listMesaModel));
                     },
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.search,
                       color: Colors.black,
                     ),
@@ -51,7 +63,7 @@ class ListMesaView extends GetView<ListMesaController> {
                   ),
                   IconButton(
                     onPressed: () {},
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.person_outline,
                       color: Colors.black,
                     ),
@@ -74,29 +86,11 @@ class ListMesaView extends GetView<ListMesaController> {
             ),
             body: TabBarView(
               children: [
-                Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Icon(
-                        Icons.error_outline,
-                        size: 150,
-                      ),
-                      Text(
-                        'Atenção',
-                        style: TextStyle(fontSize: 30),
-                      ),
-                      Text(
-                        'Não há mesa ocupada',
-                        style: TextStyle(fontSize: 30),
-                      ),
-                    ],
-                  ),
-                ),
+                //guia de mesas ocupadas
                 Center(
                   child: FutureBuilder<List<MesaModel>>(
                     initialData: const [],
-                    future: controller.buscarMesas(),
+                    future: _.buscarMesasOcupadas(),
                     builder: (context, snapshot) {
                       switch (snapshot.connectionState) {
                         case ConnectionState.none:
@@ -107,17 +101,105 @@ class ListMesaView extends GetView<ListMesaController> {
                           break;
                         case ConnectionState.done:
                           mesalist = snapshot.data!;
-                          controller.setListMesa(mesalist);
+                          _.setListMesa(mesalist);
                           if (mesalist == null) {
                             return const FailureDialog('Falha ao listar mesas');
                           } else {
-                            return ListView.builder(
-                              itemBuilder: (context, index) {
-                                final MesaModel mesaModel = mesalist[index];
-                                return MesaItem(mesaModel: mesaModel, index: index,);
-                              },
-                              itemCount: mesalist.length,
-                            );
+                            if(mesalist.isEmpty){
+                              return  Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: const [
+                                  Icon(
+                                    Icons.error_outline,
+                                    size: 150,
+                                  ),
+                                  Text(
+                                    'Atenção',
+                                    style: TextStyle(fontSize: 30),
+                                  ),
+                                  Text(
+                                    'Não há mesa ocupada',
+                                    style: TextStyle(fontSize: 30),
+                                  ),
+                                ],
+                              );
+                            }else{
+                              return ListView.builder(
+                                itemBuilder: (context, index) {
+                                  final MesaModel mesaModel = mesalist[index];
+                                  return MesaItem(mesaModel: mesaModel, index: index, isVisibleCheckBox: false, toComanda: true,);
+                                },
+                                itemCount: mesalist.length,
+                              );
+                            }
+                          }
+                      }
+                      return  Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: const [
+                          Icon(
+                            Icons.error_outline,
+                            size: 150,
+                          ),
+                          Text(
+                            'Atenção',
+                            style: TextStyle(fontSize: 30),
+                          ),
+                          Text(
+                            'Não há mesa ocupada',
+                            style: TextStyle(fontSize: 30),
+                          ),
+                        ],
+                      );
+                    },
+                  ),
+                ),
+                //guia de mesas disponiveis
+                Center(
+                  child: FutureBuilder<List<MesaModel>>(
+                    initialData: const [],
+                    future: _.buscarMesas(),
+                    builder: (context, snapshot) {
+                      switch (snapshot.connectionState) {
+                        case ConnectionState.none:
+                          break;
+                        case ConnectionState.waiting:
+                          return const Progress();
+                        case ConnectionState.active:
+                          break;
+                        case ConnectionState.done:
+                          mesalist = snapshot.data!;
+                          _.setListMesa(mesalist);
+                          if (mesalist == null) {
+                            return const FailureDialog('Falha ao listar mesas');
+                          } else {
+                            if(mesalist.isEmpty){
+                              return  Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: const [
+                                  Icon(
+                                    Icons.error_outline,
+                                    size: 150,
+                                  ),
+                                  Text(
+                                    'Atenção',
+                                    style: TextStyle(fontSize: 30),
+                                  ),
+                                  Text(
+                                    'Não há mesa disponíveis',
+                                    style: TextStyle(fontSize: 30),
+                                  ),
+                                ],
+                              );
+                            }else{
+                              return ListView.builder(
+                                itemBuilder: (context, index) {
+                                  final MesaModel mesaModel = mesalist[index];
+                                  return MesaItem(mesaModel: mesaModel, index: index, isVisibleCheckBox: false, abrirComandaFunc: true,);
+                                },
+                                itemCount: mesalist.length,
+                              );
+                            }
                           }
                       }
                       return const Text('Unknown error');
@@ -131,14 +213,18 @@ class ListMesaView extends GetView<ListMesaController> {
       ),
     );
   }
+
 }
 
 class MesaItem extends GetView<ListMesaController> {
   final MesaModel mesaModel;
   final index;
-  final TextEditingController _pesquisaController = TextEditingController();
+  final isVisibleCheckBox;
+  bool? abrirComandaFunc = true; // atributo para definir quando o MesaItem deve abrir a janela de comanda e quando nao
+  bool? toComanda = true; // atributo para definir quando o MesaItem deve levar direto para a chenela da comanda (como ocorre com as mesas ocupadas)
 
-  MesaItem({required this.mesaModel, this.index,super.key});
+
+  MesaItem({required this.mesaModel, this.index, required this.isVisibleCheckBox, this.abrirComandaFunc, this.toComanda});
 
   String titulo() {
     String aux = mesaModel.numero.toString();
@@ -148,8 +234,18 @@ class MesaItem extends GetView<ListMesaController> {
 
   @override
   Widget build(BuildContext context) {
-    return index == 0
-        ? Column(
+
+    disponivelImage(){
+      if(mesaModel.disponivel == true){
+        return AssetImage('imagens/mesaverde.png');
+      }
+      if(mesaModel.disponivel == false){
+        return AssetImage('imagens/mesavermelha.png');
+      }
+      return AssetImage('imagens/mesaverde.png');
+    }
+
+    return Column(
             children: [
               Card(
                 shape: const RoundedRectangleBorder(
@@ -158,33 +254,85 @@ class MesaItem extends GetView<ListMesaController> {
                   ),
                 ),
                 child: ListTile(
-                  onTap: () {},
-                  leading: const Image(
+                  onTap: () {
+                    if(mesaModel.disponivel == true && abrirComandaFunc == true){
+                      showDialog(context: context, builder: (contextDialog){
+                        return AlertDialog(
+                          shape:  const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(20),
+                            ),
+                          ),
+                          title: const Text('Abrir nova comanda', textAlign: TextAlign.center, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
+                          content: RichText(text: TextSpan(
+                            style: DefaultTextStyle.of(context).style,
+                            children: <TextSpan>[
+                              //Text('Deseja abrir uma nova comanda na ${titulo()}?')
+                              TextSpan(text: 'Deseja abrir uma nova comanda para a ', style: TextStyle(fontSize: 16),),
+                              TextSpan(text: '${titulo()}?', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),),
+                            ],
+                          ),),
+                          actions: [
+                            ElevatedButton(
+                              style: ButtonStyle(
+                                shape: MaterialStateProperty.all<
+                                    RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                ),
+                              ),
+                              onPressed: (){
+                                showDialog(barrierDismissible: false, context: context, builder: (contextDialog){
+                                  return Obx(() => Visibility(visible: controller.loadingComanda.value, child: Center(child: Container(height: 20, width: 20, child: CircularProgressIndicator(),),),),);
+                                });
+                                controller.abrirComanda(mesaModel);
+                              },
+                              child: const Text('Sim'),
+                            ),//sim
+                            ElevatedButton(
+                              style: ButtonStyle(
+                                shape: MaterialStateProperty.all<
+                                    RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                ),
+                              ),
+                              onPressed: ()=>Get.back(),
+                              child: const Text('Não'),
+                            ),
+                          ],
+                        );
+                      });
+                    }else{
+                      if(toComanda == true){
+                        Get.to(() => MesaDetails(mesaModel: mesaModel,));
+                      }
+                    }
+                  },
+                  leading: Image(
                     width: 50,
                     height: 50,
-                    image: AssetImage('imagens/mesaverde.png'),
+                    image: disponivelImage(),
                   ),
                   title: Text(titulo()),
-                ),
-              )
-            ],
-          )
-        : Column(
-            children: [
-              Card(
-                shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(12),
+                  trailing: Visibility(
+                    visible: isVisibleCheckBox,
+                    child: SizedBox(
+                      width: 35,
+                      child: Obx( () =>
+                        Checkbox(
+                          value: mesaModel.isCheck!.value,
+                          onChanged: (value){
+                            mesaModel.isCheck!.value = !mesaModel.isCheck!.value;
+                          },
+                          activeColor: Colors.black,
+                          checkColor: Colors.white,
+                        ),
+                      ),
+                    ),
                   ),
-                ),
-                child: ListTile(
-                  onTap: () {},
-                  leading: const Image(
-                    width: 50,
-                    height: 50,
-                    image: AssetImage('imagens/mesaverde.png'),
-                  ),
-                  title: Text(titulo()),
                 ),
               )
             ],

@@ -4,5 +4,8 @@ abstract class Routes{
   static const LOGIN = '/login';
   static const SIGNUP = '/signup';
   static const LISTMESAS = '/listMesas';
-  static const DETAILS = '/destails';
+  static const DETAILS = '/details';
+  static const DELETEMESAS = '/deleteMesas';
+  static const ADDMESAS = '/addMesas';
+  static const MESAITEM = '/mesaItem';
 }

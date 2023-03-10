@@ -1,11 +1,12 @@
 import 'dart:convert';
-
 import 'package:comandaapp/data/model/mesa_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:comandaapp/data/base_url.dart';
+
+List<MesaModel> mesasDisponiveis = [];
 
 class MesaApiClient{
   final http.Client httpClient = http.Client();
@@ -21,9 +22,8 @@ class MesaApiClient{
       var response = await http.get(Uri.parse('${baseUrl}/verificaMesas'),
           headers: {"Authorization": 'Bearer $token'});
       if (response.statusCode == 200) {
-        print('print do response');
         var teste = jsonDecode(response.body);
-        int countMesas = teste[0]['COUNT(idmesas)'];
+        int countMesas = teste[0]['COUNT(id)'];
         return countMesas;
       } else {
         return 0;
@@ -51,7 +51,7 @@ class MesaApiClient{
          "listMesa": MesaModel.listToJson(mesas).toString(),
          "numeroMesas": mesas.length.toString(),
       });
-      print(response.body);
+      print("tamanho mesas: ${mesas.length.toString()}");
       if (response.statusCode == 200) {
         return 1;
       } else {
@@ -63,7 +63,7 @@ class MesaApiClient{
 
   }
 
-  Future<List<MesaModel>> listarMesas(String accesstoken) async{
+  Future<List<MesaModel>> listarMesas(String accesstoken, int ocupada) async{
     String token = '';
     if (accesstoken.isNotEmpty) {
       token = accesstoken;
@@ -75,20 +75,20 @@ class MesaApiClient{
         List list = json.decode(response.body);
         List<MesaModel>? mesas = [];
         for (var i = 0; i < list.length; i++) {
-          mesas.add(MesaModel.fromJson(list[i]));
+          MesaModel aux = MesaModel.fromJson(list[i]);
+          if(ocupada == 0){
+            if(aux.disponivel == true){
+              mesas.add(MesaModel.fromJson(list[i]));
+              mesasDisponiveis.add(MesaModel.fromJson(list[i]));
+            }
+          }
+          if(ocupada == 1){
+            if(aux.disponivel == false){
+              mesas.add(MesaModel.fromJson(list[i]));
+            }
+          }
         }
 
-        if (mesas.isEmpty) {
-          Get.defaultDialog(
-              title: "Nenhuma mesa encontrada",
-              content: Text(':('),
-              actions: [
-                ElevatedButton(
-                  onPressed: () => Get.offAllNamed('/initial'),
-                  child: Text('OK'),
-                ),
-              ]);
-        }
         return mesas;
       }else{
         Get.defaultDialog(
@@ -103,5 +103,54 @@ class MesaApiClient{
       );
     }
     return json.decode(erro);
+  }
+
+  Future indisponibilizar(String accesstoken, MesaModel mesaModel) async{
+    String token = '';
+    if (accesstoken.isNotEmpty) {
+      token = accesstoken;
+    }
+    try{
+      var response = await http.put(Uri.parse('${baseUrlMesa}/${mesaModel.id}'), headers: {
+        "Authorization": 'Bearer $token'
+      }, body: {
+        "numero" : mesaModel.numero.toString(),
+        "estabelecimento_id" : mesaModel.estabelecimento_id.toString(),
+        "disponivel" : 0.toString()
+      });
+      if (response.statusCode == 200) {
+        print(response.body);
+        return 1;
+      } else {
+        return 0;
+      }
+    }catch(err){
+      return 0;
+    }
+  }
+
+  Future deletarMesas(List<MesaModel> mesas, String accesstoken) async{
+    String token = '';
+    if (accesstoken.isNotEmpty) {
+      token = accesstoken;
+    }
+
+    try{
+      var response = await http.post(Uri.parse('${baseUrl}/deletarMesas'), headers: {
+        "Authorization": 'Bearer $token'
+      },
+          body: {
+            "listMesa": MesaModel.listToJson(mesas).toString(),
+            "numeroMesas": mesas.length.toString(),
+          });
+      print(response.body);
+      if (response.statusCode == 200) {
+        return 1;
+      } else {
+        return 0;
+      }
+    }catch (err) {
+      return 0;
+    }
   }
 }

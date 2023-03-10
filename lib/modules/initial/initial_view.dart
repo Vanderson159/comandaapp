@@ -1,3 +1,4 @@
+import 'package:comandaapp/modules/mesas/addMesas/addMesas_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -52,8 +53,6 @@ class InitialView extends GetView<InitialController> {
         ),
       );
     }
-
-    controller.contadorController.text = controller.contMesa.toString();
     return DefaultTabController(
       initialIndex: 0,
       length: 2,
@@ -99,177 +98,7 @@ class InitialView extends GetView<InitialController> {
                 ),
 
                 //Definindo a janela de definição da qntd de mesas
-                AlertDialog(
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(10),
-                    ),
-                  ),
-                  title: const Text('Mesas'),
-                  content: SizedBox(
-                    height: 110,
-                    child: Column(
-                      children: [
-                        Text(_.labelDialog),
-                        Obx(
-                          () => Visibility(
-                            visible: controller.showAdicionarMesa.value,
-                            child: Row(
-                              children: [
-                                const Text('Qtd mesas: '),
-                                ElevatedButton(
-                                  onPressed: () {
-                                    controller.decrementar();
-                                    controller.contadorController.text =
-                                        controller.contMesa.toString();
-                                  },
-                                  style: ButtonStyle(
-                                    backgroundColor:
-                                        MaterialStateProperty.all(Colors.white),
-                                    minimumSize: MaterialStateProperty.all(
-                                      const Size(35, 35),
-                                    ),
-                                    shape: MaterialStateProperty.all<
-                                        RoundedRectangleBorder>(
-                                      RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(20)),
-                                    ),
-                                  ),
-                                  child: const Text(
-                                    '-',
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 25),
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 40,
-                                  child: TextFormField(
-                                    inputFormatters: [
-                                      LengthLimitingTextInputFormatter(3),
-                                    ], //Definindo a quantidade de caracteres
-                                    textAlign: TextAlign.center,
-                                    controller: controller.contadorController,
-                                    decoration: const InputDecoration(
-                                      border: InputBorder.none,
-                                    ),
-                                    cursorColor: Colors.grey,
-                                    keyboardType: TextInputType.number,
-                                  ),
-                                ),
-                                ElevatedButton(
-                                  onPressed: () {
-                                    controller.incrementar();
-                                    controller.contadorController.text =
-                                        controller.contMesa.toString();
-                                  },
-                                  style: ButtonStyle(
-                                    backgroundColor:
-                                        MaterialStateProperty.all(Colors.white),
-                                    minimumSize: MaterialStateProperty.all(
-                                      const Size(35, 35),
-                                    ),
-                                    shape: MaterialStateProperty.all<
-                                        RoundedRectangleBorder>(
-                                      RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(20),
-                                      ),
-                                    ),
-                                  ),
-                                  child: const Text(
-                                    '+',
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  actions: [
-                    Obx(
-                      () => Visibility(
-                        visible: !controller.loadingSend.value,
-                        child: ElevatedButton(
-                          style: ButtonStyle(
-                            shape: MaterialStateProperty.all<
-                                RoundedRectangleBorder>(
-                              RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                            ),
-                          ),
-                          onPressed: () {
-                            if (controller.contMesa < 1) {
-                              showDialog(
-                                  barrierDismissible: false,
-                                  context: context,
-                                  builder: (contextDialog) {
-                                    return AlertDialog(
-                                      title: const Center(
-                                        child: Text('AVISO'),
-                                      ),
-                                      content: const Text(
-                                          'Selecione uma quantidade de mesas superior a 0'),
-                                      actions: [
-                                        ElevatedButton(
-                                          onPressed: () =>
-                                              Navigator.pop(context),
-                                          child: const Text('OK'),
-                                        ),
-                                      ],
-                                    );
-                                  });
-                            } else {
-                              if (controller.enabledFuncBtn.value) {
-                                controller.inserirMesas(controller.contMesa);
-                              } else {
-                                Get.offAllNamed('/listMesas');
-                              }
-                            }
-                          },
-                          child: Text(_.acaoBtnLabel),
-                        ),
-                      ),
-                    ),
-                    Obx(
-                      () => Visibility(
-                        visible: controller.loadingSend.value,
-                        child: Container(
-                          margin: const EdgeInsets.symmetric(vertical: 10),
-                          width: Get.width * 0.8,
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(30),
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                vertical: 20,
-                                horizontal: 40,
-                              ),
-                              child: ElevatedButton(
-                                style: ButtonStyle(
-                                  backgroundColor:
-                                      MaterialStateProperty.all<Color>(
-                                          Colors.white),
-                                ),
-                                onPressed: null,
-                                child: CircularProgressIndicator(
-                                  color: Colors.blue.shade800,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+                AddMesasView(),
               ],
             ),
           );

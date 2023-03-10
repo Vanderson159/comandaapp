@@ -24,8 +24,18 @@ class LoginController extends GetxController{
   RxBool showPassword = false.obs;
   RxBool loading = false.obs;
   RxBool isButtonActive = false.obs;
+  RxBool avisoBtnUsername = false.obs;
+  RxBool checkBox = false.obs;
 
   Color colorBtn = Colors.grey.shade200;
+
+  @override
+  void onInit(){
+    if(box.read('username') != ''){
+      usernameCtrl.text = box.read('username');
+    }
+    super.onInit();
+  }
 
   void login() async{
     if(formKey.currentState!.validate()){
@@ -34,15 +44,16 @@ class LoginController extends GetxController{
       userModel = await repositoryUser.showUser(auth!.user!.id!.toInt(), auth!.accessToken.toString());
 
       if(!auth.isNull){
+        if(checkBox.value == true){
+          box.write('username', userModel!.username.toString());
+        }
+
         box.write('auth', auth);
         box.write('userStorage', userModel);
         mesaApiClient.verificaMesas(auth!.accessToken.toString()).then((value){
           if(value > 0){
-          //if(value > 500){ //TODO: Mudar pra testar o dialog de adicionar mesas
-            print('EXISTE MESAS ${value}');
             Get.offAllNamed('/listMesas');
           }else{
-            print('NAO EXISTE MESAS');
             Get.offAllNamed('/');
           }
         });
@@ -52,12 +63,10 @@ class LoginController extends GetxController{
   }
 
   liberaBotao(bool verifica){
-    if(formKey.currentState!.validate()){
       if(verifica){
         isButtonActive.value = true;
       }else{
         isButtonActive.value = false;
       }
-    }
   }
 }
