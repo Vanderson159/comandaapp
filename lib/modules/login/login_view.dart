@@ -6,8 +6,6 @@ import 'package:get_storage/get_storage.dart';
 class LoginView extends GetView<LoginController> {
   LoginView({super.key});
 
-  final storage = GetStorage();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,21 +66,15 @@ class LoginView extends GetView<LoginController> {
                     () => GestureDetector(
                       child: TextFormField(
                         onChanged: (value) {
-                          if(storage.read('username').toString().isNotEmpty){
-                            controller.usernameCtrl.text = storage.read('username').toString();
-                            //TODO: tlvz n seja assim nesse caso mas por enqt ta assim ksaokdsao
-                          }
-                          else {
                             if (value.length >= 4) {
                               if (controller.usernameCtrl.text.length < 3) {
                                 controller.avisoBtnUsername.value = true;
                               }
-                              controller.liberaBotao(
-                                  controller.formKey.currentState!.validate());
+                              controller.liberaBotao(controller.formKey.currentState!.validate());
                             } else {
                               controller.liberaBotao(false);
                             }
-                          }
+
                         },
                         validator: (value) {
                           if (value!.length < 3) {
@@ -176,10 +168,6 @@ class LoginView extends GetView<LoginController> {
                                   ),
                                   onPressed: () {
                                     controller.isButtonActive == true ? controller.login() : null;
-                                    if(controller.checkBox.value == true){
-                                      //armazenar dos dados usando get storage se a checkbox estiver marcada
-                                      storage.write('username', controller.usernameCtrl.text);
-                                    }
                                     },
                                   child: const Text('LOGIN'),
                                 ),

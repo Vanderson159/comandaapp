@@ -31,11 +31,9 @@ class LoginController extends GetxController{
 
   @override
   void onInit(){
-    //somente para desenvolvimento
-    usernameCtrl.text = 'admin';
-    passwordCtrl.text = 'secret';
-    isButtonActive.value = true;
-    //somente para desenvolvimento
+    if(box.read('username') != ''){
+      usernameCtrl.text = box.read('username');
+    }
     super.onInit();
   }
 
@@ -46,14 +44,16 @@ class LoginController extends GetxController{
       userModel = await repositoryUser.showUser(auth!.user!.id!.toInt(), auth!.accessToken.toString());
 
       if(!auth.isNull){
+        if(checkBox.value == true){
+          box.write('username', userModel!.username.toString());
+        }
+
         box.write('auth', auth);
         box.write('userStorage', userModel);
         mesaApiClient.verificaMesas(auth!.accessToken.toString()).then((value){
           if(value > 0){
-            print('EXISTE MESAS ${value}');
             Get.offAllNamed('/listMesas');
           }else{
-            print('NAO EXISTE MESAS');
             Get.offAllNamed('/');
           }
         });
