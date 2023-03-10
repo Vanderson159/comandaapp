@@ -34,7 +34,7 @@ class LoginView extends GetView<LoginController> {
                   ),
                   const Padding(
                     padding: EdgeInsets.only(bottom: 5),
-                    child: Text('Email', textAlign: TextAlign.start),
+                    child: Text('Username', textAlign: TextAlign.start),
                   ),
                   TextFormField(
                     onChanged: (value){
@@ -54,7 +54,7 @@ class LoginView extends GetView<LoginController> {
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
-                      labelText: 'example@gmail.com',
+                      labelText: 'Digite seu username',
                     ),
                   ),
                   const SizedBox(
