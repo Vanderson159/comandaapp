@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
 class LoginView extends GetView<LoginController> {
-  LoginView({super.key});
+  const LoginView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -80,6 +80,7 @@ class LoginView extends GetView<LoginController> {
                           if (value!.length < 3) {
                             return 'A senha deve possuir ao menos 4 caracteres';
                           }
+                          return '';
                         },
                         obscureText: !controller.showPassword.value,
                         enableSuggestions: false,
@@ -129,17 +130,6 @@ class LoginView extends GetView<LoginController> {
                         ],
                       ),
                       ),
-                      // GestureDetector(
-                      //   onTap: (){
-                      //     print('aí ja era');
-                      //   },
-                      //   child: const Text(
-                      //     'Esqueci minha senha.',
-                      //     style: TextStyle(
-                      //         color: Colors.red
-                      //     ),
-                      //   ),
-                      // ),
                     ],
                   ),
 
@@ -202,8 +192,8 @@ class LoginView extends GetView<LoginController> {
                                       ),
                                     ),
                                   ),
-                                  onPressed: () => null,
-                                  child: CircularProgressIndicator(),
+                                  onPressed: () {},
+                                  child: const CircularProgressIndicator(),
                                 ),
                               ),
                             ),
