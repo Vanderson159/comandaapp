@@ -31,8 +31,8 @@ class LoginController extends GetxController{
 
   @override
   void onInit(){
-    if(box.read('username').toString() != '' || box.read('username') != null){
-      usernameCtrl.text = box.read('username').toString();
+    if(box.read('username') != null){
+      usernameCtrl.text = box.read('username');
     }
     super.onInit();
   }
