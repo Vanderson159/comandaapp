@@ -31,11 +31,12 @@ class LoginController extends GetxController{
 
   @override
   void onInit(){
-    if(box.read('username') != ''){
-      usernameCtrl.text = box.read('username');
+    if(box.read('username').toString() != '' || box.read('username') != null){
+      usernameCtrl.text = box.read('username').toString();
     }
     super.onInit();
   }
+
 
   void login() async{
     if(formKey.currentState!.validate()){
