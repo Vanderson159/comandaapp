@@ -3,6 +3,8 @@ import 'package:comandaapp/modules/mesas/listMesas_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../details/mesa_details_view.dart';
+
 class CustomSearchDelegate extends SearchDelegate {
   List<MesaModel> cacheList;
 
@@ -15,9 +17,13 @@ class CustomSearchDelegate extends SearchDelegate {
           onPressed: () {
             query = '';
           },
-          icon: Icon(Icons.clear))
+          icon: Icon(Icons.clear),
+      )
     ];
   }
+
+  //TODO: Alterar label de busca (está como Search)
+  //TODO: Adicionar função de toque na mesa pesquisada
 
   @override
   Widget? buildLeading(BuildContext context) {
@@ -57,14 +63,20 @@ class CustomSearchDelegate extends SearchDelegate {
     return ListView.builder(
       itemCount: matchQuery.length,
       itemBuilder: (context, index){
-        var result = matchQuery[index];
-        return MesaItem(mesaModel: result, isVisibleCheckBox: false,);
+        final MesaModel result = matchQuery[index];
+        return ListTile(
+          title: MesaItem(mesaModel: result, isVisibleCheckBox: false,),
+          onTap: (){
+            Get.to(() => MesaDetails(mesaModel: result,));
+            //TODO: Esse clique só funciona fora do model e o do model n funciona kkkkk
+          },
+        );
       },
     );
   }
 
   @override
-  Widget buildSuggestions(BuildContext context) {
+  Widget buildSuggestions(BuildContext context) { //TODO: esse não ta funcionando como deveria, mas é detalhe kkkk
     List<MesaModel> matchQuery = [];
     for(var results in matchQuery){
       if(results.toString().toLowerCase().contains(query.toLowerCase())){

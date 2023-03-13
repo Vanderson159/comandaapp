@@ -4,6 +4,7 @@ import 'package:comandaapp/data/model/mesa_model.dart';
 import 'package:comandaapp/modules/mesas/details/itens/mesa_item_view.dart';
 import 'package:comandaapp/modules/mesas/details/mesa_details_controler.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 class MesaDetails extends GetView<MesaDetailsController> {
@@ -139,6 +140,9 @@ class MesaDetails extends GetView<MesaDetailsController> {
                                                   child: Form(
                                                     key: _.formKeyDetail,
                                                     child: TextFormField(
+                                                      inputFormatters: [
+                                                        LengthLimitingTextInputFormatter(30),
+                                                      ],
                                                       decoration:
                                                           InputDecoration(
                                                         border:
@@ -168,8 +172,7 @@ class MesaDetails extends GetView<MesaDetailsController> {
                                                         1.obs,
                                                         0);
                                                     _.adicionarItem(item);
-                                                    controller.itemPedido.text =
-                                                        '';
+                                                    controller.itemPedido.text = '';
                                                   },
                                                   style: ButtonStyle(
                                                     backgroundColor:
