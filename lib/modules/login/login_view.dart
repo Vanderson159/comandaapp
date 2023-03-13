@@ -80,7 +80,6 @@ class LoginView extends GetView<LoginController> {
                           if (value!.length < 3) {
                             return 'A senha deve possuir ao menos 4 caracteres';
                           }
-                          return '';
                         },
                         obscureText: !controller.showPassword.value,
                         enableSuggestions: false,
