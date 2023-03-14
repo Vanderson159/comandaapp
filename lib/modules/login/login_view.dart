@@ -32,7 +32,7 @@ class LoginView extends GetView<LoginController> {
                   ),
                   const Padding(
                     padding: EdgeInsets.only(bottom: 5),
-                    child: Text('Username', textAlign: TextAlign.start),
+                    child: Text('Nome de usuário', textAlign: TextAlign.start),
                   ),
                   TextFormField(
                     onChanged: (value){
@@ -52,7 +52,7 @@ class LoginView extends GetView<LoginController> {
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
-                      labelText: 'Digite seu username',
+                      labelText: 'Digite seu nome de usuário',
                     ),
                   ),
                   const SizedBox(

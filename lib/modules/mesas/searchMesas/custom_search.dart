@@ -58,11 +58,7 @@ class CustomSearchDelegate extends SearchDelegate {
       itemCount: matchQuery.length,
       itemBuilder: (context, index){
         var result = matchQuery[index];
-        if(result.disponivel == true){
-          return MesaItem(mesaModel: result, isVisibleCheckBox: false, abrirComandaFunc: true,);
-        }else{
-          return MesaItem(mesaModel: result, isVisibleCheckBox: false, toComanda: true,);
-        }
+        return MesaItem(mesaModel: result, isVisibleCheckBox: false,);
       },
     );
   }
@@ -80,11 +76,7 @@ class CustomSearchDelegate extends SearchDelegate {
       itemCount: matchQuery.length,
       itemBuilder: (context, index){
         var result = matchQuery[index];
-        if(result.disponivel == true){
-          return MesaItem(mesaModel: result, isVisibleCheckBox: false, abrirComandaFunc: true,);
-        }else{
-          return MesaItem(mesaModel: result, isVisibleCheckBox: false, toComanda: true,);
-        }
+        return MesaItem(mesaModel: result, isVisibleCheckBox: false,);
       },
     );
   }
