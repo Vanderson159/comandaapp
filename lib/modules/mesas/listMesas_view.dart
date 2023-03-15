@@ -192,12 +192,17 @@ class ListMesaView extends GetView<ListMesaController> {
                                 ],
                               );
                             }else{
-                              return ListView.builder(
-                                itemBuilder: (context, index) {
-                                  final MesaModel mesaModel = mesalist[index];
-                                  return MesaItem(mesaModel: mesaModel, index: index, isVisibleCheckBox: false, abrirComandaFunc: true,);
-                                },
-                                itemCount: mesalist.length,
+                              return RefreshIndicator(
+                                color: Colors.white,
+                                backgroundColor: Colors.black,
+                                onRefresh: controller.pullRefresh,
+                                child: ListView.builder(
+                                  itemBuilder: (context, index) {
+                                    final MesaModel mesaModel = mesalist[index];
+                                    return MesaItem(mesaModel: mesaModel, index: index, isVisibleCheckBox: false, abrirComandaFunc: true,);
+                                  },
+                                  itemCount: mesalist.length,
+                                ),
                               );
                             }
                           }

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:comandaapp/data/model/auth_model.dart';
 import 'package:comandaapp/data/model/mesa_model.dart';
 import 'package:comandaapp/data/provider/comanda_provider.dart';
@@ -18,6 +20,15 @@ class ListMesaController extends GetxController{
   ComandaApiClient comandaApiClient = ComandaApiClient();
   InitialController initialController = InitialController();
   List<MesaModel> listMesaModel = [];
+  List<MesaModel> mesaRefreshList = [];
+
+  //inicio do bloco de refresh
+  Future<void> pullRefresh() async {
+      mesaRefreshList = listMesaModel;
+      setListMesa(mesaRefreshList);
+      await Future.delayed(const Duration(seconds: 2));
+  }
+  //fim do bloco de refresh
 
 
   @override
@@ -36,6 +47,8 @@ class ListMesaController extends GetxController{
     listMesaModel = listMesa;
     box.write('cacheListMesa', listMesaModel);
   }
+
+
 
   String tokenAccess(){
     AuthModel auth = box.read('auth');
