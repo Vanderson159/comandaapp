@@ -27,6 +27,7 @@ class ListMesaController extends GetxController{
       mesaRefreshList = listMesaModel;
       setListMesa(mesaRefreshList);
       await Future.delayed(const Duration(seconds: 2));
+      Get.offAllNamed('/listMesas');
   }
   //fim do bloco de refresh
 
