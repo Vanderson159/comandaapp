@@ -20,7 +20,6 @@ class MesaDetails extends GetView<MesaDetailsController> {
   //func para verificar se mostra o aviso ou a lista de item
   warnOrItens(){
     if(listItens.isNotEmpty){
-      print(listItens[0]);
       return Column(
         mainAxisSize: MainAxisSize.min,
         children: [

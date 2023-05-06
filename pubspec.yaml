@@ -23,7 +23,11 @@ dependencies:
   get_storage: ^2.0.3
   flutter_speed_dial: ^4.3.0
   timezone: any
-
+  firebase_core: ^2.10.0
+  firebase_database: ^10.1.1
+  firebase_messaging: ^14.4.1
+  flutter_local_notifications: ^14.0.0
+  uuid: ^3.0.6
 dev_dependencies:
   flutter_test:
     sdk: flutter
