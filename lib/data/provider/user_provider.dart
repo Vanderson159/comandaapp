@@ -34,4 +34,27 @@ class UserApiClient{
       );
     }
   }
+
+  Future insertDeviceToken(String idUser, String accesstoken, String tokenDevice) async{
+    String token = '';
+    if (accesstoken.isNotEmpty) {
+      token = accesstoken;
+    }
+    try{
+      var response = await http.post(Uri.parse(baseUrlDeviceToken), headers: {
+        "Authorization": 'Bearer $token'
+      },
+          body: {
+            "id" : idUser.toString(),
+            "token_device": tokenDevice.toString(),
+          });
+      if (response.statusCode == 200) {
+        return 1;
+      } else {
+        return 0;
+      }
+    }catch (err) {
+      return 0;
+    }
+  }
 }

@@ -10,12 +10,18 @@ import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
 void main() async{
+  await GetStorage.init('comandaapp'); // nome  para o storage do app
+  final box = GetStorage('comandaapp'); //instancia definida no arquivo main
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   FirebaseMessaging messaging = FirebaseMessaging.instance;
+
+  var token = await messaging.getToken();
+  box.write('token_device', token.toString());
+
   NotificationSettings settings = await messaging.requestPermission(
     alert: true,
     announcement: false,
@@ -36,7 +42,6 @@ void main() async{
   });
   tz.initializeTimeZones();
   //scrcpy --tcpip=192.168.1.116:5555
-  await GetStorage.init('comandaapp'); // nome  para o storage do app
   runApp(
       GetMaterialApp(
         title: "Comanda App",

@@ -5,3 +5,4 @@ const baseUrlRegister = '${baseHost}comandaWEBapi/api/register';
 const baseUrlUser = '${baseHost}comandaWEBapi/api/users';
 const baseUrlMesa = '${baseHost}comandaWEBapi/api/mesas';
 const baseUrlComanda = '${baseHost}comandaWEBapi/api/comandas';
+const baseUrlDeviceToken = '${baseHost}comandaWEBapi/api/addTokenDevice';

@@ -1,6 +1,7 @@
 import 'package:comandaapp/data/model/auth_model.dart';
 import 'package:comandaapp/data/model/user_model.dart';
 import 'package:comandaapp/data/provider/mesa_provider.dart';
+import 'package:comandaapp/data/provider/user_provider.dart';
 import 'package:comandaapp/data/repository/auth_repository.dart';
 import 'package:comandaapp/data/repository/user_repository.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +15,7 @@ class LoginController extends GetxController{
   final formKey = GlobalKey<FormState>(); //formkey do formulario de login
   final box = GetStorage('comandaapp'); //instancia definida no arquivo main
   MesaApiClient mesaApiClient = MesaApiClient();
+  UserApiClient userApiClient = UserApiClient();
 
   AuthModel? auth;
   UserModel? userModel;
@@ -45,10 +47,13 @@ class LoginController extends GetxController{
       userModel = await repositoryUser.showUser(auth!.user!.id!.toInt(), auth!.accessToken.toString());
 
       if(!auth.isNull){
+        var tokenDevice = box.read('token_device');
+        if(tokenDevice != ''){
+          userApiClient.insertDeviceToken(userModel!.id.toString(), auth!.accessToken.toString(), tokenDevice);
+        }
         if(checkBox.value == true){
           box.write('username', userModel!.username.toString());
         }
-
         box.write('auth', auth);
         box.write('userStorage', userModel);
         mesaApiClient.verificaMesas(auth!.accessToken.toString()).then((value){
