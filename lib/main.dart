@@ -8,17 +8,23 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
+import 'package:flutter/services.dart';
 
 void main() async{
+  //para nao deixar o aplicativo em modo paisagem
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   await GetStorage.init('comandaapp'); // nome  para o storage do app
   final box = GetStorage('comandaapp'); //instancia definida no arquivo main
   WidgetsFlutterBinding.ensureInitialized();
+
+ //inicio firebase
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   FirebaseMessaging messaging = FirebaseMessaging.instance;
 
+  //pegando token do device
   var token = await messaging.getToken();
   box.write('token_device', token.toString());
 
@@ -40,6 +46,8 @@ void main() async{
       print('Message also contained a notification: ${message.notification}');
     }
   });
+  //fim firebase
+
   tz.initializeTimeZones();
   //scrcpy --tcpip=192.168.1.116:5555
   runApp(
