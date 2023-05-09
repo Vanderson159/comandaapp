@@ -32,7 +32,7 @@ class LoginController extends GetxController{
   Color colorBtn = Colors.grey.shade200;
 
   @override
-  void onInit(){
+  void onInit() async{
     if(box.read('username') != null){
       usernameCtrl.text = box.read('username');
     }

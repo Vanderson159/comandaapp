@@ -6,5 +6,4 @@ class SenhaForgotBinding implements Bindings{
   void dependencies() {
     Get.lazyPut<SenhaForgotController>(() => SenhaForgotController());
   }
-
 }
