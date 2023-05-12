@@ -1,5 +1,4 @@
 import 'package:comandaapp/data/model/item_model.dart';
-import 'package:comandaapp/modules/mesas/details/itens/mesa_item_view.dart';
 import 'package:comandaapp/modules/mesas/details/mesa_details_controler.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

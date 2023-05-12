@@ -1,7 +1,6 @@
 import 'package:comandaapp/data/model/mesa_model.dart';
 import 'package:comandaapp/modules/mesas/listMesas_view.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class CustomSearchDelegate extends SearchDelegate {
   List<MesaModel> cacheList;

@@ -24,7 +24,7 @@ void main() async{
   );
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   FirebaseMessaging messaging = FirebaseMessaging.instance;
-
+  await messaging.requestPermission();
   //pegando token do device
   var token = await messaging.getToken();
   box.write('token_device', token.toString());
@@ -42,6 +42,9 @@ void main() async{
   FirebaseMessaging.onMessage.listen((RemoteMessage message) async{
     print('Got a message whilst in the foreground!');
     print(message.data);
+    if(message.data['caminho'] != null){
+      Get.offAllNamed('/listMesas');
+    }
     if (message.notification != null) {
       print('Message also contained a notification: ${message.notification}');
     }
@@ -71,6 +74,16 @@ void main() async{
 
   await requestPermissions();
   tz.initializeTimeZones();
+
+  // Configure um stream para ouvir a ação do usuário ao clicar em uma notificação.
+  FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+    // Execute ações específicas do aplicativo em resposta à ação do usuário.
+    // Por exemplo, redirecione o usuário para uma tela específica do aplicativo ou exiba informações adicionais relacionadas à notificação.
+    print('Ação do usuário ao clicar na notificação: ${message.notification!.title}');
+    if(message.data['caminho'] != null){
+      Get.offAllNamed('/listMesas');
+    }
+  });
   //scrcpy --tcpip=192.168.1.116:5555
   runApp(
       GetMaterialApp(
@@ -88,12 +101,10 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   // If you're going to use other Firebase services in the background, such as Firestore,
   // make sure you call `initializeApp` before using other Firebase services.
   await Firebase.initializeApp();
-  print("Handling a background message: ${message.messageId}");
 }
 
 Future<void> _onSelectNotification(String? payload) async {
   if (payload != null) {
     debugPrint('notification payload: $payload');
   }
-  // Aqui você pode definir uma ação personalizada para ser executada quando o usuário clica na notificação, como abrir uma tela específica ou executar uma tarefa.
 }

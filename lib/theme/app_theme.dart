@@ -8,7 +8,7 @@ final ThemeData appThemeData = ThemeData(
   primaryColor: Colors.blue.shade800,
   //buttonColor: Colors.blue.shade800,
   brightness: Brightness.light,
-  accentColor: Colors.blue.shade800,
+  // accentColor: Colors.blue.shade800,
   focusColor: Colors.blue.shade800,
 
   appBarTheme: AppBarTheme(
