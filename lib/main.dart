@@ -42,9 +42,6 @@ void main() async{
   FirebaseMessaging.onMessage.listen((RemoteMessage message) async{
     print('Got a message whilst in the foreground!');
     print(message.data);
-    if(message.data['caminho'] != null){
-      Get.offAllNamed('/listMesas');
-    }
     if (message.notification != null) {
       print('Message also contained a notification: ${message.notification}');
     }
@@ -81,7 +78,7 @@ void main() async{
     // Por exemplo, redirecione o usuário para uma tela específica do aplicativo ou exiba informações adicionais relacionadas à notificação.
     print('Ação do usuário ao clicar na notificação: ${message.notification!.title}');
     if(message.data['caminho'] != null){
-      Get.offAllNamed('/listMesas');
+      Get.offAllNamed(message.data['caminho'], arguments: message.data['idMesa']);
     }
   });
   //scrcpy --tcpip=192.168.1.116:5555
