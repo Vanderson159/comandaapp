@@ -8,7 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 class MesaDetails extends GetView<MesaDetailsController> {
-  final MesaModel? mesaModel;
+  MesaModel? mesaModel;
   MesaDetails({this.mesaModel});
 
   bool showWarning() {
@@ -70,7 +70,12 @@ class MesaDetails extends GetView<MesaDetailsController> {
 
   @override
   Widget build(BuildContext context) {
-    controller.getItensComanda(mesaModel!.id);
+    controller.onInit();
+    if(controller.mesaModel != null){
+      mesaModel = controller.mesaModel;
+    }
+    controller.verificaAuth();
+    controller.getItensComanda();
     return WillPopScopeView(
         Scaffold(
           resizeToAvoidBottomInset:
@@ -80,7 +85,8 @@ class MesaDetails extends GetView<MesaDetailsController> {
             centerTitle: true,
             backgroundColor: Colors.white,
             title: Text(
-              'Mesa ${mesaModel!.numero.toString()}',
+              '',
+              // 'Mesa ${mesaModel!.numero.toString()}',
               style: const TextStyle(color: Colors.black),
             ),
           ),
@@ -282,7 +288,7 @@ class MesaDetails extends GetView<MesaDetailsController> {
                                         );
                                       });
                                   controller.encerrarPedido(
-                                      mesaModel!.id, context);
+                                      1, context);
                                 },
                                 child: const Text('Encerrar Pedido'),
                               ),
@@ -323,7 +329,7 @@ class MesaDetails extends GetView<MesaDetailsController> {
                                         );
                                       });
                                   controller.encerrarComanda(
-                                      mesaModel!.id, context);
+                                      1, context);
                                 },
                                 child: const Text('Encerrar Comanda'),
                               ),

@@ -57,4 +57,26 @@ class UserApiClient{
       return 0;
     }
   }
+
+  Future insertUserToken(String idUser, String accesstoken) async{
+    String token = '';
+    if (accesstoken.isNotEmpty) {
+      token = accesstoken;
+    }
+    try{
+      var response = await http.post(Uri.parse(baseUrlUserToken), headers: {
+        "Authorization": 'Bearer $token'
+      },
+          body: {
+            "id" : idUser.toString(),
+          });
+      if (response.statusCode == 200) {
+        return 1;
+      } else {
+        return 0;
+      }
+    }catch (err) {
+      return 0;
+    }
+  }
 }
