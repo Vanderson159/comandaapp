@@ -1,25 +1,46 @@
+import 'package:comandaapp/data/model/auth_model.dart';
 import 'package:comandaapp/data/model/item_model.dart';
 import 'package:comandaapp/data/provider/comanda_provider.dart';
 import 'package:comandaapp/modules/mesas/listMesas_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
+import 'package:get_storage/get_storage.dart';
+import '../../../data/model/mesa_model.dart';
 
-var listItens = <ItemModel>[]
-    .obs; //LISTA QUE ARMAZENA OS ITENS ADICIONADOS ENTAO TEM QUE DELETAR ELA NA HORA DE ENVIAR ELES PQ SE NAO VAI ACONTECER O MESMO BUG DO ADICIONAR
+var listItens = <ItemModel>[].obs; //LISTA QUE ARMAZENA OS ITENS ADICIONADOS ENTAO TEM QUE DELETAR ELA NA HORA DE ENVIAR ELES PQ SE NAO VAI ACONTECER O MESMO BUG DO ADICIONAR
 
 class MesaDetailsController extends GetxController {
   ComandaApiClient comandaApiClient = ComandaApiClient();
   ListMesaController listMesaController = ListMesaController();
   TextEditingController itemPedido = TextEditingController();
-  final formKeyDetail =
-      GlobalKey<FormState>(); //formkey do formulario de mesa detail
+  final formKeyDetail = GlobalKey<FormState>(); //formkey do formulario de mesa detail
   RxBool attWidget = false.obs;
   RxBool loadingEncerrarPedido = false.obs;
   RxBool loadingEncerrarComanda = false.obs;
+  late int idMesa;
+  MesaModel mesaModel = MesaModel(0, 0, 0, false, false.obs);
+  final box = GetStorage('comandaapp');
 
-  void getItensComanda(int idMesa) {
-    comandaApiClient.getItensComanda(listMesaController.tokenAccess(), idMesa);
+  @override
+  void onInit() async{
+    super.onInit();
+    var data = Get.arguments;
+    if(data != null){
+      if(data['mesaId'] != null){
+        mesaModel = MesaModel(int.parse(data['mesaId']), int.parse(data['mesaNumero']), int.parse(data['mesaEstabelecimentoId']), false, false.obs);
+      }
+    }
+  }
+
+  void verificaAuth(){
+    if(box.read('auth') == null){
+      Get.offAllNamed('/login');
+    }
+  }
+
+  void getItensComanda() {
+    comandaApiClient.getItensComanda(listMesaController.tokenAccess(), mesaModel.id);
   }
 
   void cleanList() {

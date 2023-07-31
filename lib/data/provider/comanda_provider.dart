@@ -62,9 +62,9 @@ class ComandaApiClient{
     }
   }
 
-  Future getItensComanda(String accesstoken, int idMesa) async{
+  Future getItensComanda(String? accesstoken, int idMesa) async{
     String token = '';
-    if (accesstoken.isNotEmpty) {
+    if (accesstoken!.isNotEmpty) {
       token = accesstoken;
     }
     try{

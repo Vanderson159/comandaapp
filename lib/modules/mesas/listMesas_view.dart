@@ -114,22 +114,27 @@ class ListMesaView extends GetView<ListMesaController> {
                                     size: 150,
                                   ),
                                   Text(
-                                    'Atenção',
+                                    'Atenção!',
                                     style: TextStyle(fontSize: 30),
                                   ),
                                   Text(
-                                    'Não há mesa ocupada',
+                                    'Não há mesa ocupada!',
                                     style: TextStyle(fontSize: 30),
                                   ),
                                 ],
                               );
                             }else{
-                              return ListView.builder(
-                                itemBuilder: (context, index) {
-                                  final MesaModel mesaModel = mesalist[index];
-                                  return MesaItem(mesaModel: mesaModel, index: index, isVisibleCheckBox: false, toComanda: true,);
-                                },
-                                itemCount: mesalist.length,
+                              return RefreshIndicator(
+                                color: Colors.white,
+                                backgroundColor: Colors.black,
+                                onRefresh: controller.pullRefresh,
+                                child: ListView.builder(
+                                  itemBuilder: (context, index) {
+                                    final MesaModel mesaModel = mesalist[index];
+                                    return MesaItem(mesaModel: mesaModel, index: index, isVisibleCheckBox: false, toComanda: true,);
+                                  },
+                                  itemCount: mesalist.length,
+                                ),
                               );
                             }
                           }
@@ -142,7 +147,7 @@ class ListMesaView extends GetView<ListMesaController> {
                             size: 150,
                           ),
                           Text(
-                            'Atenção',
+                            'Atenção!',
                             style: TextStyle(fontSize: 30),
                           ),
                           Text(
@@ -182,22 +187,27 @@ class ListMesaView extends GetView<ListMesaController> {
                                     size: 150,
                                   ),
                                   Text(
-                                    'Atenção',
+                                    'Atenção!',
                                     style: TextStyle(fontSize: 30),
                                   ),
                                   Text(
-                                    'Não há mesa disponíveis',
+                                    'Não há mesa disponível',
                                     style: TextStyle(fontSize: 30),
                                   ),
                                 ],
                               );
                             }else{
-                              return ListView.builder(
-                                itemBuilder: (context, index) {
-                                  final MesaModel mesaModel = mesalist[index];
-                                  return MesaItem(mesaModel: mesaModel, index: index, isVisibleCheckBox: false, abrirComandaFunc: true,);
-                                },
-                                itemCount: mesalist.length,
+                              return RefreshIndicator(
+                                color: Colors.white,
+                                backgroundColor: Colors.black,
+                                onRefresh: controller.pullRefresh,
+                                child: ListView.builder(
+                                  itemBuilder: (context, index) {
+                                    final MesaModel mesaModel = mesalist[index];
+                                    return MesaItem(mesaModel: mesaModel, index: index, isVisibleCheckBox: false, abrirComandaFunc: true,);
+                                  },
+                                  itemCount: mesalist.length,
+                                ),
                               );
                             }
                           }

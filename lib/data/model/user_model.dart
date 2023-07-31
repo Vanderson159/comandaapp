@@ -6,6 +6,7 @@ class UserModel {
   int? tipoUser;
   int? activated;
   int? estabelecimento_id;
+  String? userToken;
   EstabelecimentoModel? estabelecimentoModel;
 
   UserModel({this.id, this.username, this.activated, this.estabelecimento_id, this.tipoUser});
@@ -16,6 +17,7 @@ class UserModel {
     username = json['username'];
     activated = json['activated'];
     estabelecimento_id = json['estabelecimento_id'];
+    userToken = json['userToken'];
     tipoUser = json['tipoUser'];
   }
 
@@ -29,6 +31,7 @@ class UserModel {
     data['activated'] = this.activated;
     data['estabelecimento_id'] = this.estabelecimento_id;
     data['tipoUser'] = this.tipoUser;
+    data['userToken'] = this.userToken;
     return data;
   }
 }

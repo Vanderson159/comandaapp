@@ -1,7 +1,6 @@
 import 'package:comandaapp/data/model/mesa_model.dart';
 import 'package:comandaapp/modules/mesas/listMesas_view.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class CustomSearchDelegate extends SearchDelegate {
   List<MesaModel> cacheList;
@@ -58,7 +57,11 @@ class CustomSearchDelegate extends SearchDelegate {
       itemCount: matchQuery.length,
       itemBuilder: (context, index){
         var result = matchQuery[index];
-        return MesaItem(mesaModel: result, isVisibleCheckBox: false,);
+        if(result.disponivel == true){
+          return MesaItem(mesaModel: result, isVisibleCheckBox: false, abrirComandaFunc: true,);
+        }else{
+          return MesaItem(mesaModel: result, isVisibleCheckBox: false, toComanda: true,);
+        }
       },
     );
   }
@@ -76,7 +79,11 @@ class CustomSearchDelegate extends SearchDelegate {
       itemCount: matchQuery.length,
       itemBuilder: (context, index){
         var result = matchQuery[index];
-        return MesaItem(mesaModel: result, isVisibleCheckBox: false,);
+        if(result.disponivel == true){
+          return MesaItem(mesaModel: result, isVisibleCheckBox: false, abrirComandaFunc: true,);
+        }else{
+          return MesaItem(mesaModel: result, isVisibleCheckBox: false, toComanda: true,);
+        }
       },
     );
   }

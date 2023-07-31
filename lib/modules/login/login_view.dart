@@ -1,10 +1,9 @@
 import 'package:comandaapp/modules/login/login_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 
 class LoginView extends GetView<LoginController> {
-  LoginView({super.key});
+  const LoginView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +31,7 @@ class LoginView extends GetView<LoginController> {
                   ),
                   const Padding(
                     padding: EdgeInsets.only(bottom: 5),
-                    child: Text('Username', textAlign: TextAlign.start),
+                    child: Text('Nome de usuário', textAlign: TextAlign.start),
                   ),
                   TextFormField(
                     onChanged: (value){
@@ -52,7 +51,7 @@ class LoginView extends GetView<LoginController> {
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
-                      labelText: 'Digite seu username',
+                      labelText: 'Digite seu nome de usuário',
                     ),
                   ),
                   const SizedBox(
@@ -129,17 +128,6 @@ class LoginView extends GetView<LoginController> {
                         ],
                       ),
                       ),
-                      // GestureDetector(
-                      //   onTap: (){
-                      //     print('aí ja era');
-                      //   },
-                      //   child: const Text(
-                      //     'Esqueci minha senha.',
-                      //     style: TextStyle(
-                      //         color: Colors.red
-                      //     ),
-                      //   ),
-                      // ),
                     ],
                   ),
 
@@ -202,8 +190,8 @@ class LoginView extends GetView<LoginController> {
                                       ),
                                     ),
                                   ),
-                                  onPressed: () => null,
-                                  child: CircularProgressIndicator(),
+                                  onPressed: () {},
+                                  child: const CircularProgressIndicator(),
                                 ),
                               ),
                             ),

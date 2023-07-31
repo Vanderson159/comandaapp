@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "554771128655",
+    "project_id": "fcmcomandaapp",
+    "storage_bucket": "fcmcomandaapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:554771128655:android:1a05b9a5f179a1a307e53a",
+        "android_client_info": {
+          "package_name": "com.example.comandaapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "554771128655-eaojogppcr1vds5r9o3ciqc5hpic92fk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCH5Ct8yQNsNrJZj1NM8nz6Q-k1oj3AMvw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "554771128655-eaojogppcr1vds5r9o3ciqc5hpic92fk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

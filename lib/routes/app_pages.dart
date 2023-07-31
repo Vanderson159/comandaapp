@@ -2,6 +2,8 @@ import 'package:comandaapp/data/model/item_model.dart';
 import 'package:comandaapp/modules/initial/initial_binding.dart';
 import 'package:comandaapp/modules/initial/initial_view.dart';
 import 'package:comandaapp/modules/login/login_view.dart';
+import 'package:comandaapp/modules/login/senha_forgot/senha_forgot_binding.dart';
+import 'package:comandaapp/modules/login/senha_forgot/senha_forgot_view.dart';
 import 'package:comandaapp/modules/mesas/addMesas/addMesas_binding.dart';
 import 'package:comandaapp/modules/mesas/addMesas/addMesas_view.dart';
 import 'package:comandaapp/modules/mesas/details/itens/mesa_item_binding.dart';
@@ -52,6 +54,11 @@ class AppPages{
       name: Routes.MESAITEM,
       page: ()=> ListMesaItem(ItemModel('', 0.obs, 0), 0),
       binding: MesaItemBinding(),
+    ),
+    GetPage(
+      name: Routes.FORGOT,
+      page: ()=> SenhaForgotView(),
+      binding: SenhaForgotBinding(),
     ),
   ];
 }

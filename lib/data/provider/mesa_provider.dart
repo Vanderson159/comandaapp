@@ -51,7 +51,6 @@ class MesaApiClient{
          "listMesa": MesaModel.listToJson(mesas).toString(),
          "numeroMesas": mesas.length.toString(),
       });
-      print("tamanho mesas: ${mesas.length.toString()}");
       if (response.statusCode == 200) {
         return 1;
       } else {

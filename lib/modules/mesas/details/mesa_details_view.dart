@@ -4,10 +4,11 @@ import 'package:comandaapp/data/model/mesa_model.dart';
 import 'package:comandaapp/modules/mesas/details/itens/mesa_item_view.dart';
 import 'package:comandaapp/modules/mesas/details/mesa_details_controler.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 class MesaDetails extends GetView<MesaDetailsController> {
-  final MesaModel? mesaModel;
+  MesaModel? mesaModel;
   MesaDetails({this.mesaModel});
 
   bool showWarning() {
@@ -19,7 +20,6 @@ class MesaDetails extends GetView<MesaDetailsController> {
   //func para verificar se mostra o aviso ou a lista de item
   warnOrItens(){
     if(listItens.isNotEmpty){
-      print(listItens[0]);
       return Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -70,7 +70,12 @@ class MesaDetails extends GetView<MesaDetailsController> {
 
   @override
   Widget build(BuildContext context) {
-    controller.getItensComanda(mesaModel!.id);
+    controller.onInit();
+    if(controller.mesaModel != null){
+      mesaModel = controller.mesaModel;
+    }
+    controller.verificaAuth();
+    controller.getItensComanda();
     return WillPopScopeView(
         Scaffold(
           resizeToAvoidBottomInset:
@@ -80,7 +85,8 @@ class MesaDetails extends GetView<MesaDetailsController> {
             centerTitle: true,
             backgroundColor: Colors.white,
             title: Text(
-              'Mesa ${mesaModel!.numero.toString()}',
+              '',
+              // 'Mesa ${mesaModel!.numero.toString()}',
               style: const TextStyle(color: Colors.black),
             ),
           ),
@@ -139,6 +145,9 @@ class MesaDetails extends GetView<MesaDetailsController> {
                                                   child: Form(
                                                     key: _.formKeyDetail,
                                                     child: TextFormField(
+                                                      inputFormatters: [
+                                                        LengthLimitingTextInputFormatter(30),
+                                                      ],
                                                       decoration:
                                                           InputDecoration(
                                                         border:
@@ -168,8 +177,7 @@ class MesaDetails extends GetView<MesaDetailsController> {
                                                         1.obs,
                                                         0);
                                                     _.adicionarItem(item);
-                                                    controller.itemPedido.text =
-                                                        '';
+                                                    controller.itemPedido.text = '';
                                                   },
                                                   style: ButtonStyle(
                                                     backgroundColor:
@@ -280,7 +288,7 @@ class MesaDetails extends GetView<MesaDetailsController> {
                                         );
                                       });
                                   controller.encerrarPedido(
-                                      mesaModel!.id, context);
+                                      1, context);
                                 },
                                 child: const Text('Encerrar Pedido'),
                               ),
@@ -321,7 +329,7 @@ class MesaDetails extends GetView<MesaDetailsController> {
                                         );
                                       });
                                   controller.encerrarComanda(
-                                      mesaModel!.id, context);
+                                      1, context);
                                 },
                                 child: const Text('Encerrar Comanda'),
                               ),
