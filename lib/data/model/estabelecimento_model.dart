@@ -10,7 +10,7 @@ class EstabelecimentoModel {
 
   EstabelecimentoModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    cnpj = json['cnpj'];
+    cnpj = json['cnpj'].toString();
     nome = json['nome'];
     email = json['email'];
     telefone = json['telefone'];

@@ -1,15 +1,16 @@
 import 'dart:convert';
 import 'package:comandaapp/data/model/mesa_model.dart';
+import 'package:comandaapp/data/provider/http_overrides.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:http/http.dart' as http;
 import 'package:comandaapp/data/base_url.dart';
+import 'package:http/io_client.dart';
 
 List<MesaModel> mesasDisponiveis = [];
 
 class MesaApiClient{
-  final http.Client httpClient = http.Client();
+  final http = IOClient(HttpOverridesProvider.overrides());
   final box = GetStorage('guardaapp');
   String erro = 'ERRO NO MESA API CLIENT';
 
@@ -19,11 +20,11 @@ class MesaApiClient{
       token = accesstoken;
     }
     try {
-      var response = await http.get(Uri.parse('${baseUrl}/verificaMesas'),
+      var response = await http.get(Uri.parse('$baseUrl/verificaMesas'),
           headers: {"Authorization": 'Bearer $token'});
       if (response.statusCode == 200) {
         var teste = jsonDecode(response.body);
-        int countMesas = teste[0]['COUNT(id)'];
+        int countMesas = teste[0]['COUNT(mesa_id)'];
         return countMesas;
       } else {
         return 0;
@@ -45,8 +46,7 @@ class MesaApiClient{
     try{
       var response = await http.post(Uri.parse(baseUrlMesa), headers: {
         "Authorization": 'Bearer $token'
-      },
-          body: {
+      }, body: {
          "estabelecimento_id" : idEstabelecimento.toString(),
          "listMesa": MesaModel.listToJson(mesas).toString(),
          "numeroMesas": mesas.length.toString(),
@@ -110,7 +110,7 @@ class MesaApiClient{
       token = accesstoken;
     }
     try{
-      var response = await http.put(Uri.parse('${baseUrlMesa}/${mesaModel.id}'), headers: {
+      var response = await http.put(Uri.parse('${baseUrlMesa}/${mesaModel.mesa_id}'), headers: {
         "Authorization": 'Bearer $token'
       }, body: {
         "numero" : mesaModel.numero.toString(),

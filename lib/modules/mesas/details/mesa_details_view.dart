@@ -30,7 +30,7 @@ class MesaDetails extends GetView<MesaDetailsController> {
                 false, //força a lista a se encaixar dentro da coluna
                 itemBuilder: (context, index) {
                   final ItemModel item = listItens[index];
-                  item.idMesa = mesaModel!.id;
+                  item.idMesa = mesaModel!.mesa_id;
                   return ListMesaItem(item,
                       index); //passo index para indicar a posicao na lista para poder deletar caso ele fica decrementando a quantidade
                 },

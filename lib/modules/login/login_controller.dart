@@ -57,7 +57,7 @@ class LoginController extends GetxController{
         box.write('auth', auth);
         box.write('userStorage', userModel);
         mesaApiClient.verificaMesas(auth!.accessToken.toString()).then((value){
-          if(value > 0){
+          if(value != null && value > 0){
             Get.offAllNamed('/listMesas');
           }else{
             Get.offAllNamed('/');

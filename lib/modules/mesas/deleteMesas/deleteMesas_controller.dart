@@ -20,7 +20,7 @@ class DeleteMesasController extends GetxController{
   gerarLista(){ //Percorre a primeira lista de mesas e adiciona os itens na nova lista observável
     listMesaController.buscarMesas();
     for(int i = 0; i < mesasDisponiveis.length; i++){
-      final mesa = MesaModel(mesasDisponiveis[i].id, mesasDisponiveis[i].numero, mesasDisponiveis[i].estabelecimento_id, mesasDisponiveis[i].disponivel, false.obs);
+      final mesa = MesaModel(mesasDisponiveis[i].mesa_id, mesasDisponiveis[i].numero, mesasDisponiveis[i].estabelecimento_id, mesasDisponiveis[i].disponivel, false.obs);
       listaMesas.add(mesa);
     }
     mesasDisponiveis.clear();// limpar essa list senao duplica quando for chamada dnv
@@ -29,7 +29,7 @@ class DeleteMesasController extends GetxController{
   selectAll(){ //Atualiza a lista obs para marcar ou desmarcar todos os checkbox
     if(tagMarcados == false){
       for(int i = 0; i < listaMesas.length; i++){
-        final mesa = MesaModel(listaMesas[i].id, listaMesas[i].numero, listaMesas[i].estabelecimento_id, listaMesas[i].disponivel, true.obs);
+        final mesa = MesaModel(listaMesas[i].mesa_id, listaMesas[i].numero, listaMesas[i].estabelecimento_id, listaMesas[i].disponivel, true.obs);
         listaMesas[i] = mesa;
       }
       tagMarcados = true;
@@ -37,7 +37,7 @@ class DeleteMesasController extends GetxController{
     else{
       if(tagMarcados = true){
         for(int i = 0; i < listaMesas.length; i++){
-          final mesa = MesaModel(listaMesas[i].id, listaMesas[i].numero, listaMesas[i].estabelecimento_id, listaMesas[i].disponivel, false.obs);
+          final mesa = MesaModel(listaMesas[i].mesa_id, listaMesas[i].numero, listaMesas[i].estabelecimento_id, listaMesas[i].disponivel, false.obs);
           listaMesas[i] = mesa;
         }
         tagMarcados = false;
@@ -48,7 +48,7 @@ class DeleteMesasController extends GetxController{
   rXListToList(){
     List<MesaModel> listMesa = [];
     for(int i = 0; i < listaMesas.length; i++){
-      var mesaModel = MesaModel(listaMesas[i].id, listaMesas[i].numero, listaMesas[i].estabelecimento_id, listaMesas[i].disponivel, listaMesas[i].isCheck);
+      var mesaModel = MesaModel(listaMesas[i].mesa_id, listaMesas[i].numero, listaMesas[i].estabelecimento_id, listaMesas[i].disponivel, listaMesas[i].isCheck);
       if(mesaModel.isCheck == true){
         listMesa.add(mesaModel);
       }

@@ -2,13 +2,14 @@ import 'dart:convert';
 import 'package:comandaapp/data/base_url.dart';
 import 'package:comandaapp/data/model/item_model.dart';
 import 'package:comandaapp/data/model/mesa_model.dart';
+import 'package:comandaapp/data/provider/http_overrides.dart';
 import 'package:comandaapp/modules/mesas/details/mesa_details_controler.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:http/http.dart' as http;
+import 'package:http/io_client.dart';
 
 class ComandaApiClient{
-  final http.Client httpClient = http.Client();
+  final http = IOClient(HttpOverridesProvider.overrides());
   final box = GetStorage('guardaapp');
 
   Future abrirComanda(MesaModel mesaModel, String accesstoken, var dateTime) async{
@@ -24,7 +25,7 @@ class ComandaApiClient{
         "itens" : "",
         "inicio_comanda": dateTime.toString(),
         "fim_comanda": "",
-        "mesa_id": mesaModel.id.toString(),
+        "mesa_id": mesaModel.mesa_id.toString(),
       });
 
       if (response.statusCode == 200) {
@@ -38,6 +39,8 @@ class ComandaApiClient{
   }
 
   Future inserirItensToComanda(String jsonListItens, String accesstoken, int id) async{
+    print(jsonListItens);
+    print(id);
     String token = '';
     if (accesstoken.isNotEmpty) {
       token = accesstoken;
@@ -50,9 +53,8 @@ class ComandaApiClient{
         "jsonItens" : jsonListItens,
         "idMesa" : id.toString(),
       });
-      print(response.body);
+
       if (response.statusCode == 200) {
-        print('SUCESSO');
         return 1;
       } else {
         return 0;

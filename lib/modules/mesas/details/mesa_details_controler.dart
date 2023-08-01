@@ -40,7 +40,7 @@ class MesaDetailsController extends GetxController {
   }
 
   void getItensComanda() {
-    comandaApiClient.getItensComanda(listMesaController.tokenAccess(), mesaModel.id);
+    comandaApiClient.getItensComanda(listMesaController.tokenAccess(), mesaModel.mesa_id);
   }
 
   void cleanList() {
