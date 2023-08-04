@@ -17,17 +17,18 @@ class MesaDetails extends GetView<MesaDetailsController> {
     }
     return true;
   }
+
   //func para verificar se mostra o aviso ou a lista de item
-  warnOrItens(){
-    if(listItens.isNotEmpty){
+  warnOrItens() {
+    if (listItens.isNotEmpty) {
       return Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           Expanded(
             child: Obx(
-                  () => ListView.builder(
+              () => ListView.builder(
                 shrinkWrap:
-                false, //força a lista a se encaixar dentro da coluna
+                    false, //força a lista a se encaixar dentro da coluna
                 itemBuilder: (context, index) {
                   final ItemModel item = listItens[index];
                   item.idMesa = mesaModel!.mesa_id;
@@ -40,16 +41,16 @@ class MesaDetails extends GetView<MesaDetailsController> {
           ),
         ],
       );
-    }else{
+    } else {
       return Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Obx(
-                () => Visibility(
+            () => Visibility(
               visible: showWarning(),
-              child: Column(
-                children: const [
+              child: const Column(
+                children: [
                   Icon(
                     Icons.error_outline,
                     size: 80,
@@ -71,11 +72,11 @@ class MesaDetails extends GetView<MesaDetailsController> {
   @override
   Widget build(BuildContext context) {
     controller.onInit();
-    if(controller.mesaModel != null){
+    if (controller.mesaModel != null && mesaModel!.mesa_id < 0) {
       mesaModel = controller.mesaModel;
     }
     controller.verificaAuth();
-    controller.getItensComanda();
+    controller.getItensComanda(mesaModel!.mesa_id);
     return WillPopScopeView(
         Scaffold(
           resizeToAvoidBottomInset:
@@ -84,10 +85,10 @@ class MesaDetails extends GetView<MesaDetailsController> {
             foregroundColor: Colors.black,
             centerTitle: true,
             backgroundColor: Colors.white,
-            title: Text(
+            title: const Text(
               '',
               // 'Mesa ${mesaModel!.numero.toString()}',
-              style: const TextStyle(color: Colors.black),
+              style: TextStyle(color: Colors.black),
             ),
           ),
           body: GetBuilder<MesaDetailsController>(
@@ -146,7 +147,8 @@ class MesaDetails extends GetView<MesaDetailsController> {
                                                     key: _.formKeyDetail,
                                                     child: TextFormField(
                                                       inputFormatters: [
-                                                        LengthLimitingTextInputFormatter(30),
+                                                        LengthLimitingTextInputFormatter(
+                                                            30),
                                                       ],
                                                       decoration:
                                                           InputDecoration(
@@ -177,7 +179,8 @@ class MesaDetails extends GetView<MesaDetailsController> {
                                                         1.obs,
                                                         0);
                                                     _.adicionarItem(item);
-                                                    controller.itemPedido.text = '';
+                                                    controller.itemPedido.text =
+                                                        '';
                                                   },
                                                   style: ButtonStyle(
                                                     backgroundColor:
@@ -221,7 +224,9 @@ class MesaDetails extends GetView<MesaDetailsController> {
                             color: const Color(0xffebebeb),
                             borderRadius: BorderRadius.circular(12),
                           ),
-                          child: Obx(() =>  warnOrItens(),), // colocar aqui
+                          child: Obx(
+                            () => warnOrItens(),
+                          ), // colocar aqui
                         ),
                       ),
                       Padding(
@@ -281,14 +286,14 @@ class MesaDetails extends GetView<MesaDetailsController> {
                                                 height: 20,
                                                 width: 20,
                                                 child:
-                                                    CircularProgressIndicator(),
+                                                    const CircularProgressIndicator(),
                                               ),
                                             ),
                                           ),
                                         );
                                       });
                                   controller.encerrarPedido(
-                                      1, context);
+                                      mesaModel!.mesa_id, context);
                                 },
                                 child: const Text('Encerrar Pedido'),
                               ),
@@ -322,14 +327,14 @@ class MesaDetails extends GetView<MesaDetailsController> {
                                                 height: 20,
                                                 width: 20,
                                                 child:
-                                                    CircularProgressIndicator(),
+                                                    const CircularProgressIndicator(),
                                               ),
                                             ),
                                           ),
                                         );
                                       });
                                   controller.encerrarComanda(
-                                      1, context);
+                                      mesaModel!.mesa_id, context);
                                 },
                                 child: const Text('Encerrar Comanda'),
                               ),

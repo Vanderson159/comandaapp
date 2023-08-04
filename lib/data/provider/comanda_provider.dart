@@ -70,7 +70,7 @@ class ComandaApiClient{
       token = accesstoken;
     }
     try{
-      var response = await http.post(Uri.parse('${baseUrl}/getItensComanda'),
+      var response = await http.post(Uri.parse('$baseUrl/getItensComanda'),
           headers: {"Authorization": 'Bearer $token'},
           body: {"id" : idMesa.toString()},
       );

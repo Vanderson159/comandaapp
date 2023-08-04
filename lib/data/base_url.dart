@@ -1,4 +1,4 @@
-const baseHost = 'https://ffb4-186-251-193-160.ngrok-free.app/comanda_projects/';
+const baseHost = 'https://4cc7-186-251-193-160.ngrok-free.app/comanda_projects/';
 const baseUrl = '${baseHost}comandaWEBapi/api';
 const baseUrlLogin = '${baseHost}comandaWEBapi/api/login';
 const baseUrlRegister = '${baseHost}comandaWEBapi/api/register';

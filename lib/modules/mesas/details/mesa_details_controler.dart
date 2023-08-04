@@ -39,8 +39,8 @@ class MesaDetailsController extends GetxController {
     }
   }
 
-  void getItensComanda() {
-    comandaApiClient.getItensComanda(listMesaController.tokenAccess(), mesaModel.mesa_id);
+  void getItensComanda(int mesaId) {
+    comandaApiClient.getItensComanda(listMesaController.tokenAccess(), mesaId);
   }
 
   void cleanList() {
@@ -63,7 +63,6 @@ class MesaDetailsController extends GetxController {
   }
 
   void encerrarPedido(int id, BuildContext context) {
-
     loadingEncerrarPedido.value = true;
     comandaApiClient.inserirItensToComanda(ItemModel.listToJson(listItens).toString(), listMesaController.tokenAccess(), id).then((value) {
       if (value == 1) {
@@ -73,7 +72,7 @@ class MesaDetailsController extends GetxController {
           context: context,
           builder: (context) {
             return AlertDialog(
-              shape:  RoundedRectangleBorder(
+              shape:  const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(
                   Radius.circular(20),
                 ),
@@ -86,7 +85,7 @@ class MesaDetailsController extends GetxController {
                     listItens.clear();
                     Get.offAllNamed('/listMesas');
                     },
-                  child: Text('OK'),
+                  child: const Text('OK'),
                 )
               ],
             );
@@ -98,7 +97,7 @@ class MesaDetailsController extends GetxController {
           context: context,
           builder: (context) {
             return AlertDialog(
-              shape:  RoundedRectangleBorder(
+              shape:  const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(
                   Radius.circular(20),
                 ),
@@ -108,7 +107,7 @@ class MesaDetailsController extends GetxController {
               actions: [
                 ElevatedButton(
                   onPressed: ()=> Get.back(),
-                  child: Text('OK'),
+                  child: const Text('OK'),
                 )
               ],
             );
@@ -128,7 +127,7 @@ class MesaDetailsController extends GetxController {
           context: context,
           builder: (context) {
             return AlertDialog(
-              shape:  RoundedRectangleBorder(
+              shape:  const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(
                   Radius.circular(20),
                 ),
@@ -138,7 +137,7 @@ class MesaDetailsController extends GetxController {
               actions: [
                 ElevatedButton(
                   onPressed: ()=> Get.offAllNamed('/listMesas'),
-                  child: Text('OK'),
+                  child: const Text('OK'),
                 )
               ],
             );
@@ -151,7 +150,7 @@ class MesaDetailsController extends GetxController {
           context: context,
           builder: (context) {
             return AlertDialog(
-              shape:  RoundedRectangleBorder(
+              shape:  const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(
                   Radius.circular(20),
                 ),
@@ -161,7 +160,7 @@ class MesaDetailsController extends GetxController {
               actions: [
                 ElevatedButton(
                   onPressed: ()=> Get.back(),
-                  child: Text('OK'),
+                  child: const Text('OK'),
                 )
               ],
             );

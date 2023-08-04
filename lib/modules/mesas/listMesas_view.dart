@@ -106,9 +106,9 @@ class ListMesaView extends GetView<ListMesaController> {
                             return const FailureDialog('Falha ao listar mesas');
                           } else {
                             if(mesalist.isEmpty){
-                              return  Column(
+                              return  const Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
-                                children: const [
+                                children: [
                                   Icon(
                                     Icons.error_outline,
                                     size: 150,
@@ -139,9 +139,9 @@ class ListMesaView extends GetView<ListMesaController> {
                             }
                           }
                       }
-                      return  Column(
+                      return  const Column(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
+                        children: [
                           Icon(
                             Icons.error_outline,
                             size: 150,
@@ -179,9 +179,9 @@ class ListMesaView extends GetView<ListMesaController> {
                             return const FailureDialog('Falha ao listar mesas');
                           } else {
                             if(mesalist.isEmpty){
-                              return  Column(
+                              return  const Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
-                                children: const [
+                                children: [
                                   Icon(
                                     Icons.error_outline,
                                     size: 150,
@@ -278,7 +278,7 @@ class MesaItem extends GetView<ListMesaController> {
                             style: DefaultTextStyle.of(context).style,
                             children: <TextSpan>[
                               //Text('Deseja abrir uma nova comanda na ${titulo()}?')
-                              TextSpan(text: 'Deseja abrir uma nova comanda para a ', style: TextStyle(fontSize: 16),),
+                              const TextSpan(text: 'Deseja abrir uma nova comanda para a ', style: TextStyle(fontSize: 16),),
                               TextSpan(text: '${titulo()}?', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),),
                             ],
                           ),),
